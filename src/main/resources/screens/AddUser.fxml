@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="600.0" prefWidth="547.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.AddUserController">
+   <children>
+      <Pane layoutX="-3.0" layoutY="48.0" prefHeight="571.0" prefWidth="570.0" style="-fx-background-color: #FFF;">
+         <children>
+            <Button fx:id="saveUser_btn" contentDisplay="CENTER" layoutX="427.0" layoutY="522.0" mnemonicParsing="false" onAction="#saveUserButton" prefHeight="39.0" prefWidth="116.0" style="-fx-background-color: #2e8b57; -fx-background-radius: 5;" text="Save       " textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <VBox alignment="CENTER_LEFT" layoutX="32.0" layoutY="-2.0" prefHeight="511.0" prefWidth="126.0">
+               <children>
+                  <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="125.0" text="Department">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="125.0" text="Emp Code">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="125.0" text="User Name">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="125.0" text="Password">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="125.0" text="Full Name">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="125.0" text="Phone">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="39.0" prefWidth="125.0" text="Role">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="RIGHT" prefHeight="39.0" prefWidth="125.0" text="Activity">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="156.0" layoutY="8.0" prefHeight="467.0" prefWidth="387.0">
+               <children>
+                  <ComboBox fx:id="userDeptartment_ComBox" nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="410.0" style="-fx-font-size: 16; -fx-font-weight: bold;" styleClass="input-02">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Pane prefHeight="58.0" prefWidth="526.0" />
+                  <TextField fx:id="emp_id_txtF" alignment="CENTER" prefHeight="40.0" prefWidth="410.0" styleClass="input-02">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="user_name_txtF" alignment="CENTER" prefHeight="37.0" prefWidth="410.0" styleClass="input-02">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="password_passF" alignment="CENTER" prefHeight="39.0" prefWidth="410.0" styleClass="input-02">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <TextField fx:id="full_name_txtF" alignment="CENTER" prefHeight="37.0" prefWidth="410.0" styleClass="input-02">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="phone_txtF" alignment="CENTER" prefHeight="30.0" prefWidth="410.0" styleClass="input-02">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <ComboBox fx:id="userRole_ComBox" nodeOrientation="RIGHT_TO_LEFT" prefHeight="38.0" prefWidth="410.0" style="-fx-font-size: 16; -fx-font-weight: bold;" styleClass="input-02">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <ComboBox fx:id="userActive_ComBox" nodeOrientation="RIGHT_TO_LEFT" prefHeight="37.0" prefWidth="410.0" style="-fx-font-size: 16; -fx-font-weight: bold;" styleClass="input-02">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+            </VBox>
+            <FontIcon iconColor="WHITE" iconLiteral="fa-check" iconSize="15" layoutX="517.0" layoutY="548.0" />
+         </children>
+      </Pane>
+      <HBox alignment="CENTER" layoutY="-8.0" prefHeight="58.0" prefWidth="570.0">
+         <children>
+            <Label fx:id="page_title" alignment="CENTER" prefHeight="41.0" prefWidth="570.0" style="-fx-background-color: #00727d;" text="User Data" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
