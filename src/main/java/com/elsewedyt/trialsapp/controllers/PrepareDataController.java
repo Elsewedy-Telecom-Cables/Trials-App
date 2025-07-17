@@ -226,6 +226,7 @@ public class PrepareDataController implements Initializable {
         }
 
 
+
         try {
             // Get current user and their role/department
             if (UserContext.getCurrentUser() == null) {

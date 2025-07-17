@@ -913,7 +913,22 @@ public class AddFileController implements Initializable {
         if (selectedFile != null) {
             try {
                 String fileName = selectedFile.getName();
-                String uniqueName = System.currentTimeMillis() + "_" + fileName;
+               // String uniqueName = System.currentTimeMillis() + "_" + fileName;
+                int deptId = UserContext.getCurrentUser().getDepartmentId();
+                int userId = UserContext.getCurrentUser().getUserId();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+                String timestamp = LocalDateTime.now().format(formatter);
+
+                String namePart = fileName.contains(".") ?
+                        fileName.substring(0, fileName.lastIndexOf(".")) : fileName;
+                String extension = fileName.contains(".") ?
+                        fileName.substring(fileName.lastIndexOf(".")) : "";
+
+                String uniqueName = namePart + "_" + deptId + "-" + userId + "-" + timestamp + extension;
+
+
+
                 java.io.File dest = new java.io.File(SERVER_UPLOAD_PATH + uniqueName);
 
                 dest.getParentFile().mkdirs();
