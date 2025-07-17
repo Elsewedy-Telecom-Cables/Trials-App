@@ -59,7 +59,6 @@ public class AddUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> page_title.requestFocus());
-
         userDeptartment_ComBox.setItems(DepartmentDAO.getAllDepartments());
         listComboUserRole = FXCollections.observableArrayList(DEF.USER_ROLE_SUPER_ADMIN,DEF.USER_ROLE_DEPARTMENT_MANAGER,DEF.USER_ROLE_SUPER_VISOR,DEF.USER_ROLE_USER_STRING);
         listComboUserActive = FXCollections.observableArrayList(DEF.USER_ACTIVE_STRING,DEF.USER_NOT_ACTIVE_STRING);
@@ -67,6 +66,21 @@ public class AddUserController implements Initializable {
         userActive_ComBox.setItems(listComboUserActive);
         // setCueser
         saveUser_btn.setCursor(Cursor.HAND);
+        Platform.runLater(() -> {
+            if (UserContext.getCurrentUser().getRole() != 4) {
+                int deptId = UserContext.getCurrentUser().getDepartmentId();
+                for (Department dept : userDeptartment_ComBox.getItems()) {
+                    if (dept.getDepartmentId() == deptId) {
+                        userDeptartment_ComBox.getSelectionModel().select(dept);
+                       // userDeptartment_ComBox.setDisable(true); // منع التعديل
+                        // جعل الكومبو "قراءة فقط" بدون أن يتغير شكله
+                        userDeptartment_ComBox.setMouseTransparent(true);
+                        userDeptartment_ComBox.setFocusTraversable(false);
+                        break;
+                    }
+                }
+            }
+        });
     }
 
     public void setUserData(int userId, boolean update) {
@@ -76,7 +90,7 @@ public class AddUserController implements Initializable {
             User us = UserDAO.getUserByUserId(userId);
 
             emp_id_txtF.setText(us.getEmpCode() + "");
-            emp_id_txtF.setEditable(false);
+            //emp_id_txtF.setEditable(false);
 
             user_name_txtF.setText(us.getUserName());
             user_name_txtF.setEditable(false);
@@ -94,7 +108,10 @@ public class AddUserController implements Initializable {
                 userDeptartment_ComBox.setDisable(false);
             } else {
                 // Others: prevent changing department
-                userDeptartment_ComBox.setDisable(true);
+               // userDeptartment_ComBox.setDisable(true);
+                // جعل الكومبو "قراءة فقط" بدون أن يتغير شكله
+                userDeptartment_ComBox.setMouseTransparent(true);
+                userDeptartment_ComBox.setFocusTraversable(false);
             }
 
             // Set role
@@ -119,7 +136,6 @@ public class AddUserController implements Initializable {
         }
     }
 
-
     public void setSaveButton() {
         saveUser_btn.setText("Update");
     }
@@ -142,9 +158,8 @@ public class AddUserController implements Initializable {
                         validationErrors.add("Select a Department.");
                     }
                 } else {
-                    // Department Manager: auto-select their own department
+                    // Department Manager: auto-select their own department // AI : ok i need when open auto select dept their own department with not editable
                     int deptId = UserContext.getCurrentUser().getDepartmentId();
-
                     for (Department dept : userDeptartment_ComBox.getItems()) {
                         if (dept.getDepartmentId() == deptId) {
                             selectDepartment = dept;

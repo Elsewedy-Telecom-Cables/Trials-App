@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,54 +24,27 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class PrepareDataController implements Initializable {
-    @FXML private Button add_department_btn;
 
     @FXML private Button add_file_type_btn;
-
     @FXML private Button add_matrial_btn;
-
-    @FXML private Button add_section_btn;
-
     @FXML private Button add_supplier_btn;
-
     @FXML private Button add_supplier_country_btn;
-
-    @FXML private Button clear_department_btn;
 
     @FXML private Button clear_file_type_btn;
 
     @FXML private Button clear_matrial_btn;
 
-    @FXML
-    private Button clear_section_btn;
-
     @FXML private Button clear_supplier_btn;
 
     @FXML private Button clear_supplier_cou_btn;
-
     @FXML private Label date_lbl;
-
-    @FXML private ComboBox<Department> department_comb;
-
-    @FXML private TableColumn<Department, String> department_delete_colm;
-
-    @FXML private TableColumn<Department, String> department_id_colm;
-
-    @FXML private Label department_lbl;
-
-    @FXML private TableColumn<Department, String> department_name_colm;
-
-    @FXML private TextField department_name_textF;
-
-    @FXML private TableView<Department> department_table_view;
-
     @FXML private TableColumn<FileType, String> file_type_delete_colm;
-
     @FXML
     private TableColumn<FileType, String> file_type_id_colm;
 
@@ -82,13 +56,9 @@ public class PrepareDataController implements Initializable {
 
     @FXML private TableView<FileType> file_type_table_view;
 
-    @FXML private TextField filter_department_textF;
-
     @FXML private TextField filter_file_type_textF;
 
     @FXML private TextField filter_matrial_textF;
-
-    @FXML private TextField filter_section_textF;
 
     @FXML private TextField filter_supplier_cou_textF;
 
@@ -106,23 +76,10 @@ public class PrepareDataController implements Initializable {
 
     @FXML private TableView<Matrial> matrial_table_view;
 
-    @FXML private TableColumn<Section, String> section_delete_colm;
-
-    @FXML private TableColumn<Section, String> section_id_colm;
-
-    @FXML private TableColumn<Section, String> section_name_colm;
-
-    @FXML private TextField section_name_textF;
-
-    @FXML private TableView<Section> section_table_view;
-
     @FXML private Label shift_label;
 
     @FXML private ComboBox<Supplier> supplier_comb;
     @FXML private ComboBox<Country> country_comb;
-
-
-
     @FXML private TableColumn<SupplierCountry, String> supplier_cou_delete_colm;
 
     @FXML private TableColumn<SupplierCountry, String> supplier_cou_id_colm;
@@ -130,7 +87,6 @@ public class PrepareDataController implements Initializable {
     @FXML private TableColumn<SupplierCountry, String> supplier_cou_name_colm;
 
     @FXML private TableColumn<SupplierCountry, String> supplier_name_in_sup_coun_colm;
-
 
     @FXML private TableView<SupplierCountry> supplier_country_table_view;
     @FXML private TableColumn<Supplier, String> supplier_delete_colm;
@@ -143,10 +99,6 @@ public class PrepareDataController implements Initializable {
 
     @FXML private TableView<Supplier> supplier_table_view;
 
-    @FXML private Button update_department_btn;
-
-    @FXML private TextField update_department_name_textF;
-
     @FXML private Button update_file_type_btn;
 
     @FXML private TextField update_file_type_name_textF;
@@ -155,14 +107,9 @@ public class PrepareDataController implements Initializable {
 
     @FXML private TextField update_matrial_name_textF;
 
-    @FXML private Button update_section_btn;
-
-    @FXML private TextField update_section_name_textF;
-
     @FXML private Button update_supplier_btn;
 
     @FXML private Button update_supplier_cou_btn;
-
 
     @FXML private TextField update_supplier_name_textF;
 
@@ -170,19 +117,50 @@ public class PrepareDataController implements Initializable {
     @FXML
     private Button add_country_btn;
 
-    ObservableList<Department> departmentList;
     ObservableList<FileType> fileTypeList;
     ObservableList<Matrial> matrialList;
-    ObservableList<Section> sectionList;
     ObservableList<SupplierCountry> supplierCountryList;
     ObservableList<Supplier> supplierList;
     ObservableList<Country> countryList;
+    @FXML
+    private Button deptartments_sections_btn;
+
+    @FXML
+    private Button clear_country_btn;
+
+    @FXML
+    private TableColumn<Country,String> country_delete_colm;
+
+    @FXML
+    private TableColumn<Country,String> country_id_colm;
+
+    @FXML
+    private TableColumn<Country,String> country_name_colm;
+
+    @FXML
+    private TextField country_name_textF;
+
+    @FXML
+    private TableView<Country> country_table_view;
+
+    @FXML
+    private TextField filter_country_textF;
+
+    @FXML
+    private Button update_country_btn;
+
+    @FXML
+    private TextField update_country_name_textF;
+    @FXML private Label department_lbl;
+    @FXML private ComboBox<Department> department_comb;
+    ObservableList<Department> departmentList;
+    //ObservableList<Country> countryList;
 
     // DAO instances
-    private final DepartmentDAO departmentDAO = new DepartmentDAO();
+
     private final FileTypeDAO fileTypeDAO = new FileTypeDAO();
     private final MatrialDAO matrialDAO = new MatrialDAO();
-    private final SectionDAO sectionDAO = new SectionDAO();
+    private final DepartmentDAO departmentDAO = new DepartmentDAO();
     private final SupplierCountryDAO supplierCountryDAO = new SupplierCountryDAO();
     private final SupplierDAO supplierDAO = new SupplierDAO();
     private final CountryDAO countryDAO = new CountryDAO();
@@ -204,50 +182,151 @@ public class PrepareDataController implements Initializable {
         // Set Department Name with current user's
         String msg2 = (UserContext.getCurrentUser().getDepartmentName() + " Department");
         department_lbl.setText(msg2);
+        //
+        // Existing initialization code (e.g., table setup, load data, etc.)
+        try {
+            if (UserContext.getCurrentUser() == null) {
+                Logging.logMessage(Logging.WARN, getClass().getName(), "initialize Permission", "Current user is null");
+                return;
+            }
+
+            Platform.runLater(() -> {
+                if (UserContext.getCurrentUser().getRole() != 4) {
+                    int deptId = UserContext.getCurrentUser().getDepartmentId();
+                    // Auto-select department for userDeptartment_ComBox
+                    for (Department dept : department_comb.getItems()) {
+                        if (dept.getDepartmentId() == deptId) {
+                            department_comb.getSelectionModel().select(dept);
+                            department_comb.setMouseTransparent(true); // Make read-only
+                            department_comb.setFocusTraversable(false);
+                            break;
+                        }
+                    }
+                    // Auto-select department for department_comb
+                    for (Department dept : department_comb.getItems()) {
+                        if (dept.getDepartmentId() == deptId) {
+                            department_comb.getSelectionModel().select(dept);
+                            department_comb.setMouseTransparent(true); // Make read-only
+                            department_comb.setFocusTraversable(false);
+                            break;
+                        }
+                    }
+                } else {
+                    // Super Admin: allow interaction
+                    department_comb.setMouseTransparent(false);
+                    department_comb.setFocusTraversable(true);
+                    department_comb.setMouseTransparent(false);
+                    department_comb.setFocusTraversable(true);
+                }
+            });
+
+            // Other initialization code (e.g., setupDepartmentColumn, load data, etc.)
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "initialize", ex);
+        }
+
+
+        try {
+            // Get current user and their role/department
+            if (UserContext.getCurrentUser() == null) {
+                Logging.logMessage(Logging.WARN, getClass().getName(), "initialize Permission", "Current user is null");
+
+                return; // Exit if user is null to avoid NullPointerException
+            }
+
+            int role = UserContext.getCurrentUser().getRole();
+            int departmentId = UserContext.getCurrentUser().getDepartmentId();
+
+            // Always hide deptartments_sections_btn for Technical Office Department (DepartmentId == 1)
+            deptartments_sections_btn.setVisible(departmentId != 1);
+
+            // Super Admin (role == 4) permissions
+            if (role == 4) {
+                deptartments_sections_btn.setVisible(true); // Override for Super Admin
+                add_country_btn.setVisible(true);
+                add_matrial_btn.setVisible(true);
+                add_supplier_btn.setVisible(true);
+                add_supplier_country_btn.setVisible(true);
+                update_country_btn.setVisible(true);
+                update_matrial_btn.setVisible(true);
+                update_supplier_btn.setVisible(true);
+                update_supplier_cou_btn.setVisible(true);
+                country_delete_colm.setVisible(true);
+                matrial_delete_colm.setVisible(true);
+                supplier_delete_colm.setVisible(true);
+                supplier_cou_delete_colm.setVisible(true);
+            }
+            // Technical Office Department (DepartmentId == 1) or Super Admin additional permissions
+            else if (departmentId == 1) {
+                add_country_btn.setVisible(true);
+                add_matrial_btn.setVisible(true);
+                add_supplier_btn.setVisible(true);
+                add_supplier_country_btn.setVisible(true);
+                update_country_btn.setVisible(true);
+                update_matrial_btn.setVisible(true);
+                update_supplier_btn.setVisible(true);
+                update_supplier_cou_btn.setVisible(true);
+                country_delete_colm.setVisible(true);
+                matrial_delete_colm.setVisible(true);
+                supplier_delete_colm.setVisible(true);
+                supplier_cou_delete_colm.setVisible(true);
+            }
+            // Default: Hide all buttons for other roles/departments
+            else {
+                add_country_btn.setVisible(false);
+                add_matrial_btn.setVisible(false);
+                add_supplier_btn.setVisible(false);
+                add_supplier_country_btn.setVisible(false);
+                update_country_btn.setVisible(false);
+                update_matrial_btn.setVisible(false);
+                update_supplier_btn.setVisible(false);
+                update_supplier_cou_btn.setVisible(false);
+                country_delete_colm.setVisible(false);
+                matrial_delete_colm.setVisible(false);
+                supplier_delete_colm.setVisible(false);
+                supplier_cou_delete_colm.setVisible(false);
+                deptartments_sections_btn.setVisible(false);
+            }
+
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "initialize Permission", ex);
+        }
 
         // Set cursor to hand for all buttons
-        add_department_btn.setCursor(Cursor.HAND);
+
         add_file_type_btn.setCursor(Cursor.HAND);
         add_matrial_btn.setCursor(Cursor.HAND);
-        add_section_btn.setCursor(Cursor.HAND);
         add_supplier_btn.setCursor(Cursor.HAND);
         add_supplier_country_btn.setCursor(Cursor.HAND);
-        clear_department_btn.setCursor(Cursor.HAND);
         clear_file_type_btn.setCursor(Cursor.HAND);
         clear_matrial_btn.setCursor(Cursor.HAND);
-        clear_section_btn.setCursor(Cursor.HAND);
         clear_supplier_btn.setCursor(Cursor.HAND);
         clear_supplier_cou_btn.setCursor(Cursor.HAND);
-        update_department_btn.setCursor(Cursor.HAND);
         update_file_type_btn.setCursor(Cursor.HAND);
         update_matrial_btn.setCursor(Cursor.HAND);
-        update_section_btn.setCursor(Cursor.HAND);
         update_supplier_btn.setCursor(Cursor.HAND);
         update_supplier_cou_btn.setCursor(Cursor.HAND);
         add_country_btn.setCursor(Cursor.HAND);
+        deptartments_sections_btn.setCursor(Cursor.HAND);
 
         // Load Data For All Tables
-        loadDepartmentsData();
         loadFileTypesData();
         loadMatrialsData();
-        loadSectionsData();
         loadSupplierCountriesData();
         loadSuppliersData();
 
         // Initialize ObservableLists
-        departmentList = departmentDAO.getAllDepartments();
         fileTypeList = fileTypeDAO.getAllFileTypes();
         matrialList = matrialDAO.getAllMatrials();
-        sectionList = sectionDAO.getAllSections();
         supplierCountryList = supplierCountryDAO.getAllSupplierCountries();
         supplierList = supplierDAO.getAllSuppliers();
         countryList = countryDAO.getAllCountries();
+        departmentList = departmentDAO.getAllDepartments();
 
         // Set items to TableViews
-        department_table_view.setItems(departmentList);
+
         file_type_table_view.setItems(fileTypeList);
         matrial_table_view.setItems(matrialList);
-        section_table_view.setItems(sectionList);
         supplier_country_table_view.setItems(supplierCountryList);
         supplier_table_view.setItems(supplierList);
 
@@ -257,77 +336,20 @@ public class PrepareDataController implements Initializable {
         department_comb.setItems(DepartmentDAO.getAllDepartments());
 
         // Call Tables Listener
-        setupDepartmentTableListener();
         setupFileTypeTableListener();
         setupMatrialTableListener();
-        setupSectionTableListener();
         setupSupplierCountryTableListener();
         setupSupplierTableListener();
-    }
 
-    // Load Departments Data
-    private void loadDepartmentsData() {
-        department_name_colm.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
-        department_id_colm.setCellValueFactory(new PropertyValueFactory<>("departmentId"));
-        department_name_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
-        department_id_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
-        Callback<TableColumn<Department, String>, TableCell<Department, String>> cellFactory = param -> {
-            final TableCell<Department, String> cell = new TableCell<Department, String>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        final FontIcon deleteIcon = new FontIcon("fas-trash");
-                        deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
-                        deleteIcon.setFill(javafx.scene.paint.Color.RED);
-                        Tooltip.install(deleteIcon, new Tooltip("Delete Department"));
+        // new
+        countryList = CountryDAO.getAllCountries();
+        loadCountriesData();
+        setupCountryTableListener();
+        country_table_view.setItems(countryList);
+        add_country_btn.setCursor(Cursor.HAND);
+        update_country_btn.setCursor(Cursor.HAND);
+        clear_country_btn.setCursor(Cursor.HAND);
 
-                        deleteIcon.setOnMouseClicked(event -> {
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setHeaderText("Are you sure you want to delete this department?");
-                            alert.setContentText("Delete department confirmation");
-                            alert.getButtonTypes().addAll(ButtonType.CANCEL);
-
-                            Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
-                            Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-                            cancelButton.setText("Cancel");
-                            okButton.setText("OK");
-                            Platform.runLater(() -> cancelButton.requestFocus());
-                            alert.showAndWait().ifPresent(response -> {
-                                if (response == ButtonType.OK) {
-                                    if (UserService.confirmPassword(UserContext.getCurrentUser().getUserName())) {
-                                        try {
-                                            Department department = department_table_view.getSelectionModel().getSelectedItem();
-                                            departmentDAO.deleteDepartment(department.getDepartmentId());
-                                            departmentList = departmentDAO.getAllDepartments();
-                                            department_table_view.setItems(departmentList);
-                                            WindowUtils.ALERT("Success", "Department deleted successfully", WindowUtils.ALERT_INFORMATION);
-                                        } catch (Exception ex) {
-                                            Logging.logException("ERROR", getClass().getName(), "deleteDepartment", ex);
-                                        }
-                                    } else {
-                                        WindowUtils.ALERT("ERR", "Password not correct", WindowUtils.ALERT_WARNING);
-                                    }
-                                }
-                            });
-                        });
-
-                        HBox manageBtn = new HBox(deleteIcon);
-                        manageBtn.setStyle("-fx-alignment:center");
-                        HBox.setMargin(deleteIcon, new javafx.geometry.Insets(2, 2, 0, 3));
-                        setGraphic(manageBtn);
-                        setText(null);
-                    }
-                }
-            };
-            return cell;
-        };
-        department_delete_colm.setCellFactory(cellFactory);
-        department_table_view.setItems(departmentList);
     }
 
     // Load File Types Data
@@ -463,71 +485,6 @@ public class PrepareDataController implements Initializable {
         matrial_table_view.setItems(matrialList);
     }
 
-    // Load Sections Data
-    private void loadSectionsData() {
-        section_name_colm.setCellValueFactory(new PropertyValueFactory<>("sectionName"));
-        section_id_colm.setCellValueFactory(new PropertyValueFactory<>("sectionId"));
-        section_name_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
-        section_id_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
-        Callback<TableColumn<Section, String>, TableCell<Section, String>> cellFactory = param -> {
-            final TableCell<Section, String> cell = new TableCell<Section, String>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        final FontIcon deleteIcon = new FontIcon("fas-trash");
-                        deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
-                        deleteIcon.setFill(javafx.scene.paint.Color.RED);
-                        Tooltip.install(deleteIcon, new Tooltip("Delete Section"));
-
-                        deleteIcon.setOnMouseClicked(event -> {
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setHeaderText("Are you sure you want to delete this section?");
-                            alert.setContentText("Delete section confirmation");
-                            alert.getButtonTypes().addAll(ButtonType.CANCEL);
-
-                            Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
-                            Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-                            cancelButton.setText("Cancel");
-                            okButton.setText("OK");
-                            Platform.runLater(() -> cancelButton.requestFocus());
-                            alert.showAndWait().ifPresent(response -> {
-                                if (response == ButtonType.OK) {
-                                    if (UserService.confirmPassword(UserContext.getCurrentUser().getUserName())) {
-                                        try {
-                                            Section section = section_table_view.getSelectionModel().getSelectedItem();
-                                            sectionDAO.deleteSection(section.getSectionId());
-                                            sectionList = sectionDAO.getAllSections();
-                                            section_table_view.setItems(sectionList);
-                                            WindowUtils.ALERT("Success", "Section deleted successfully", WindowUtils.ALERT_INFORMATION);
-                                        } catch (Exception ex) {
-                                            Logging.logException("ERROR", getClass().getName(), "deleteSection", ex);
-                                        }
-                                    } else {
-                                        WindowUtils.ALERT("ERR", "Password not correct", WindowUtils.ALERT_WARNING);
-                                    }
-                                }
-                            });
-                        });
-
-                        HBox manageBtn = new HBox(deleteIcon);
-                        manageBtn.setStyle("-fx-alignment:center");
-                        HBox.setMargin(deleteIcon, new javafx.geometry.Insets(2, 2, 0, 3));
-                        setGraphic(manageBtn);
-                        setText(null);
-                    }
-                }
-            };
-            return cell;
-        };
-        section_delete_colm.setCellFactory(cellFactory);
-        section_table_view.setItems(sectionList);
-    }
-
     // Load Supplier Countries Data
     private void loadSupplierCountriesData() {
         supplier_cou_name_colm.setCellValueFactory(new PropertyValueFactory<>("countryName"));
@@ -596,8 +553,6 @@ public class PrepareDataController implements Initializable {
         supplier_country_table_view.setItems(supplierCountryList);
     }
 
-
-
     // Load Suppliers Data
     private void loadSuppliersData() {
         supplier_name_colm.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
@@ -663,28 +618,6 @@ public class PrepareDataController implements Initializable {
         supplier_table_view.setItems(supplierList);
     }
 
-    // Filter Departments
-    @FXML
-    void filter_department(KeyEvent event) {
-        FilteredList<Department> filteredData = new FilteredList<>(departmentList, p -> true);
-        filter_department_textF.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(department -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (department.getDepartmentName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                String id = department.getDepartmentId() + "";
-                return id.contains(lowerCaseFilter);
-            });
-        });
-        SortedList<Department> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(department_table_view.comparatorProperty());
-        department_table_view.setItems(sortedData);
-    }
-
     // Filter File Types
     @FXML
     void filter_file_type(KeyEvent event) {
@@ -729,27 +662,6 @@ public class PrepareDataController implements Initializable {
         matrial_table_view.setItems(sortedData);
     }
 
-    // Filter Sections
-    @FXML
-    void filter_section(KeyEvent event) {
-        FilteredList<Section> filteredData = new FilteredList<>(sectionList, p -> true);
-        filter_section_textF.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(section -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (section.getSectionName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                String id = section.getSectionId() + "";
-                return id.contains(lowerCaseFilter);
-            });
-        });
-        SortedList<Section> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(section_table_view.comparatorProperty());
-        section_table_view.setItems(sortedData);
-    }
 
     // Filter Supplier Countries
     @FXML
@@ -795,63 +707,112 @@ public class PrepareDataController implements Initializable {
         supplier_table_view.setItems(sortedData);
     }
 
-    // Add Department
-    @FXML
-    void add_department(ActionEvent event) {
-        String departmentName = department_name_textF.getText().trim();
-        if (departmentName.isEmpty()) {
-            WindowUtils.ALERT("ERR", "department_name_empty", WindowUtils.ALERT_ERROR);
-            return;
-        }
-
-        Department department = new Department();
-        department.setDepartmentName(departmentName);
-
-        boolean success = departmentDAO.insertDepartment(department);
-
-        if (success) {
-            WindowUtils.ALERT("Success", "Department added successfully", WindowUtils.ALERT_INFORMATION);
-            department_name_textF.clear();
-            update_department_name_textF.clear();
-            filter_department_textF.clear();
-            departmentList = departmentDAO.getAllDepartments();
-            department_table_view.setItems(departmentList);
-            department_comb.setItems(DepartmentDAO.getAllDepartments());
-        } else {
-            WindowUtils.ALERT("database_error", "department_add_failed", WindowUtils.ALERT_ERROR);
-        }
-    }
-
     // Add File Type
+//    @FXML
+//    void add_file_type(ActionEvent event) {
+//        String fileTypeName = file_type_name_textF.getText().trim();
+//        Department selectedDepartment = department_comb.getSelectionModel().getSelectedItem();
+//        if (fileTypeName.isEmpty()) {
+//            WindowUtils.ALERT("ERR", "file_type_name_empty", WindowUtils.ALERT_ERROR);
+//            return;
+//        }
+//        if (selectedDepartment == null) {
+//            WindowUtils.ALERT("ERR", "No Department selected", WindowUtils.ALERT_ERROR);
+//            return;
+//        }
+//
+//        FileType fileType = new FileType();
+//        fileType.setFileTypeName(fileTypeName);
+//        fileType.setDepartmentId(selectedDepartment.getDepartmentId());
+//
+//        boolean success = fileTypeDAO.insertFileType(fileType);
+//
+//        if (success) {
+//            WindowUtils.ALERT("Success", "File Type added successfully", WindowUtils.ALERT_INFORMATION);
+//            file_type_name_textF.clear();
+//            update_file_type_name_textF.clear();
+//            filter_file_type_textF.clear();
+//            department_comb.getSelectionModel().clearSelection();
+//            fileTypeList = fileTypeDAO.getAllFileTypes();
+//            file_type_table_view.setItems(fileTypeList);
+//        } else {
+//            String err = MatrialDAO.lastErrorMessage;
+//            if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
+//                WindowUtils.ALERT("Duplicate", "File Type already exists", WindowUtils.ALERT_ERROR);
+//            } else {
+//                WindowUtils.ALERT("database_error", "file_type_add_failed", WindowUtils.ALERT_ERROR);
+//            }
+//        }
+//    }
     @FXML
     void add_file_type(ActionEvent event) {
-        String fileTypeName = file_type_name_textF.getText().trim();
-        Department selectedDepartment = department_comb.getSelectionModel().getSelectedItem();
-        if (fileTypeName.isEmpty()) {
-            WindowUtils.ALERT("ERR", "file_type_name_empty", WindowUtils.ALERT_ERROR);
-            return;
-        }
-        if (selectedDepartment == null) {
-            WindowUtils.ALERT("ERR", "No Department selected", WindowUtils.ALERT_ERROR);
-            return;
-        }
+        try {
+            // Get current user
+            if (UserContext.getCurrentUser() == null) {
+                WindowUtils.ALERT("Error", "No user logged in", WindowUtils.ALERT_ERROR);
+                Logging.logMessage(Logging.WARN, getClass().getName(), "add_file_type", "Current user is null");
 
-        FileType fileType = new FileType();
-        fileType.setFileTypeName(fileTypeName);
-        fileType.setDepartmentId(selectedDepartment.getDepartmentId());
+                return;
+            }
 
-        boolean success = fileTypeDAO.insertFileType(fileType);
+            String fileTypeName = file_type_name_textF.getText().trim();
+            Department selectedDepartment = null;
 
-        if (success) {
-            WindowUtils.ALERT("Success", "File Type added successfully", WindowUtils.ALERT_INFORMATION);
-            file_type_name_textF.clear();
-            update_file_type_name_textF.clear();
-            filter_file_type_textF.clear();
-            department_comb.getSelectionModel().clearSelection();
-            fileTypeList = fileTypeDAO.getAllFileTypes();
-            file_type_table_view.setItems(fileTypeList);
-        } else {
-            WindowUtils.ALERT("database_error", "file_type_add_failed", WindowUtils.ALERT_ERROR);
+            // Determine department based on user role
+            if (UserContext.getCurrentUser().getRole() == 4) {
+                // Super Admin: can choose any department
+                selectedDepartment = department_comb.getSelectionModel().getSelectedItem();
+                department_comb.setMouseTransparent(false); // Allow interaction
+                department_comb.setFocusTraversable(true);
+            } else {
+                // Non-Super Admin: auto-select their own department
+                int deptId = UserContext.getCurrentUser().getDepartmentId();
+                for (Department dept : department_comb.getItems()) {
+                    if (dept.getDepartmentId() == deptId) {
+                        selectedDepartment = dept;
+                        department_comb.getSelectionModel().select(dept);
+                        department_comb.setMouseTransparent(true); // Make read-only
+                        department_comb.setFocusTraversable(false);
+                        break;
+                    }
+                }
+            }
+
+            // Validate inputs
+            if (fileTypeName.isEmpty()) {
+                WindowUtils.ALERT("ERR", "file_type_name_empty", WindowUtils.ALERT_ERROR);
+                return;
+            }
+            if (selectedDepartment == null) {
+                WindowUtils.ALERT("ERR", "No Department selected or department not found", WindowUtils.ALERT_ERROR);
+                return;
+            }
+
+            FileType fileType = new FileType();
+            fileType.setFileTypeName(fileTypeName);
+            fileType.setDepartmentId(selectedDepartment.getDepartmentId());
+
+            boolean success = fileTypeDAO.insertFileType(fileType);
+
+            if (success) {
+                WindowUtils.ALERT("Success", "File Type added successfully", WindowUtils.ALERT_INFORMATION);
+                file_type_name_textF.clear();
+                update_file_type_name_textF.clear();
+                filter_file_type_textF.clear();
+                department_comb.getSelectionModel().clearSelection();
+                fileTypeList = fileTypeDAO.getAllFileTypes();
+                file_type_table_view.setItems(fileTypeList);
+            } else {
+                String err = MatrialDAO.lastErrorMessage;
+                if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
+                    WindowUtils.ALERT("Duplicate", "File Type already exists", WindowUtils.ALERT_ERROR);
+                } else {
+                    WindowUtils.ALERT("database_error", "file_type_add_failed", WindowUtils.ALERT_ERROR);
+                }
+            }
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "add_file_type", ex);
+            WindowUtils.ALERT("Exception", "An unexpected error occurred", WindowUtils.ALERT_ERROR);
         }
     }
 
@@ -867,80 +828,25 @@ public class PrepareDataController implements Initializable {
         Matrial matrial = new Matrial();
         matrial.setMatrialName(matrialName);
 
-        boolean success = matrialDAO.insertMatrial(matrial);
+            boolean success = matrialDAO.insertMatrial(matrial);
 
-        if (success) {
-            WindowUtils.ALERT("Success", "Matrial added successfully", WindowUtils.ALERT_INFORMATION);
-            matrial_name_textF.clear();
-            update_matrial_name_textF.clear();
-            filter_matrial_textF.clear();
-            matrialList = matrialDAO.getAllMatrials();
-            matrial_table_view.setItems(matrialList);
-        } else {
-            WindowUtils.ALERT("database_error", "matrial_add_failed", WindowUtils.ALERT_ERROR);
+            if (success) {
+                WindowUtils.ALERT("Success", "Matrial added successfully", WindowUtils.ALERT_INFORMATION);
+                matrial_name_textF.clear();
+                update_matrial_name_textF.clear();
+                filter_matrial_textF.clear();
+                matrialList = matrialDAO.getAllMatrials();
+                matrial_table_view.setItems(matrialList);
+            }else {
+                String err = MatrialDAO.lastErrorMessage;
+                if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
+                    WindowUtils.ALERT("Duplicate", "Matrial name already exists", WindowUtils.ALERT_ERROR);
+                } else {
+                    WindowUtils.ALERT("database_error", "matrial_name_add_failed", WindowUtils.ALERT_ERROR);
+                }
+            }
+
         }
-    }
-
-    // Add Section
-    @FXML
-    void add_section(ActionEvent event) {
-        String sectionName = section_name_textF.getText().trim();
-        if (sectionName.isEmpty()) {
-            WindowUtils.ALERT("ERR", "section_name_empty", WindowUtils.ALERT_ERROR);
-            return;
-        }
-
-        Section section = new Section();
-        section.setSectionName(sectionName);
-
-        boolean success = sectionDAO.insertSection(section);
-
-        if (success) {
-            WindowUtils.ALERT("Success", "Section added successfully", WindowUtils.ALERT_INFORMATION);
-            section_name_textF.clear();
-            update_section_name_textF.clear();
-            filter_section_textF.clear();
-            sectionList = sectionDAO.getAllSections();
-            section_table_view.setItems(sectionList);
-        } else {
-            WindowUtils.ALERT("database_error", "section_add_failed", WindowUtils.ALERT_ERROR);
-        }
-    }
-
-//    // Add Supplier Country
-//    @FXML
-//    void add_supplier_country(ActionEvent event) {
-//
-//        Supplier selectedSupplier = supplier_comb.getSelectionModel().getSelectedItem();
-//        Country selectedCountry = country_comb.getSelectionModel().getSelectedItem();
-//
-//        if (selectedSupplier == null) {
-//            WindowUtils.ALERT("ERR", "No Supplier selected", WindowUtils.ALERT_ERROR);
-//            return;
-//        }
-//        if (selectedCountry == null) {
-//            WindowUtils.ALERT("ERR", "No Country selected", WindowUtils.ALERT_ERROR);
-//            return;
-//        }
-//
-//        SupplierCountry supplierCountry = new SupplierCountry();
-//        supplierCountry.setSupplierId(selectedSupplier.getSupplierId());
-//        supplierCountry.setCountryId(selectedCountry.getCountryId());
-//
-//        boolean success = supplierCountryDAO.insertSupplierCountry(supplierCountry);
-//
-//        if (success) {
-//            WindowUtils.ALERT("Success", "Supplier Country added successfully", WindowUtils.ALERT_INFORMATION);
-//            filter_supplier_cou_textF.clear();
-//            supplier_comb.getSelectionModel().clearSelection();
-//            country_comb.getSelectionModel().clearSelection();
-//            supplierCountryList = supplierCountryDAO.getAllSupplierCountries();
-//            supplier_country_table_view.setItems(supplierCountryList);
-//
-//        } else {
-//            WindowUtils.ALERT("database_error", "supplier_country_add_failed", WindowUtils.ALERT_ERROR);
-//        }
-//    }
 
     @FXML
     void add_supplier_country(ActionEvent event) {
@@ -979,7 +885,12 @@ public class PrepareDataController implements Initializable {
             supplierCountryList = supplierCountryDAO.getAllSupplierCountries();
             supplier_country_table_view.setItems(supplierCountryList);
         } else {
-            WindowUtils.ALERT("database_error", "supplier_country_add_failed", WindowUtils.ALERT_ERROR);
+            String err = SupplierCountryDAO.lastErrorMessage;
+            if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
+                WindowUtils.ALERT("Duplicate", "Supplier Country already exists", WindowUtils.ALERT_ERROR);
+            } else {
+                WindowUtils.ALERT("database_error", "supplier_country_add_failed", WindowUtils.ALERT_ERROR);
+            }
         }
     }
 
@@ -996,7 +907,6 @@ public class PrepareDataController implements Initializable {
         supplier.setSupplierName(supplierName);
 
         boolean success = supplierDAO.insertSupplier(supplier);
-
         if (success) {
             WindowUtils.ALERT("Success", "Supplier added successfully", WindowUtils.ALERT_INFORMATION);
             supplier_name_textF.clear();
@@ -1006,17 +916,15 @@ public class PrepareDataController implements Initializable {
             supplier_table_view.setItems(supplierList);
             supplier_comb.setItems(SupplierDAO.getAllSuppliers());
         } else {
-            WindowUtils.ALERT("database_error", "supplier_add_failed", WindowUtils.ALERT_ERROR);
+            String err = SupplierDAO.lastErrorMessage;
+            if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
+                WindowUtils.ALERT("Duplicate", "Supplier name already exists", WindowUtils.ALERT_ERROR);
+            } else {
+                WindowUtils.ALERT("database_error", "supplier_add_failed", WindowUtils.ALERT_ERROR);
+            }
         }
     }
 
-    // Clear Department
-    @FXML
-    void clear_department(ActionEvent event) {
-        filter_department_textF.clear();
-        update_department_name_textF.clear();
-        department_name_textF.clear();
-    }
 
     void HelpclearFileTyple(){
         filter_file_type_textF.clear();
@@ -1040,15 +948,7 @@ public class PrepareDataController implements Initializable {
         matrial_name_textF.clear();
     }
 
-    // Clear Section
-    @FXML
-    void clear_section(ActionEvent event) {
-        filter_section_textF.clear();
-        update_section_name_textF.clear();
-        section_name_textF.clear();
-    }
 // Clear Supplier Country
-
     void helpSupplierCountry(){
         filter_supplier_cou_textF.clear();
         // Clear combo box completely
@@ -1062,7 +962,6 @@ public class PrepareDataController implements Initializable {
         helpSupplierCountry();
     }
 
-
     // Clear Supplier
     @FXML
     void clear_supplier(ActionEvent event) {
@@ -1071,79 +970,115 @@ public class PrepareDataController implements Initializable {
         supplier_name_textF.clear();
     }
 
-    // Update Department
-    @FXML
-    void update_department(ActionEvent event) {
-        try {
-            Department selectedDepartment = department_table_view.getSelectionModel().getSelectedItem();
-            if (selectedDepartment == null) {
-                WindowUtils.ALERT("ERR", "No Department selected", WindowUtils.ALERT_ERROR);
-                return;
-            }
 
-            String departmentName = update_department_name_textF.getText().trim();
-            if (departmentName.isEmpty()) {
-                WindowUtils.ALERT("ERR", "department_name_empty", WindowUtils.ALERT_ERROR);
-                return;
-            }
-
-            selectedDepartment.setDepartmentName(departmentName);
-            boolean success = departmentDAO.updateDepartment(selectedDepartment);
-            if (success) {
-                WindowUtils.ALERT("Success", "Department updated successfully", WindowUtils.ALERT_INFORMATION);
-                update_department_name_textF.clear();
-                department_name_textF.clear();
-                filter_department_textF.clear();
-
-                departmentList = departmentDAO.getAllDepartments();
-                department_table_view.setItems(departmentList);
-            } else {
-                WindowUtils.ALERT("ERR", "department_updated_failed", WindowUtils.ALERT_ERROR);
-            }
-        } catch (Exception ex) {
-            Logging.logException("ERROR", getClass().getName(), "updateDepartment", ex);
+//    // Update File Type
+//    @FXML
+//    void update_file_type(ActionEvent event) {
+//        try {
+//            FileType selectedFileType = file_type_table_view.getSelectionModel().getSelectedItem();
+//            if (selectedFileType == null) {
+//                WindowUtils.ALERT("ERR", "No File Type selected", WindowUtils.ALERT_ERROR);
+//                return;
+//            }
+//
+//            String fileTypeName = update_file_type_name_textF.getText().trim();
+//            Department selectedDepartment = department_comb.getSelectionModel().getSelectedItem();
+//            if (fileTypeName.isEmpty()) {
+//                WindowUtils.ALERT("ERR", "file_type_name_empty", WindowUtils.ALERT_ERROR);
+//                return;
+//            }
+//            if (selectedDepartment == null) {
+//                WindowUtils.ALERT("ERR", "No Department selected", WindowUtils.ALERT_ERROR);
+//                return;
+//            }
+//
+//            selectedFileType.setFileTypeName(fileTypeName);
+//            selectedFileType.setDepartmentId(selectedDepartment.getDepartmentId());
+//            boolean success = fileTypeDAO.updateFileType(selectedFileType);
+//            if (success) {
+//                WindowUtils.ALERT("Success", "File Type updated successfully", WindowUtils.ALERT_INFORMATION);
+//                update_file_type_name_textF.clear();
+//                file_type_name_textF.clear();
+//                filter_file_type_textF.clear();
+//                department_comb.getSelectionModel().clearSelection();
+//                fileTypeList = fileTypeDAO.getAllFileTypes();
+//                file_type_table_view.setItems(fileTypeList);
+//            } else {
+//                WindowUtils.ALERT("ERR", "file_type_updated_failed", WindowUtils.ALERT_ERROR);
+//            }
+//        } catch (Exception ex) {
+//            Logging.logException("ERROR", getClass().getName(), "updateFileType", ex);
+//        }
+//    }
+   @FXML
+   void update_file_type(ActionEvent event) {
+    try {
+        // Get selected FileType
+        FileType selectedFileType = file_type_table_view.getSelectionModel().getSelectedItem();
+        if (selectedFileType == null) {
+            WindowUtils.ALERT("ERR", "No File Type selected", WindowUtils.ALERT_ERROR);
+            return;
         }
-    }
 
-    // Update File Type
-    @FXML
-    void update_file_type(ActionEvent event) {
-        try {
-            FileType selectedFileType = file_type_table_view.getSelectionModel().getSelectedItem();
-            if (selectedFileType == null) {
-                WindowUtils.ALERT("ERR", "No File Type selected", WindowUtils.ALERT_ERROR);
-                return;
-            }
+        String fileTypeName = update_file_type_name_textF.getText().trim();
+        Department selectedDepartment = null;
 
-            String fileTypeName = update_file_type_name_textF.getText().trim();
-            Department selectedDepartment = department_comb.getSelectionModel().getSelectedItem();
-            if (fileTypeName.isEmpty()) {
-                WindowUtils.ALERT("ERR", "file_type_name_empty", WindowUtils.ALERT_ERROR);
-                return;
+        // Determine department based on user role
+        if (UserContext.getCurrentUser().getRole() == 4) {
+            // Super Admin: can choose any department
+            selectedDepartment = department_comb.getSelectionModel().getSelectedItem();
+            department_comb.setMouseTransparent(false); // Allow interaction
+            department_comb.setFocusTraversable(true);
+        } else {
+            // Non-Super Admin: auto-select their own department
+            int deptId = UserContext.getCurrentUser().getDepartmentId();
+            for (Department dept : department_comb.getItems()) {
+                if (dept.getDepartmentId() == deptId) {
+                    selectedDepartment = dept;
+                    department_comb.getSelectionModel().select(dept);
+                    department_comb.setMouseTransparent(true); // Make read-only
+                    department_comb.setFocusTraversable(false);
+                    break;
+                }
             }
-            if (selectedDepartment == null) {
-                WindowUtils.ALERT("ERR", "No Department selected", WindowUtils.ALERT_ERROR);
-                return;
-            }
+        }
 
-            selectedFileType.setFileTypeName(fileTypeName);
-            selectedFileType.setDepartmentId(selectedDepartment.getDepartmentId());
-            boolean success = fileTypeDAO.updateFileType(selectedFileType);
-            if (success) {
-                WindowUtils.ALERT("Success", "File Type updated successfully", WindowUtils.ALERT_INFORMATION);
-                update_file_type_name_textF.clear();
-                file_type_name_textF.clear();
-                filter_file_type_textF.clear();
-                department_comb.getSelectionModel().clearSelection();
-                fileTypeList = fileTypeDAO.getAllFileTypes();
-                file_type_table_view.setItems(fileTypeList);
+        // Validate inputs
+        if (fileTypeName.isEmpty()) {
+            WindowUtils.ALERT("ERR", "file_type_name_empty", WindowUtils.ALERT_ERROR);
+            return;
+        }
+        if (selectedDepartment == null) {
+            WindowUtils.ALERT("ERR", "No Department selected or department not found", WindowUtils.ALERT_ERROR);
+            return;
+        }
+
+        // Update FileType object
+        selectedFileType.setFileTypeName(fileTypeName);
+        selectedFileType.setDepartmentId(selectedDepartment.getDepartmentId());
+        boolean success = fileTypeDAO.updateFileType(selectedFileType);
+
+        if (success) {
+            WindowUtils.ALERT("Success", "File Type updated successfully", WindowUtils.ALERT_INFORMATION);
+            update_file_type_name_textF.clear();
+            file_type_name_textF.clear();
+            filter_file_type_textF.clear();
+            department_comb.getSelectionModel().clearSelection();
+            fileTypeList = fileTypeDAO.getAllFileTypes();
+            file_type_table_view.setItems(fileTypeList);
+        } else {
+            String err = fileTypeDAO.lastErrorMessage; // Use fileTypeDAO instead of MatrialDAO
+            if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
+                WindowUtils.ALERT("Duplicate", "File Type already exists", WindowUtils.ALERT_ERROR);
             } else {
                 WindowUtils.ALERT("ERR", "file_type_updated_failed", WindowUtils.ALERT_ERROR);
             }
-        } catch (Exception ex) {
-            Logging.logException("ERROR", getClass().getName(), "updateFileType", ex);
         }
+    } catch (Exception ex) {
+        Logging.logException("ERROR", this.getClass().getName(), "update_file_type", ex);
+        WindowUtils.ALERT("Exception", "An unexpected error occurred", WindowUtils.ALERT_ERROR);
     }
+}
 
     // Update Matrial
     @FXML
@@ -1178,40 +1113,6 @@ public class PrepareDataController implements Initializable {
         }
     }
 
-    // Update Section
-    @FXML
-    void update_section(ActionEvent event) {
-        try {
-            Section selectedSection = section_table_view.getSelectionModel().getSelectedItem();
-            if (selectedSection == null) {
-                WindowUtils.ALERT("ERR", "No Section selected", WindowUtils.ALERT_ERROR);
-                return;
-            }
-
-            String sectionName = update_section_name_textF.getText().trim();
-            if (sectionName.isEmpty()) {
-                WindowUtils.ALERT("ERR", "section_name_empty", WindowUtils.ALERT_ERROR);
-                return;
-            }
-
-            selectedSection.setSectionName(sectionName);
-            boolean success = sectionDAO.updateSection(selectedSection);
-            if (success) {
-                WindowUtils.ALERT("Success", "Section updated successfully", WindowUtils.ALERT_INFORMATION);
-                update_section_name_textF.clear();
-                section_name_textF.clear();
-                filter_section_textF.clear();
-
-                sectionList = sectionDAO.getAllSections();
-                section_table_view.setItems(sectionList);
-            } else {
-                WindowUtils.ALERT("ERR", "section_updated_failed", WindowUtils.ALERT_ERROR);
-            }
-        } catch (Exception ex) {
-            Logging.logException("ERROR", getClass().getName(), "updateSection", ex);
-        }
-    }
-
     // Update Supplier Country
     @FXML
     void update_supplier_country(ActionEvent event) {
@@ -1232,6 +1133,13 @@ public class PrepareDataController implements Initializable {
             }
             if (selectedCountry == null) {
                 WindowUtils.ALERT("ERR", "No Coubtry selected", WindowUtils.ALERT_ERROR);
+                return;
+            }
+            // Check if the supplier-country combination already exists
+            if (supplierCountryDAO.existsSupplierCountry(selectedSupplier.getSupplierId(), selectedCountry.getCountryId()) &&
+                    !(selectedSupplierCountry.getSupplierId() == selectedSupplier.getSupplierId() &&
+                            selectedSupplierCountry.getCountryId() == selectedCountry.getCountryId())) {
+                WindowUtils.ALERT("ERR", "This Supplier and Country combination already exists", WindowUtils.ALERT_ERROR);
                 return;
             }
 
@@ -1286,31 +1194,82 @@ public class PrepareDataController implements Initializable {
         }
     }
 
-    // Setup Department Table Listener
-    private void setupDepartmentTableListener() {
-        department_table_view.setOnMouseClicked(event -> {
-            Department selectedDepartment = department_table_view.getSelectionModel().getSelectedItem();
-            if (selectedDepartment != null) {
-                update_department_name_textF.setText(selectedDepartment.getDepartmentName());
-            }
-        });
-    }
 
-    // Setup File Type Table Listener
-    private void setupFileTypeTableListener() {
-        file_type_table_view.setOnMouseClicked(event -> {
-            FileType selectedFileType = file_type_table_view.getSelectionModel().getSelectedItem();
-            if (selectedFileType != null) {
-                update_file_type_name_textF.setText(selectedFileType.getFileTypeName());
-                department_comb.getSelectionModel().select(
-                        departmentList.stream()
-                                .filter(d -> d.getDepartmentId() == selectedFileType.getDepartmentId())
-                                .findFirst()
-                                .orElse(null)
-                );
-            }
+
+//    // Setup File Type Table Listener
+//    private void setupFileTypeTableListener() {
+//        file_type_table_view.setOnMouseClicked(event -> {
+//            FileType selectedFileType = file_type_table_view.getSelectionModel().getSelectedItem();
+//            if (selectedFileType != null) {
+//                update_file_type_name_textF.setText(selectedFileType.getFileTypeName());
+//                department_comb.getSelectionModel().select(
+//                        departmentList.stream()
+//                                .filter(d -> d.getDepartmentId() == selectedFileType.getDepartmentId())
+//                                .findFirst()
+//                                .orElse(null)
+//                );
+//            }
+//        });
+//    }
+private void setupFileTypeTableListener() {
+    try {
+        // Ensure current user is available
+        if (UserContext.getCurrentUser() == null) {
+            Logging.logMessage(Logging.WARN, getClass().getName(), "setupFileTypeTableListener", "Current user is null");
+
+            return;
+        }
+
+        // Set row factory to control row selection
+        file_type_table_view.setRowFactory(tv -> {
+            TableRow<FileType> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                    FileType selectedFileType = row.getItem();
+                    int userRole = UserContext.getCurrentUser().getRole();
+                    int userDeptId = UserContext.getCurrentUser().getDepartmentId();
+
+                    // Allow selection only for Super Admin or matching DepartmentId
+                    if (userRole == 4 || selectedFileType.getDepartmentId() == userDeptId) {
+                        file_type_table_view.getSelectionModel().select(selectedFileType);
+                        update_file_type_name_textF.setText(selectedFileType.getFileTypeName());
+                        department_comb.getSelectionModel().select(
+                                departmentList.stream()
+                                        .filter(d -> d.getDepartmentId() == selectedFileType.getDepartmentId())
+                                        .findFirst()
+                                        .orElse(null)
+                        );
+                    } else {
+                        // Prevent selection for non-matching departments
+                        event.consume(); // Ignore the click event
+                    }
+                }
+            });
+
+            // Disable rows for non-matching departments (optional visual feedback)
+            row.itemProperty().addListener((obs, oldItem, newItem) -> {
+                if (newItem != null && UserContext.getCurrentUser().getRole() != 4) {
+                    int userDeptId = UserContext.getCurrentUser().getDepartmentId();
+                    if (newItem.getDepartmentId() != userDeptId) {
+                        row.setDisable(true); // Visually disable non-matching rows
+                        row.setStyle("-fx-opacity: 0.5;"); // Optional: reduce opacity for clarity
+                    } else {
+                        row.setDisable(false);
+                        row.setStyle(""); // Reset style for matching rows
+                    }
+                } else {
+                    row.setDisable(false);
+                    row.setStyle(""); // Reset style for Super Admin
+                }
+            });
+
+            return row;
         });
+    } catch (Exception ex) {
+        Logging.logException("ERROR", this.getClass().getName(), "setupFileTypeTableListener", ex);
     }
+}
+
 
     // Setup Matrial Table Listener
     private void setupMatrialTableListener() {
@@ -1322,15 +1281,6 @@ public class PrepareDataController implements Initializable {
         });
     }
 
-    // Setup Section Table Listener
-    private void setupSectionTableListener() {
-        section_table_view.setOnMouseClicked(event -> {
-            Section selectedSection = section_table_view.getSelectionModel().getSelectedItem();
-            if (selectedSection != null) {
-                update_section_name_textF.setText(selectedSection.getSectionName());
-            }
-        });
-    }
 
     // Setup Supplier Country Table Listener
     private void setupSupplierCountryTableListener() {
@@ -1365,9 +1315,180 @@ public class PrepareDataController implements Initializable {
         });
     }
     @FXML
-    void addCountry(ActionEvent event) {
+    void openDepartment_Section(ActionEvent event) {
         CLOSE(event);
-        OPEN_ADD_COUNTRY_PAGE();
+        OPEN_DEPARTMENT_SECTION_PAGE();
+    }
+
+    // new
+
+    // Load Countries Data
+    private void loadCountriesData() {
+        country_name_colm.setCellValueFactory(new PropertyValueFactory<>("countryName"));
+        country_id_colm.setCellValueFactory(new PropertyValueFactory<>("countryId"));
+        country_name_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
+        country_id_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
+        Callback<TableColumn<Country, String>, TableCell<Country, String>> cellFactory = param -> {
+            final TableCell<Country, String> cell = new TableCell<Country, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        final FontIcon deleteIcon = new FontIcon("fas-trash");
+                        deleteIcon.setCursor(Cursor.HAND);
+                        deleteIcon.setIconSize(13);
+                        deleteIcon.setFill(javafx.scene.paint.Color.RED);
+                        Tooltip.install(deleteIcon, new Tooltip("Delete Country"));
+
+                        deleteIcon.setOnMouseClicked(event -> {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText("Are you sure you want to delete this country?");
+                            alert.setContentText("Delete country confirmation");
+                            alert.getButtonTypes().addAll(ButtonType.CANCEL);
+
+                            Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+                            Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+                            cancelButton.setText("Cancel");
+                            okButton.setText("OK");
+                            Platform.runLater(() -> cancelButton.requestFocus());
+                            alert.showAndWait().ifPresent(response -> {
+                                if (response == ButtonType.OK) {
+                                    if (UserService.confirmPassword(UserContext.getCurrentUser().getUserName())) {
+                                        try {
+                                            Country country = country_table_view.getSelectionModel().getSelectedItem();
+                                            CountryDAO.deleteCountry(country.getCountryId());
+                                            country_name_textF.clear();
+                                            filter_country_textF.clear();
+                                            update_country_name_textF.clear();
+                                            countryList = CountryDAO.getAllCountries();
+                                            country_table_view.setItems(countryList);
+                                            WindowUtils.ALERT("Success", "Country deleted successfully", WindowUtils.ALERT_INFORMATION);
+                                        } catch (Exception ex) {
+                                            Logging.logException("ERROR", getClass().getName(), "deleteCountry", ex);
+                                        }
+                                    } else {
+                                        WindowUtils.ALERT("ERR", "Password not correct", WindowUtils.ALERT_WARNING);
+                                    }
+                                }
+                            });
+                        });
+
+                        HBox manageBtn = new HBox(deleteIcon);
+                        manageBtn.setStyle("-fx-alignment:center");
+                        HBox.setMargin(deleteIcon, new javafx.geometry.Insets(2, 2, 0, 3));
+                        setGraphic(manageBtn);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+        };
+        country_delete_colm.setCellFactory(cellFactory);
+        country_table_view.setItems(countryList);
+
+    }
+
+    // Add Country
+    @FXML
+    void add_country(ActionEvent event) {
+        String countryName = country_name_textF.getText().trim();
+        if (countryName.isEmpty()) {
+            WindowUtils.ALERT("ERR", "country_name_empty", WindowUtils.ALERT_ERROR);
+            return;
+        }
+
+        Country country = new Country();
+        country.setCountryName(countryName);
+
+        boolean success = CountryDAO.insertCountry(country);
+
+        if (success) {
+            WindowUtils.ALERT("Success", "Country added successfully", WindowUtils.ALERT_INFORMATION);
+            country_name_textF.clear();
+            update_country_name_textF.clear();
+            filter_country_textF.clear();
+            countryList = CountryDAO.getAllCountries();
+            country_table_view.setItems(countryList);
+            country_comb.setItems(CountryDAO.getAllCountries());
+
+        } else {
+            WindowUtils.ALERT("database_error", "country_add_failed", WindowUtils.ALERT_ERROR);
+        }
+    }
+    // Update Country
+    @FXML
+    void update_country(ActionEvent event) {
+        try {
+            Country selectedCountry = country_table_view.getSelectionModel().getSelectedItem();
+            if (selectedCountry == null) {
+                WindowUtils.ALERT("ERR", "No Country selected", WindowUtils.ALERT_ERROR);
+                return;
+            }
+
+            String countryName = update_country_name_textF.getText().trim();
+            if (countryName.isEmpty()) {
+                WindowUtils.ALERT("ERR", "country_name_empty", WindowUtils.ALERT_ERROR);
+                return;
+            }
+
+            selectedCountry.setCountryName(countryName);
+            boolean success = CountryDAO.updateCountry(selectedCountry);
+            if (success) {
+                WindowUtils.ALERT("Success", "Country updated successfully", WindowUtils.ALERT_INFORMATION);
+                update_country_name_textF.clear();
+                country_name_textF.clear();
+                filter_country_textF.clear();
+                countryList = CountryDAO.getAllCountries();
+                country_table_view.setItems(countryList);
+            } else {
+                WindowUtils.ALERT("ERR", "country_updated_failed", WindowUtils.ALERT_ERROR);
+            }
+        } catch (Exception ex) {
+            Logging.logException("ERROR", getClass().getName(), "updateCountry", ex);
+        }
+    }
+
+    // Clear Country
+    @FXML
+    void clear_country(ActionEvent event) {
+        filter_country_textF.clear();
+        update_country_name_textF.clear();
+        country_name_textF.clear();
+    }
+
+    // Filter Countries
+    @FXML
+    void filter_country(KeyEvent event) {
+        FilteredList<Country> filteredData = new FilteredList<>(countryList, p -> true);
+        filter_country_textF.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(country -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (country.getCountryName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                String id = country.getCountryId() + "";
+                return id.contains(lowerCaseFilter);
+            });
+        });
+        SortedList<Country> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(country_table_view.comparatorProperty());
+        country_table_view.setItems(sortedData);
+    }
+
+    // Setup Country Table Listener
+    private void setupCountryTableListener() {
+        country_table_view.setOnMouseClicked(event -> {
+            Country selectedCountry = country_table_view.getSelectionModel().getSelectedItem();
+            if (selectedCountry != null) {
+                update_country_name_textF.setText(selectedCountry.getCountryName());
+            }
+        });
     }
 
 }

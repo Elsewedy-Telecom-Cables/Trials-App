@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class MatrialDAO {
-
+    public static String lastErrorMessage = null;
     // Get all matrials
     public static ObservableList<Matrial> getAllMatrials() {
         ObservableList<Matrial> list = FXCollections.observableArrayList();
@@ -27,6 +27,7 @@ public class MatrialDAO {
             }
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", MatrialDAO.class.getName(), "getAllMatrials", e, "sql", query);
         }
 

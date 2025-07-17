@@ -16,14 +16,14 @@
    <children>
       <Pane prefHeight="483.0" prefWidth="600.0">
          <children>
-            <Text layoutX="264.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" wrappingWidth="89.6640625">
+            <Text layoutX="256.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" wrappingWidth="89.6640625">
                <font>
                   <Font name="Montserrat Bold" size="25.0" />
                </font>
             </Text>
-            <Label layoutX="213.0" layoutY="25.0" prefHeight="37.0" prefWidth="198.0" styleClass="Dept_Name_LoginForm" text="Trials Application">
+            <Label layoutX="213.0" layoutY="25.0" prefHeight="37.0" prefWidth="185.0" text="Trials Application" textFill="#dc2525">
                <font>
-                  <Font name="Montserrat Black" size="20.0" />
+                  <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
             <ImageView fx:id="logo_image_view" fitHeight="60.0" fitWidth="129.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" scaleX="1.1" scaleY="1.1" scaleZ="1.1" />
@@ -39,7 +39,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </PasswordField>
-            <Button fx:id="sign_in_btn" contentDisplay="RIGHT" layoutX="241.0" layoutY="336.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="129.0" style="-fx-background-color: #008000;" styleClass="button-6" text="SIGN IN  ">
+            <Button fx:id="sign_in_btn" contentDisplay="RIGHT" layoutX="236.0" layoutY="336.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="129.0" style="-fx-background-color: #dc2525;" styleClass="button-6" text="SIGN IN  ">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

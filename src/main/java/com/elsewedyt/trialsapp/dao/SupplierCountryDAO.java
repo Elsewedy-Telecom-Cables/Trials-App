@@ -172,7 +172,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class SupplierCountryDAO {
-
+    public static String lastErrorMessage = null;
     // Get all supplier countries (with country name via JOIN)
     public static ObservableList<SupplierCountry> getAllSupplierCountries() {
         ObservableList<SupplierCountry> list = FXCollections.observableArrayList();
@@ -229,6 +229,7 @@ public class SupplierCountryDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", SupplierCountryDAO.class.getName(), "insertSupplierCountry", e, "sql", query);
         }
         return false;
@@ -258,6 +259,7 @@ public class SupplierCountryDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", SupplierCountryDAO.class.getName(), "updateSupplierCountry", e, "sql", query);
         }
         return false;
@@ -341,6 +343,23 @@ public class SupplierCountryDAO {
         }
 
         return list;
+    }
+    public boolean existsSupplierCountry(int supplierId, int countryId) {
+        String query = "SELECT COUNT(*) FROM dbtrials.dbo.supplier_country WHERE supplier_id = ? AND country_id = ?";
+        try (Connection con = DbConnect.getConnect();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, supplierId);
+            ps.setInt(2, countryId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            Logging.logException("ERROR", getClass().getName(), "existsSupplierCountry", e);
+        }
+        return false;
     }
 }
 

@@ -1,10 +1,6 @@
 package com.elsewedyt.trialsapp.controllers;
 
-import com.elsewedyt.trialsapp.dao.FileTypeDAO;
-import com.elsewedyt.trialsapp.dao.MatrialDAO;
-import com.elsewedyt.trialsapp.dao.SupplierDAO;
-import com.elsewedyt.trialsapp.dao.TrialDAO;
-import com.elsewedyt.trialsapp.dao.SectionDAO;
+import com.elsewedyt.trialsapp.dao.*;
 import com.elsewedyt.trialsapp.logging.Logging;
 import com.elsewedyt.trialsapp.models.*;
 import com.elsewedyt.trialsapp.services.ShiftManager;
@@ -13,7 +9,9 @@ import com.elsewedyt.trialsapp.services.WindowUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -21,7 +19,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -31,6 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -64,7 +66,7 @@ public class TrialsController implements Initializable {
     private TextField filter_creation_textF;
 
     @FXML
-    private TextField filter_suplier_country_textF;
+    private TextField filter_trial_id_textF;
 
     @FXML
     private TextField filter_trial_purpose_textF;
@@ -77,6 +79,8 @@ public class TrialsController implements Initializable {
 
     @FXML
     private ComboBox<Supplier> supplier_Comb;
+    @FXML
+    private ComboBox<SupplierCountry> supplier_country_Comb;
 
     @FXML
     private ComboBox<Matrial> matrial_Comb;
@@ -92,9 +96,6 @@ public class TrialsController implements Initializable {
 
     @FXML
     private Button searchWithFilter_btn;
-
-    @FXML
-    private Label search_lable;
 
     @FXML
     private ComboBox<Section> section_Comb;
@@ -166,16 +167,36 @@ public class TrialsController implements Initializable {
         clearSearch_btn.setCursor(Cursor.HAND);
         update_btn.setCursor(Cursor.HAND);
         searchWithFilter_btn.setCursor(Cursor.HAND);
+                // set Permissions
+        // Set TextFiled Count Non Editable
+        trials_count_textF.setEditable(false);
+        cu_trials_count_textF.setEditable(false);
+        fo_trials_count_textF.setEditable(false);
+        try {
+            // Super Admin and Tecnical office Department Only
+            int role = UserContext.getCurrentUser().getRole();
+            if (role == 4 ||  UserContext.getCurrentUser().getDepartmentId() == 1) {
+                add_trial_btn.setVisible(true);
+                edit_column.setVisible(true);
+            } else {
+                add_trial_btn.setVisible(false);
+                edit_column.setVisible(false);
+            }
+
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "initialize Permission", ex);
+        }
 
         // Initialize ComboBoxes
         initializeComboBoxes();
+        // Add listener to supplier_combo to update supplier_country_combo when a supplier is selected
+        supplier_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldSupplier, newSupplier) -> {
+            updateSupplierCountries(newSupplier);
+        });
 
         // Load initial data
         loadData();
         updateTrialsCount();
-
-        // Update trials count
-       // updateTrialsCount();
 
         // Add listeners for real-time filtering
         addFilterListeners();
@@ -185,6 +206,8 @@ public class TrialsController implements Initializable {
         // Load data into ComboBoxes
         supplier_Comb.setItems(SupplierDAO.getAllSuppliers());
         supplier_Comb.setPromptText("Select Supplier");
+        supplier_country_Comb.setItems(SupplierCountryDAO.getAllSupplierCountries());
+        supplier_country_Comb.setPromptText("Select Supplier Country");
         matrial_Comb.setItems(MatrialDAO.getAllMatrials());
         matrial_Comb.setPromptText("Select Material");
         section_Comb.setItems(SectionDAO.getAllSections());
@@ -203,6 +226,20 @@ public class TrialsController implements Initializable {
             protected void updateItem(Supplier item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getSupplierName());
+            }
+        });
+        supplier_country_Comb.setCellFactory(param -> new ListCell<SupplierCountry>() {
+            @Override
+            protected void updateItem(SupplierCountry item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getCountryName());
+            }
+        });
+        supplier_country_Comb.setButtonCell(new ListCell<SupplierCountry>() {
+            @Override
+            protected void updateItem(SupplierCountry item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getCountryName());
             }
         });
 
@@ -235,6 +272,17 @@ public class TrialsController implements Initializable {
                 setText(empty || item == null ? null : item.getSectionName());
             }
         });
+    }
+    // Update supplier_country_combo with countries associated with the selected supplier
+    private void updateSupplierCountries(Supplier supplier) {
+        ObservableList<SupplierCountry> filteredCountries = FXCollections.observableArrayList();
+        if (supplier != null) {
+            // Get all countries associated with the selected supplier
+            filteredCountries = SupplierCountryDAO.getSupplierCountriesBySupplierId(supplier.getSupplierId());
+        }
+        supplier_country_Comb.setItems(filteredCountries);
+        supplier_country_Comb.getSelectionModel().clearSelection();
+
     }
 
     private void loadData() {
@@ -279,17 +327,74 @@ public class TrialsController implements Initializable {
             });
 
             // Configure files column with file icon
+//            files_column.setCellFactory(param -> new TableCell<>() {
+//              //  private final FontIcon fileIcon = new FontIcon("fa-file");
+//                private final FontIcon fileIcon = new FontIcon("fa-folder-plus");
+//               // HBox iconBox = new HBox(new FontIcon("fa-folder"), new FontIcon("fa-plus"));
+//                private final HBox container = new HBox(fileIcon);
+//
+//                {
+//                    fileIcon.setIconSize(14);
+//                    fileIcon.setFill(Color.web("#ecab29"));
+//                    fileIcon.setCursor(Cursor.HAND);
+//                    Tooltip.install(fileIcon, new Tooltip("Add/View File"));
+//
+//                    fileIcon.setOnMouseClicked(event -> {
+//                        Trial selectedTrial = getTableView().getItems().get(getIndex());
+//                        if (selectedTrial != null) {
+//                            int Trialid = selectedTrial.getTrialId();
+//                            String trialPurpose = selectedTrial.getTrialPurpose();
+//                            String departmentName = UserContext.getCurrentUser().getDepartmentName();
+//                            int departmentId = UserContext.getCurrentUser().getDepartmentId();
+//                            FileType fileType = FileTypeDAO.getFileTypeByDepartmentId(departmentId);
+//                           // String fileTypeName = fileType != null ? fileType.getFileTypeName() : null;
+//
+//                            WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3("/screens/AddFile.fxml", controller -> {
+//                                ((AddFileController) controller).initData(Trialid, trialPurpose, departmentName);
+//                            });
+//                        }
+//                    });
+//
+//                    container.setSpacing(0.7);
+//                    container.setStyle("-fx-alignment: center;");
+//                }
+//
+//                @Override
+//                protected void updateItem(String item, boolean empty) {
+//                    super.updateItem(item, empty);
+//                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+//                        setGraphic(null);
+//                    } else {
+//                        setGraphic(container);
+//                    }
+//                    setText(null);
+//                }
+//            });
             files_column.setCellFactory(param -> new TableCell<>() {
-                private final FontIcon fileIcon = new FontIcon("fa-file");
-                private final HBox container = new HBox(fileIcon);
+                private final FontIcon folderIcon = new FontIcon("fa-folder");
+                private final FontIcon plusIcon = new FontIcon("fa-plus");
+                private final HBox container = new HBox(folderIcon, plusIcon);
 
                 {
-                    fileIcon.setIconSize(14);
-                    fileIcon.setFill(Color.web("#ecab29"));
-                    fileIcon.setCursor(Cursor.HAND);
-                    Tooltip.install(fileIcon, new Tooltip("Add/View File"));
+                    // إعداد الشكل
+                    folderIcon.setIconSize(20);
+                    folderIcon.setFill(Color.web("#ecab29"));
+                    plusIcon.setIconSize(10); // أصغر قليلاً ليبدو داخل المجلد
+                    plusIcon.setFill(Color.web("#3b3b3b")); // رمادي غامق
+                   // plusIcon.setFill(Color.web("#2c7be5")); // أزرق أنيق
+                  //  plusIcon.setFill(Color.web("#ffffff")); //  ابيض
+                   // plusIcon.setFill(Color.web("#000000")); //  اسمر
 
-                    fileIcon.setOnMouseClicked(event -> {
+                    container.setSpacing(2); // تجعل الأيقونتين متداخلتين قليلاً لتبدو كرمز واحد
+                    container.setAlignment(Pos.CENTER); // توسيط الأيقونات داخل الخلية
+                    container.setCursor(Cursor.HAND);
+
+                    // نفس التولتيب
+                    Tooltip tooltip = new Tooltip("Add/View File");
+                    Tooltip.install(container, tooltip);
+
+                    // نفس الحدث عند الضغط على أي من الأيقونات
+                    EventHandler<MouseEvent> clickHandler = event -> {
                         Trial selectedTrial = getTableView().getItems().get(getIndex());
                         if (selectedTrial != null) {
                             int Trialid = selectedTrial.getTrialId();
@@ -297,44 +402,62 @@ public class TrialsController implements Initializable {
                             String departmentName = UserContext.getCurrentUser().getDepartmentName();
                             int departmentId = UserContext.getCurrentUser().getDepartmentId();
                             FileType fileType = FileTypeDAO.getFileTypeByDepartmentId(departmentId);
-                           // String fileTypeName = fileType != null ? fileType.getFileTypeName() : null;
 
                             WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3("/screens/AddFile.fxml", controller -> {
                                 ((AddFileController) controller).initData(Trialid, trialPurpose, departmentName);
                             });
                         }
-                    });
+                    };
 
-                    container.setSpacing(0.7);
-                    container.setStyle("-fx-alignment: center;");
+                    // تطبيق الحدث على  HBox
+                    container.setOnMouseClicked(clickHandler);
                 }
 
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(container);
-                    }
-                    setText(null);
-                }
+//                @Override
+//                protected void updateItem(String item, boolean empty) {
+//                    super.updateItem(item, empty);
+//                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+//                        setGraphic(null);
+//                    } else {
+//                        setGraphic(container);
+//                    }
+//                    setText(null);
+//                }
+//            });
+@Override
+protected void updateItem(String item, boolean empty) {
+    super.updateItem(item, empty);
+    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+        setGraphic(null);
+        setStyle("");
+    } else {
+        setGraphic(container);
+       // setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
+       // setStyle("-fx-background-color: #e5e5e5;"); // أو استخدم class من CSS
+     //   setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
+
+
+    }
+    setText(null);
+}
             });
 
-            // Configure edit column with edit and delete icons
+
+
+                // Configure edit column with edit and delete icons
             edit_column.setCellFactory(param -> new TableCell<Trial, String>() {
                 private final FontIcon editIcon = new FontIcon("fa-pencil-square");
-                private final FontIcon deleteIcon = new FontIcon("fa-trash");
+                private final FontIcon deleteIcon = new FontIcon("fas-trash");
                 private final HBox manageBtn = new HBox(editIcon, deleteIcon);
 
                 {
                     editIcon.setCursor(Cursor.HAND);
-                    editIcon.setIconSize(14);
+                    editIcon.setIconSize(16);
                     editIcon.setFill(Color.GREEN);
                     deleteIcon.setCursor(Cursor.HAND);
-                    deleteIcon.setIconSize(14);
+                    deleteIcon.setIconSize(13);
                     deleteIcon.setFill(Color.RED);
-                    manageBtn.setSpacing(0.7);
+                    manageBtn.setSpacing(2);
                     manageBtn.setAlignment(Pos.CENTER);
                     HBox.setMargin(editIcon, new javafx.geometry.Insets(1.7, 5, 1.7, 5));
                     HBox.setMargin(deleteIcon, new javafx.geometry.Insets(1.7, 5, 1.7, 5));
@@ -459,30 +582,32 @@ public class TrialsController implements Initializable {
 
     private void addFilterListeners() {
         // Real-time filtering for text fields
+        filter_trial_id_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
         filter_trial_purpose_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        filter_suplier_country_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
         filter_creation_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-
         // Real-time filtering for ComboBoxes
         section_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
         matrial_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
         supplier_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        supplier_country_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
     }
 
     private void filterTrials() {
-        String trialPurpose = filter_trial_purpose_textF.getText();
-        String supplierCountry = filter_suplier_country_textF.getText();
-        LocalDate creationDate = null;
-
-        // Parse creation date
+        String trialPurpose = filter_trial_purpose_textF.getText().toLowerCase();
+        Integer trialId = null;
         try {
-            if (!filter_creation_textF.getText().isEmpty()) {
-                creationDate = LocalDate.parse(filter_creation_textF.getText(), dateFormatter);
+            String trialIdText = filter_trial_id_textF.getText();
+            if (trialIdText != null && !trialIdText.trim().isEmpty()) {
+                trialId = Integer.parseInt(trialIdText.trim());
             }
-        } catch (DateTimeParseException e) {
-            // Invalid date format, ignore
-            creationDate = null;
+        } catch (NumberFormatException e) {
+            WindowUtils.ALERT("Error", "Please enter a valid Trial ID (numeric value)", WindowUtils.ALERT_ERROR);
+            filter_trial_id_textF.clear();
+            return;
         }
+
+        // Use as a string
+        String creationDatePart = filter_creation_textF.getText().toLowerCase();
 
         Integer sectionId = section_Comb.getSelectionModel().getSelectedItem() != null ?
                 section_Comb.getSelectionModel().getSelectedItem().getSectionId() : null;
@@ -490,23 +615,53 @@ public class TrialsController implements Initializable {
                 matrial_Comb.getSelectionModel().getSelectedItem().getMatrialId() : null;
         Integer supplierId = supplier_Comb.getSelectionModel().getSelectedItem() != null ?
                 supplier_Comb.getSelectionModel().getSelectedItem().getSupplierId() : null;
+        Integer supplierCountryId = supplier_country_Comb.getSelectionModel().getSelectedItem() != null ?
+                supplier_country_Comb.getSelectionModel().getSelectedItem().getSupCountryId() : null;
 
-        trialsList = TrialDAO.searchTrials(trialPurpose, sectionId, matrialId, supplierId, supplierCountry, creationDate);
-        trials_table_view.setItems(trialsList);
+        // Retrieve all trials (preferably from a cached unfiltered copy)
+        List<Trial> allTrials = TrialDAO.getAllTrials();
+        final Integer finalTrialId = trialId; // Create a final copy of trialId for lambda
+        List<Trial> filtered = allTrials.stream()
+                .filter(trial -> trial.getTrialPurpose().toLowerCase().contains(trialPurpose))
+                .filter(trial -> finalTrialId == null || trial.getTrialId() == finalTrialId) // Fixed filter
+                .filter(trial -> sectionId == null || trial.getSectionId() == sectionId)
+                .filter(trial -> matrialId == null || trial.getMatrialId() == matrialId)
+                .filter(trial -> supplierId == null || trial.getSupplierId() == supplierId)
+                .filter(trial -> supplierCountryId == null || trial.getSupCountryId() == supplierCountryId)
+                .filter(trial -> {
+                    if (creationDatePart.isEmpty()) return true;
+                    String formattedDate = trial.getCreationDate().format(dateFormatter).toLowerCase();
+                    return formattedDate.contains(creationDatePart);
+                })
+                .collect(Collectors.toList());
+
+        trialsList.setAll(filtered);
         updateTrialsCount();
     }
+    @FXML
+    void filterTrial_id_country(KeyEvent event) {
+        filterTrials();
+    }
+    @FXML
+    void filterTrialPurpose(KeyEvent event) {
+        filterTrials();
+    }
 
+    @FXML
+    void filterCreationDate(KeyEvent event) {
+        filterTrials();
+    }
 
     void clearHelp(){
         // Clear text fields
         filter_trial_purpose_textF.clear();
-        filter_suplier_country_textF.clear();
+        filter_trial_id_textF.clear();
         filter_creation_textF.clear();
-
         // Clear ComboBox selections
         section_Comb.getSelectionModel().clearSelection();
         matrial_Comb.getSelectionModel().clearSelection();
         supplier_Comb.getSelectionModel().clearSelection();
+        supplier_country_Comb.getSelectionModel().clearSelection();
 
         // Reload all trials
         loadData();
@@ -517,25 +672,6 @@ public class TrialsController implements Initializable {
     }
 
     @FXML
-    void filterCreationDate(KeyEvent event) {
-        filterTrials();
-    }
-
-    @FXML
-    void filterSuplierCountry(KeyEvent event) {
-        filterTrials();
-    }
-
-    @FXML
-    void filterTrialPurpose(KeyEvent event) {
-        filterTrials();
-    }
-
-//    @FXML
-//    void openAddTrial(ActionEvent event) {
-//        WindowUtils.OPEN_ADD_TRIAL_PAGE(false);
-//    }
-    @FXML
     void openAddTrial(ActionEvent event) {
         WindowUtils.OPEN_ADD_TRIAL_PAGE(false, this); // Pass this TrialsController instance
     }
@@ -544,12 +680,6 @@ public class TrialsController implements Initializable {
     void searchWithFilter(ActionEvent event) {
         filterTrials();
     }
-
-
-
-
-
-        // Other initialization code
 
     // Update the table view and related data
     @FXML
@@ -567,7 +697,6 @@ public class TrialsController implements Initializable {
         Platform.runLater(() -> {
             clearHelp();
             loadData();
-            System.out.println("Table items after loadData: " + trials_table_view.getItems());
             trials_table_view.refresh();
             updateTrialsCount();
         });

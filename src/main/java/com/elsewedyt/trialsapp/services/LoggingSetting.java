@@ -100,8 +100,12 @@ public class LoggingSetting {
                                     Alert alert = new Alert(Alert.AlertType.WARNING);
                                     alert.setTitle("Application Update");
                                     alert.setHeaderText("The application has been updated.");
-                                    alert.setContentText("يجب اغلاق التطبيق واعادة تشغيلة لوجود تحديث");
-                                    alert.showAndWait();
+                                    alert.setContentText("The application must be closed to apply the new version.");
+//                                    alert.setTitle("تحديث التطبيق");
+//                                    alert.setHeaderText("تم تحديث التطبيق.");
+//                                    alert.setContentText("يجب إغلاق التطبيق لتطبيق النسخة الجديدة.");
+//                                    alert.showAndWait();
+
                                 });
                             }
                         }

@@ -99,6 +99,50 @@ public class FileDAO {
 
         return list;
     }
+    // Get files by Department ID
+    public static ObservableList<File> getFilesByDepartmentId(int departmrntId) {
+        ObservableList<File> list = FXCollections.observableArrayList();
+        String query = """
+            SELECT f.file_id, f.creation_date, f.file_path, f.test_situation, f.trial_id, f.department_id, f.user_id, f.comment, f.file_type_id,
+                   t.trial_purpose, d.department_name, ft.file_type_name
+            FROM dbtrials.dbo.files f
+            LEFT JOIN dbtrials.dbo.trials t ON f.trial_id = t.trial_id
+            LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id
+            LEFT JOIN dbtrials.dbo.file_type ft ON f.file_type_id = ft.file_type_id
+            WHERE f.department_id = ?
+            ORDER BY f.file_id ASC
+        """;
+
+        try (Connection con = DbConnect.getConnect();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, departmrntId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    File file = new File();
+                    file.setFileId(rs.getInt("file_id"));
+                    Date sqlDate = rs.getDate("creation_date");
+                    file.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                    file.setFilePath(rs.getString("file_path"));
+                    file.setTestSituation(rs.getObject("test_situation") != null ? rs.getInt("test_situation") : null);
+                    file.setTrialId(rs.getObject("trial_id") != null ? rs.getInt("trial_id") : null);
+                    file.setDepartmentId(rs.getObject("department_id") != null ? rs.getInt("department_id") : null);
+                    file.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
+                    file.setComment(rs.getString("comment"));
+                    file.setFileTypeId(rs.getObject("file_type_id") != null ? rs.getInt("file_type_id") : null);
+                    file.setTrialPurpose(rs.getString("trial_purpose"));
+                    file.setDepartmentName(rs.getString("department_name"));
+                    file.setFileTypeName(rs.getString("file_type_name"));
+                    list.add(file);
+                }
+            }
+
+        } catch (Exception e) {
+            Logging.logExpWithMessage("ERROR", FileDAO.class.getName(), "getFilesByDepartmentId", e, "sql", query);
+        }
+
+        return list;
+    }
 
     // Insert a new file
     public static boolean insertFile(File file) {

@@ -347,8 +347,7 @@ public class ViewUsersController implements Initializable {
     void openAddUserPage(ActionEvent event) {
         CLOSE(event);
        OPEN_ADD_USER_PAGE();
-        WindowUtils.ALERT("Info", "User Name Prefere to bo the same Domain User (Computer)", WindowUtils.ALERT_INFORMATION);
-
+        WindowUtils.ALERT("Info", "Use the employee’s Windows (Domain) username in the 'User Name' field for better access.", WindowUtils.ALERT_INFORMATION);
     }
 
 }

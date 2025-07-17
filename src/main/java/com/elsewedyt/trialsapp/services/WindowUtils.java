@@ -166,11 +166,13 @@ public class WindowUtils {
     public static final String VIEW_USER_PAGE = "/screens/ViewUsers.fxml";
     public static final String ADD_USER_PAGE = "/screens/AddUser.fxml";
     public static final String PREPARE_DATA = "/screens/PrepareData.fxml";
-    public static final String ADD_COUNTRY = "/screens/AddCountry.fxml";
+    public static final String DEPARTMENT_SECTION = "/screens/Department_Section.fxml";
     public static final String TRIALS_PAGE = "/screens/Trials.fxml";
     public static final String ADD_TRIAL_PAGE = "/screens/AddTrial.fxml";
     public static final String DASHBOARD_PAGE = "/screens/Dashboard.fxml";
-
+    public static final String MEW_DASHBOARD_PAGE = "/screens/NewDashboard.fxml";
+    public static final String OPEN_FILES_PAGE = "/screens/OpenFiles.fxml";
+    public static final String DASHBOARD2_PAGE = "/screens/Dashboard2.fxml";
 
 
 
@@ -233,6 +235,16 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_DASHBOARD_PAGE", ex);
         }
     }
+    public static void OPEN_NEW_DASHBOARD_PAGE() {
+        try {
+            OPEN_WINDOW_FULL_SCREEN(
+                    MEW_DASHBOARD_PAGE,
+                    () -> OPEN_MAIN_PAGE()
+            );
+        } catch (Exception ex) {
+            logException(ERROR, WindowUtils.class.getName(), "OPEN_DASHBOARD_PAGE", ex);
+        }
+    }
     public static void OPEN_PREPARE_DATA_PAGE() {
         try {
             OPEN_WINDOW_FULL_SCREEN(
@@ -243,14 +255,14 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_PREPARE_DATA_PAGE", ex);
         }
     }
-    public static void OPEN_ADD_COUNTRY_PAGE() {
+    public static void OPEN_DEPARTMENT_SECTION_PAGE() {
         try {
             OPEN_WINDOW_NOT_RESIZABLE(
-                    ADD_COUNTRY,
+                    DEPARTMENT_SECTION,
                     () -> OPEN_PREPARE_DATA_PAGE()
             );
         } catch (Exception ex) {
-            logException(ERROR, WindowUtils.class.getName(), "OPEN_ADD_COUNTRY_PAGE", ex);
+            logException(ERROR, WindowUtils.class.getName(), "OPEN_DEPARTMENT_SECTION_PAGE", ex);
         }
     }
 
@@ -331,9 +343,6 @@ public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose, TrialsCon
 
 
 
-
-
-
     public static void OPEN_EDIT_USER_PAGE(int userId) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/screens/AddUser.fxml"));
@@ -352,7 +361,6 @@ public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose, TrialsCon
             logException(ERROR, WindowUtils.class.getName(), "OPEN_ADD_USER_PAGE", ex);
         }
     }
-
 
 
    // UserRole Convert value Int to String and Reverse
@@ -423,6 +431,5 @@ public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose, TrialsCon
 
 
 
-
-}
+ }
 

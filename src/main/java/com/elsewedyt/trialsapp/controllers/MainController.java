@@ -82,22 +82,8 @@ public class MainController implements Initializable {
         trials_btn.setCursor(Cursor.HAND);
         dashboard_btn.setCursor(Cursor.HAND);
 
-
-//        // set Permissions
-//        try {
-//            // Super Admin and Department Manager
-//            int role = UserContext.getCurrentUser().getRole();
-//            if (role == 4 || role == 3) {
-//                users_btn.setVisible(true);
-//            } else {
-//                users_btn.setVisible(false);
-//            }
-//
-//        } catch (Exception ex) {
-//            Logging.logException("ERROR", this.getClass().getName(), "initialize Permission", ex);
-//        }
-
     }
+
 
     @FXML
     void openViewUsers(ActionEvent event) {
@@ -109,7 +95,7 @@ public class MainController implements Initializable {
                 CLOSE(event);
                 OPEN_VIEW_USERS_PAGE();
             } else {
-                WindowUtils.ALERT("ERR", "You are not authorized to open this page", WindowUtils.ALERT_WARNING);
+                WindowUtils.ALERT("Warning", "You are not authorized to access this page.", WindowUtils.ALERT_WARNING);
                 return;
             }
         }catch (Exception ex){
@@ -117,26 +103,28 @@ public class MainController implements Initializable {
         }
 
     }
-    @FXML
-    void openPrepareData(ActionEvent event) {
-        // set Permissions
-        try {
-            // Super Admin and Department Manager
-            int role = UserContext.getCurrentUser().getRole();
-            if (role == 4 || role == 3) {
-                CLOSE(event);
-                OPEN_PREPARE_DATA_PAGE();
-            } else {
-       WindowUtils.ALERT("ERR", "You are not authorized to open this page", WindowUtils.ALERT_WARNING);
-       return;
-            }
-        }catch (Exception ex){
-            Logging.logException("ERROR", this.getClass().getName(), "openPrepareData Permission", ex);
+//    @FXML
+//    void openPrepareData(ActionEvent event) {
+//        // set Permissions
+//        try {
+//            // Super Admin and Department Manager
+//            int role = UserContext.getCurrentUser().getRole();
+//            if (role == 4 || UserContext.getCurrentUser().getDepartmentId() == 1) {
+//                CLOSE(event);
+//                OPEN_PREPARE_DATA_PAGE();
+//            } else {
+//                WindowUtils.ALERT("Warning", "You are not authorized to access this page.", WindowUtils.ALERT_WARNING);
+//       return;
+//            }
+//        }catch (Exception ex){
+//            Logging.logException("ERROR", this.getClass().getName(), "openPrepareData Permission", ex);
+//        }
+
+        @FXML
+        void openPrepareData(ActionEvent event) {
+                    CLOSE(event);
+                    OPEN_PREPARE_DATA_PAGE();
         }
-
-
-
-    }
     @FXML
     void openTrials(ActionEvent event) {
         CLOSE(event);
@@ -145,7 +133,8 @@ public class MainController implements Initializable {
     @FXML
     void openDashboard(ActionEvent event) {
       CLOSE(event);
-      OPEN_DASHBOARD_PAGE();
+      //OPEN_DASHBOARD_PAGE();
+        OPEN_NEW_DASHBOARD_PAGE();
     }
 
 

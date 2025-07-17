@@ -23,7 +23,7 @@ public class TrialDAO {
             LEFT JOIN dbtrials.dbo.suppliers sp ON t.supplier_id = sp.supplier_id
             LEFT JOIN dbtrials.dbo.supplier_country sc ON t.sup_country_id = sc.sup_country_id
             LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id
-            ORDER BY t.trial_id ASC
+            ORDER BY t.trial_id DESC
         """;
 
         try (Connection con = DbConnect.getConnect();

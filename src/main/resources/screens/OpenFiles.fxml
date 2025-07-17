@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="703.0" prefWidth="1392.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.OpenFilesController">
+   <children>
+      <Label fx:id="View_Department_files_lbl" alignment="CENTER" layoutX="643.0" layoutY="3.8" prefHeight="24.0" prefWidth="114.0" styleClass="input" text="View-Files" textFill="#00727d" AnchorPane.topAnchor="3.8">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="table_view" layoutX="22.0" layoutY="73.0" prefHeight="556.0" prefWidth="1118.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+         <columns>
+            <TableColumn fx:id="file_id_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="F-ID" />
+            <TableColumn fx:id="trial_id_column" maxWidth="1000.0" minWidth="4.0" prefWidth="4.0" text="Trial-ID" />
+            <TableColumn fx:id="department_name_column" maxWidth="2000.0" minWidth="8.0" prefWidth="8.0" text="Department" />
+            <TableColumn fx:id="file_type_name_column" maxWidth="2000.0" minWidth="9.0" prefWidth="9.0" text="File Type" />
+            <TableColumn fx:id="craetion_file_date_column" maxWidth="1000.0" minWidth="8.0" prefWidth="8.0" text="File Creation Date" />
+            <TableColumn fx:id="full_name_column" maxWidth="2000.0" prefWidth="10.0" text="User" />
+            <TableColumn fx:id="test_situation_column" maxWidth="1000.0" minWidth="7.0" prefWidth="7.0" text="Test Situation" />
+            <TableColumn fx:id="comment_column" maxWidth="2000.0" prefWidth="20.0" text="Comment" />
+            <TableColumn fx:id="open_file_column" maxWidth="2000.0" minWidth="13.0" prefWidth="13.0" text="Open File" />
+            <TableColumn fx:id="download_file_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="Dow" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

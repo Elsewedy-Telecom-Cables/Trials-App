@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountryDAO {
-
+    public static String lastErrorMessage = null;
     // INSERT
     public static boolean insertCountry(Country country) {
         String sql = "INSERT INTO dbtrials.dbo.countries (country_name) VALUES (?)";
@@ -23,8 +23,8 @@ public class CountryDAO {
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", CountryDAO.class.getName(), "insertCountry", e, "sql", sql);
-
             return false;
         }
     }

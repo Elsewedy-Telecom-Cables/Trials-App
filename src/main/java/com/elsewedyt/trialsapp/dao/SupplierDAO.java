@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SupplierDAO {
+    public static String lastErrorMessage = null;
 
     // Get all suppliers
     public static ObservableList<Supplier> getAllSuppliers() {
@@ -43,6 +44,7 @@ public class SupplierDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", SupplierDAO.class.getName(), "insertSupplier", e, "sql", query);
         }
 

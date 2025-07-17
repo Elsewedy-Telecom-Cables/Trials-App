@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SectionDAO {
+    public static String lastErrorMessage = null;
 
     // Get all sections
     public static ObservableList<Section> getAllSections() {
@@ -43,6 +44,7 @@ public class SectionDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", SectionDAO.class.getName(), "insertSection", e, "sql", query);
         }
 

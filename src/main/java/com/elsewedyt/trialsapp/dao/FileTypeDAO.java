@@ -9,37 +9,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class FileTypeDAO {
-
-    // Get all file types (with department name)
-    public static ObservableList<FileType> getAllFileTypes() {
-        ObservableList<FileType> list = FXCollections.observableArrayList();
-        String query = """
-                SELECT f.file_type_id, f.file_type_name, f.department_id, d.department_name
-                FROM dbtrials.dbo.file_type f
-                LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id
-                 ORDER BY f.department_id ASC , f.file_type_id ASC
-                """;
-
-        try (Connection con = DbConnect.getConnect();
-             PreparedStatement ps = con.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                FileType f = new FileType(
-                        rs.getInt("file_type_id"),
-                        rs.getString("file_type_name"),
-                        rs.getInt("department_id"),
-                        rs.getString("department_name")
-                );
-                list.add(f);
-            }
-
-        } catch (Exception e) {
-            Logging.logExpWithMessage("ERROR", FileTypeDAO.class.getName(), "getAllFileTypes", e, "sql", query);
-        }
-
-        return list;
-    }
+    public static String lastErrorMessage = null;
 
     // Insert
     public static boolean insertFileType(FileType fileType) {
@@ -53,6 +23,7 @@ public class FileTypeDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", FileTypeDAO.class.getName(), "insertFileType", e, "sql", query);
         }
 
@@ -73,6 +44,7 @@ public class FileTypeDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", FileTypeDAO.class.getName(), "updateFileType", e, "sql", query);
         }
 
@@ -125,6 +97,37 @@ public class FileTypeDAO {
         }
 
         return null;
+    }
+
+    // Get all file types (with department name)
+    public static ObservableList<FileType> getAllFileTypes() {
+        ObservableList<FileType> list = FXCollections.observableArrayList();
+        String query = """
+                SELECT f.file_type_id, f.file_type_name, f.department_id, d.department_name
+                FROM dbtrials.dbo.file_type f
+                LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id
+                 ORDER BY f.department_id ASC , f.file_type_id ASC
+                """;
+
+        try (Connection con = DbConnect.getConnect();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                FileType f = new FileType(
+                        rs.getInt("file_type_id"),
+                        rs.getString("file_type_name"),
+                        rs.getInt("department_id"),
+                        rs.getString("department_name")
+                );
+                list.add(f);
+            }
+
+        } catch (Exception e) {
+            Logging.logExpWithMessage("ERROR", FileTypeDAO.class.getName(), "getAllFileTypes", e, "sql", query);
+        }
+
+        return list;
     }
     public static FileType getFileTypeByDepartmentId(int departmentId) {
         String query = """

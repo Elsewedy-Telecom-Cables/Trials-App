@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DepartmentDAO {
+    public static String lastErrorMessage = null;
     // Get all departments
     public static ObservableList<Department> getAllDepartments() {
         ObservableList<Department> list = FXCollections.observableArrayList();
@@ -43,6 +44,7 @@ public class DepartmentDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
+            lastErrorMessage = e.getMessage(); // حفظ نص الخطأ
             Logging.logExpWithMessage("ERROR", DepartmentDAO.class.getName(), "insertDepartment", e, "sql", query);
         }
         return false;
