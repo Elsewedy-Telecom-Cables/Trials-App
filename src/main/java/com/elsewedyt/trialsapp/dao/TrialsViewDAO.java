@@ -8,10 +8,7 @@ import com.elsewedyt.trialsapp.models.TrialsView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 public class TrialsViewDAO {
 
@@ -43,8 +40,8 @@ public class TrialsViewDAO {
                 TrialsView view = new TrialsView();
                 view.setTrialId(rs.getInt("trial_id"));
                 view.setTrialPurpose(rs.getString("trial_purpose"));
-                view.setTrialCreationDate(rs.getDate("trial_creation_date") != null ?
-                        rs.getDate("trial_creation_date").toLocalDate() : null);
+                Timestamp ts = rs.getTimestamp("trial_creation_date");
+                view.setTrialCreationDate(ts != null ? ts.toLocalDateTime() : null);
                 view.setTrialNotes(rs.getString("trial_notes"));
                 view.setSectionName(rs.getString("section_name"));
                 view.setMaterialName(rs.getString("matrial_name"));
@@ -55,8 +52,10 @@ public class TrialsViewDAO {
                 view.setFileTypeName(rs.getString("file_type_name"));
                 view.setTestSituation(TrialsView.convertTestSituationToString(rs.getObject("test_situation", Integer.class)));
                 view.setComment(rs.getString("comment"));
-                view.setFileCreationDate(rs.getDate("file_creation_date") != null ?
-                        rs.getDate("file_creation_date").toLocalDate() : null);
+                Timestamp fileTs = rs.getTimestamp("file_creation_date");
+                view.setFileCreationDate(fileTs != null ? fileTs.toLocalDateTime() : null);
+
+
                 view.setFilePath(rs.getString("file_path"));
                 trialsViewList.add(view);
             }
@@ -158,8 +157,8 @@ public class TrialsViewDAO {
                 TrialsView view = new TrialsView();
                 view.setTrialId(rs.getInt("trial_id"));
                 view.setTrialPurpose(rs.getString("trial_purpose"));
-                view.setTrialCreationDate(rs.getDate("trial_creation_date") != null ?
-                        rs.getDate("trial_creation_date").toLocalDate() : null);
+                Timestamp ts = rs.getTimestamp("trial_creation_date");
+                view.setTrialCreationDate(ts != null ? ts.toLocalDateTime() : null);
                 view.setTrialNotes(rs.getString("trial_notes"));
                 view.setSectionName(rs.getString("section_name"));
                 view.setMaterialName(rs.getString("matrial_name"));
@@ -170,8 +169,8 @@ public class TrialsViewDAO {
                 view.setFileTypeName(rs.getString("file_type_name"));
                 view.setTestSituation(TrialsView.convertTestSituationToString(rs.getObject("test_situation", Integer.class)));
                 view.setComment(rs.getString("comment"));
-                view.setFileCreationDate(rs.getDate("file_creation_date") != null ?
-                        rs.getDate("file_creation_date").toLocalDate() : null);
+                Timestamp fileTs = rs.getTimestamp("file_creation_date");
+                view.setFileCreationDate(fileTs != null ? fileTs.toLocalDateTime() : null);
                 view.setFilePath(rs.getString("file_path"));
                 trialsViewList.add(view);
             }

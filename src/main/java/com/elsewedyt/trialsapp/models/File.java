@@ -1,12 +1,13 @@
 package com.elsewedyt.trialsapp.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class File {
     // Fields from files table
     private int fileId;
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
     private String filePath;
     private Integer testSituation;
     private Integer trialId;
@@ -32,7 +33,7 @@ public class File {
     }
 
     // Constructor with essential fields
-    public File(LocalDate creationDate, String filePath, Integer testSituation, Integer trialId, Integer departmentId, Integer userId, String comment, Integer fileTypeId) {
+    public File(LocalDateTime  creationDate, String filePath, Integer testSituation, Integer trialId, Integer departmentId, Integer userId, String comment, Integer fileTypeId) {
         this.creationDate = creationDate;
         this.filePath = filePath;
         this.testSituation = testSituation;
@@ -44,7 +45,7 @@ public class File {
     }
 
     // Full constructor including related objects and names
-    public File(int fileId, LocalDate creationDate, String filePath, Integer testSituation, Integer trialId, Integer departmentId, Integer userId, String comment, Integer fileTypeId, Trial trial, Department department, User user, FileType fileType) {
+    public File(int fileId, LocalDateTime  creationDate, String filePath, Integer testSituation, Integer trialId, Integer departmentId, Integer userId, String comment, Integer fileTypeId, Trial trial, Department department, User user, FileType fileType) {
         this.fileId = fileId;
         this.creationDate = creationDate;
         this.filePath = filePath;
@@ -74,11 +75,11 @@ public class File {
         this.fileId = fileId;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime  getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime  creationDate) {
         this.creationDate = creationDate;
     }
 

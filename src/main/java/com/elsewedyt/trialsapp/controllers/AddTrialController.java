@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -148,7 +149,21 @@ public class AddTrialController implements Initializable {
             // Get and validate required fields
             String notes = notes_textArea.getText();
             String trialPurpose = trial_purpose_textArea.getText();
-            LocalDate creationDate = creationDate_datePiker.getValue() != null ? creationDate_datePiker.getValue() : LocalDate.now();
+
+            LocalDate selectedDate = creationDate_datePiker.getValue();
+            LocalDateTime creationDate;
+
+            if (selectedDate != null) {
+                if (selectedDate.equals(LocalDate.now())) {
+                    creationDate = LocalDateTime.now(); // سجل الوقت الحالي إذا التاريخ هو اليوم
+                } else {
+                    creationDate = selectedDate.atStartOfDay(); // تاريخ مختلف: الساعة 00:00
+                }
+            } else {
+                creationDate = LocalDateTime.now(); // لم يتم اختيار أي تاريخ
+            }
+
+
 
             Section selectedSection = section_combo.getValue();
             Matrial selectedMatrial = matrial_combo.getValue();
@@ -214,8 +229,18 @@ public class AddTrialController implements Initializable {
         try {
             String notes = notes_textArea.getText();
             String trialPurpose = trial_purpose_textArea.getText();
-            LocalDate creationDate = creationDate_datePiker.getValue() != null ? creationDate_datePiker.getValue() : LocalDate.now();
+            LocalDate selectedDate = creationDate_datePiker.getValue();
+            LocalDateTime creationDate;
 
+            if (selectedDate != null) {
+                if (selectedDate.equals(LocalDate.now())) {
+                    creationDate = LocalDateTime.now(); // تاريخ اليوم → وقت فعلي
+                } else {
+                    creationDate = selectedDate.atStartOfDay(); // تاريخ مختلف → 12:00 AM
+                }
+            } else {
+                creationDate = LocalDateTime.now(); // لم يتم اختيار تاريخ
+            }
             Section selectedSection = section_combo.getValue();
             Matrial selectedMatrial = matrial_combo.getValue();
             Supplier selectedSupplier = supplier_combo.getValue();
@@ -267,7 +292,9 @@ public class AddTrialController implements Initializable {
             CURRENT_TRIAL_ID = trialId;
             Trial trial = TrialDAO.getTrialById(trialId);
 
-            creationDate_datePiker.setValue(trial.getCreationDate());
+            LocalDateTime creationDateTime = trial.getCreationDate();
+            creationDate_datePiker.setValue(creationDateTime != null ? creationDateTime.toLocalDate() : null);
+
             notes_textArea.setText(trial.getNotes());
             trial_purpose_textArea.setText(trial.getTrialPurpose());
             section_combo.getSelectionModel().select(SectionDAO.getSectionById(trial.getSectionId()));

@@ -5,11 +5,10 @@ import com.elsewedyt.trialsapp.logging.Logging;
 import com.elsewedyt.trialsapp.models.File;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Date;
+
+import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class FileDAO {
 
@@ -33,8 +32,8 @@ public class FileDAO {
             while (rs.next()) {
                 File file = new File();
                 file.setFileId(rs.getInt("file_id"));
-                Date sqlDate = rs.getDate("creation_date");
-                file.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                Timestamp timestamp = rs.getTimestamp("creation_date");
+                file.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                 file.setFilePath(rs.getString("file_path"));
                 file.setTestSituation(rs.getObject("test_situation") != null ? rs.getInt("test_situation") : null);
                 file.setTrialId(rs.getObject("trial_id") != null ? rs.getInt("trial_id") : null);
@@ -77,8 +76,8 @@ public class FileDAO {
                 while (rs.next()) {
                     File file = new File();
                     file.setFileId(rs.getInt("file_id"));
-                    Date sqlDate = rs.getDate("creation_date");
-                    file.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                    Timestamp timestamp = rs.getTimestamp("creation_date");
+                    file.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     file.setFilePath(rs.getString("file_path"));
                     file.setTestSituation(rs.getObject("test_situation") != null ? rs.getInt("test_situation") : null);
                     file.setTrialId(rs.getObject("trial_id") != null ? rs.getInt("trial_id") : null);
@@ -121,8 +120,8 @@ public class FileDAO {
                 while (rs.next()) {
                     File file = new File();
                     file.setFileId(rs.getInt("file_id"));
-                    Date sqlDate = rs.getDate("creation_date");
-                    file.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                    Timestamp timestamp = rs.getTimestamp("creation_date");
+                    file.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     file.setFilePath(rs.getString("file_path"));
                     file.setTestSituation(rs.getObject("test_situation") != null ? rs.getInt("test_situation") : null);
                     file.setTrialId(rs.getObject("trial_id") != null ? rs.getInt("trial_id") : null);
@@ -153,9 +152,8 @@ public class FileDAO {
 
         try (Connection con = DbConnect.getConnect();
              PreparedStatement ps = con.prepareStatement(query)) {
-
-            LocalDate creationDate = file.getCreationDate() != null ? file.getCreationDate() : LocalDate.now();
-            ps.setDate(1, Date.valueOf(creationDate));
+            LocalDateTime creationDate = file.getCreationDate() != null ? file.getCreationDate() : LocalDateTime.now();
+            ps.setTimestamp(1, Timestamp.valueOf(creationDate));
             ps.setString(2, file.getFilePath());
             ps.setObject(3, file.getTestSituation());
             ps.setObject(4, file.getTrialId());
@@ -183,8 +181,8 @@ public class FileDAO {
         try (Connection con = DbConnect.getConnect();
              PreparedStatement ps = con.prepareStatement(query)) {
 
-            LocalDate creationDate = file.getCreationDate() != null ? file.getCreationDate() : LocalDate.now();
-            ps.setDate(1, Date.valueOf(creationDate));
+            LocalDateTime creationDate = file.getCreationDate() != null ? file.getCreationDate() : LocalDateTime.now();
+            ps.setTimestamp(1, Timestamp.valueOf(creationDate));
             ps.setString(2, file.getFilePath());
             ps.setObject(3, file.getTestSituation());
             ps.setObject(4, file.getTrialId());
@@ -241,8 +239,8 @@ public class FileDAO {
                     file = new File();
                     file.setFileId(rs.getInt("file_id"));
                     Date sqlDate = rs.getDate("creation_date");
-                    file.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
-                    file.setFilePath(rs.getString("file_path"));
+                    Timestamp timestamp = rs.getTimestamp("creation_date");
+                    file.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     file.setTestSituation(rs.getObject("test_situation") != null ? rs.getInt("test_situation") : null);
                     file.setTrialId(rs.getObject("trial_id") != null ? rs.getInt("trial_id") : null);
                     file.setDepartmentId(rs.getObject("department_id") != null ? rs.getInt("department_id") : null);
@@ -282,8 +280,8 @@ public class FileDAO {
                 if (rs.next()) {
                     file = new File();
                     file.setFileId(rs.getInt("file_id"));
-                    Date sqlDate = rs.getDate("creation_date");
-                    file.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                    Timestamp timestamp = rs.getTimestamp("creation_date");
+                    file.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     file.setFilePath(rs.getString("file_path"));
                     file.setTestSituation(rs.getObject("test_situation") != null ? rs.getInt("test_situation") : null);
                     file.setTrialId(rs.getObject("trial_id") != null ? rs.getInt("trial_id") : null);

@@ -292,7 +292,7 @@
             <TableColumn fx:id="no_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="No" />
             <TableColumn fx:id="trial_id_column" maxWidth="1000.0" minWidth="4.0" prefWidth="4.0" text="ID" />
             <TableColumn fx:id="trial_purpose_column" prefWidth="20.0" text="Trial Purpose" />
-            <TableColumn fx:id="trial_creation_date_column" minWidth="8.0" prefWidth="8.0" text="Trail C-Date" />
+            <TableColumn fx:id="trial_creation_date_column" minWidth="12.0" prefWidth="12.0" text="Trail Creation Date" />
             <TableColumn fx:id="section_column" minWidth="6.0" prefWidth="6.0" text="Section" />
             <TableColumn fx:id="matrial_name_column" minWidth="7.0" prefWidth="7.0" text="Matrial" />
             <TableColumn fx:id="supplier_name_column" prefWidth="12.0" text="Supplier" />

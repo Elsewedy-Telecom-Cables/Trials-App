@@ -73,7 +73,9 @@ public class NewDashboardController implements Initializable {
     @FXML private TableColumn<NewTrialsView, String> qualityControlFilePath_column;
 
     private ObservableList<NewTrialsView> trialsViewList;
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+   // private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+   private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
+
     private static String downloadPath = null;
 
     @Override
@@ -265,10 +267,12 @@ public class NewDashboardController implements Initializable {
         );
 
         String columnStyle = "-fx-alignment: CENTER; -fx-font-size: 12px; -fx-font-weight: bold;";
+        String columnStyle2 = "-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;";
+        String columnStyle3 = "-fx-alignment: CENTER; -fx-font-size: 10px; -fx-font-weight: bold;";
         trial_id_column.setStyle(columnStyle);
-        trial_purpose_column.setStyle(columnStyle);
-        trial_creation_date_column.setStyle(columnStyle);
-        trial_notes_column.setStyle(columnStyle);
+        trial_purpose_column.setStyle(columnStyle2);
+        trial_creation_date_column.setStyle(columnStyle2);
+        trial_notes_column.setStyle(columnStyle2);
         section_column.setStyle(columnStyle);
         matrial_name_column.setStyle(columnStyle);
         supplier_name_column.setStyle(columnStyle);

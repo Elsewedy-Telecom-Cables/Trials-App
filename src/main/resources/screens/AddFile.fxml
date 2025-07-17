@@ -22,11 +22,11 @@
           <TableColumn fx:id="trial_purpose_column" maxWidth="3000.0" minWidth="20.0" prefWidth="10.0" text="Trial Purpose" />
             <TableColumn fx:id="department_name_column" maxWidth="2000.0" prefWidth="20.0" text="Department" />
             <TableColumn fx:id="file_type_name_column" maxWidth="2000.0" prefWidth="17.0" text="File Type" />
-            <TableColumn fx:id="upload_file_column" minWidth="7.0" prefWidth="7.0" text="Upload" />
-            <TableColumn fx:id="upload_file_date_column" maxWidth="1000.0" prefWidth="14.0" text="Creation-Date" />
+            <TableColumn fx:id="upload_file_column" minWidth="8.0" prefWidth="8.0" text="Upload" />
+            <TableColumn fx:id="upload_file_date_column" maxWidth="1000.0" minWidth="19.0" prefWidth="19.0" text="File Creation Date" />
             <TableColumn fx:id="test_situation_column" maxWidth="1000.0" prefWidth="40.0" text="Test Situation" />
             <TableColumn fx:id="comment_column" maxWidth="2000.0" prefWidth="25.0" text="Comment" />
-            <TableColumn fx:id="open_file_column" maxWidth="2000.0" prefWidth="40.0" text="Open File" />
+            <TableColumn fx:id="open_file_column" maxWidth="2000.0" minWidth="35.0" prefWidth="35.0" text="Open File" />
             <TableColumn fx:id="download_file_column" maxWidth="1000.0" minWidth="5.0" prefWidth="5.0" text="Dow" />
             <TableColumn fx:id="delete_file_column" maxWidth="1000.0" minWidth="5.0" prefWidth="5.0" text="D" />
         </columns>

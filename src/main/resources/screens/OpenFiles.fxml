@@ -19,7 +19,7 @@
             <TableColumn fx:id="trial_id_column" maxWidth="1000.0" minWidth="4.0" prefWidth="4.0" text="Trial-ID" />
             <TableColumn fx:id="department_name_column" maxWidth="2000.0" minWidth="8.0" prefWidth="8.0" text="Department" />
             <TableColumn fx:id="file_type_name_column" maxWidth="2000.0" minWidth="9.0" prefWidth="9.0" text="File Type" />
-            <TableColumn fx:id="craetion_file_date_column" maxWidth="1000.0" minWidth="8.0" prefWidth="8.0" text="File Creation Date" />
+            <TableColumn fx:id="craetion_file_date_column" maxWidth="1000.0" prefWidth="10.0" text="File Creation Date" />
             <TableColumn fx:id="full_name_column" maxWidth="2000.0" prefWidth="10.0" text="User" />
             <TableColumn fx:id="test_situation_column" maxWidth="1000.0" minWidth="7.0" prefWidth="7.0" text="Test Situation" />
             <TableColumn fx:id="comment_column" maxWidth="2000.0" prefWidth="20.0" text="Comment" />

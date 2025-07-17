@@ -63,7 +63,9 @@ public class OpenFilesController implements Initializable {
     private String filePath;
     private static final String SERVER_UPLOAD_PATH = "\\\\ETCSVR\\TrialsUpload\\";
     private static String selectedDownloadPath = null; // Store download path for the session
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    //private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -122,7 +124,7 @@ public class OpenFilesController implements Initializable {
                 new SimpleStringProperty(cellData.getValue().getFileCreationDate() != null
                         ? cellData.getValue().getFileCreationDate().format(dateFormatter)
                         : ""));
-        craetion_file_date_column.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px; -fx-font-weight: bold;");
+        craetion_file_date_column.setStyle("-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;");
 
         // Test Situation Column with colored text
         test_situation_column.setCellFactory(column -> new TableCell<>() {

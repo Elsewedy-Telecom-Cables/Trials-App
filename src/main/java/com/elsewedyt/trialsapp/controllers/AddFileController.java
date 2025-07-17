@@ -559,6 +559,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -602,6 +603,7 @@ public class AddFileController implements Initializable {
     private String departmentName;
     private static final String SERVER_UPLOAD_PATH = "\\\\ETCSVR\\TrialsUpload\\";
     private static String selectedDownloadPath = null; // Store download path for the session
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
 
     // Initialize the controller
     @Override
@@ -671,9 +673,12 @@ public class AddFileController implements Initializable {
         department_name_column.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
         file_type_name_column.setCellValueFactory(new PropertyValueFactory<>("fileTypeName"));
         upload_file_date_column.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getCreationDate() != null
-                        ? cellData.getValue().getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-                        : ""));
+                new SimpleStringProperty(
+                        cellData.getValue().getCreationDate() != null
+                                ? cellData.getValue().getCreationDate().format(dateFormatter)
+                                : ""
+                )
+        );
         upload_file_date_column.setStyle("-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;");
 
         // Test Situation Column with CheckBoxes
@@ -916,7 +921,7 @@ public class AddFileController implements Initializable {
 
                 if (dest.exists()) {
                     fileRecord.setFilePath(uniqueName);
-                    fileRecord.setCreationDate(LocalDate.now());
+                    fileRecord.setCreationDate(LocalDateTime.now());
                     int index = fileList.indexOf(fileRecord);
                     if (fileRecord.getFileId() == 0) {
                         // Insert file and retrieve fileId using filePath

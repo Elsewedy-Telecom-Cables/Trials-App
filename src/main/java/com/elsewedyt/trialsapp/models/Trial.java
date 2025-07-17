@@ -1,6 +1,7 @@
 package com.elsewedyt.trialsapp.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Trial {
@@ -12,7 +13,7 @@ public class Trial {
     private Integer supplierId;
     private Integer supCountryId;
     private Integer userId;
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
     private String notes;
 
     // Related objects for foreign key relationships
@@ -33,7 +34,7 @@ public class Trial {
     }
 
     // Constructor with essential fields
-    public Trial(String trialPurpose, Integer sectionId, Integer matrialId, Integer supplierId, Integer supCountryId, Integer userId, LocalDate creationDate, String notes) {
+    public Trial(String trialPurpose, Integer sectionId, Integer matrialId, Integer supplierId, Integer supCountryId, Integer userId, LocalDateTime  creationDate, String notes) {
         this.trialPurpose = trialPurpose;
         this.sectionId = sectionId;
         this.matrialId = matrialId;
@@ -45,7 +46,7 @@ public class Trial {
     }
 
     // Full constructor including related objects and names
-    public Trial(int trialId, String trialPurpose, Integer sectionId, Integer matrialId, Integer supplierId, Integer supCountryId, Integer userId, LocalDate creationDate, String notes, Section section, Matrial matrial, Supplier supplier, SupplierCountry supplierCountry, User user) {
+    public Trial(int trialId, String trialPurpose, Integer sectionId, Integer matrialId, Integer supplierId, Integer supCountryId, Integer userId, LocalDateTime  creationDate, String notes, Section section, Matrial matrial, Supplier supplier, SupplierCountry supplierCountry, User user) {
         this.trialId = trialId;
         this.trialPurpose = trialPurpose;
         this.sectionId = sectionId;
@@ -124,11 +125,11 @@ public class Trial {
         this.userId = userId;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime  getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime  creationDate) {
         this.creationDate = creationDate;
     }
 

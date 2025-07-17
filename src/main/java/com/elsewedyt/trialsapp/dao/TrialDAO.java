@@ -5,11 +5,10 @@ import com.elsewedyt.trialsapp.logging.Logging;
 import com.elsewedyt.trialsapp.models.Trial;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Date;
+
+import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TrialDAO {
     public static ObservableList<Trial> getAllTrials() {
@@ -39,8 +38,8 @@ public class TrialDAO {
                 trial.setSupplierId(rs.getObject("supplier_id") != null ? rs.getInt("supplier_id") : null);
                 trial.setSupCountryId(rs.getObject("sup_country_id") != null ? rs.getInt("sup_country_id") : null);
                 trial.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
-                Date sqlDate = rs.getDate("creation_date");
-                trial.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                Timestamp timestamp = rs.getTimestamp("creation_date");
+                trial.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                 trial.setNotes(rs.getString("notes"));
                 trial.setSectionName(rs.getString("section_name"));
                 trial.setMatrialName(rs.getString("matrial_name"));
@@ -126,8 +125,8 @@ public class TrialDAO {
                     trial.setSupplierId(rs.getObject("supplier_id") != null ? rs.getInt("supplier_id") : null);
                     trial.setSupCountryId(rs.getObject("sup_country_id") != null ? rs.getInt("sup_country_id") : null);
                     trial.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
-                    Date sqlDate = rs.getDate("creation_date");
-                    trial.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                    Timestamp timestamp = rs.getTimestamp("creation_date");
+                    trial.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     trial.setNotes(rs.getString("notes"));
                     trial.setSectionName(rs.getString("section_name"));
                     trial.setMatrialName(rs.getString("matrial_name"));
@@ -160,8 +159,8 @@ public class TrialDAO {
             ps.setObject(4, trial.getSupplierId());
             ps.setObject(5, trial.getSupCountryId());
             ps.setObject(6, trial.getUserId());
-            LocalDate creationDate = trial.getCreationDate() != null ? trial.getCreationDate() : LocalDate.now();
-            ps.setDate(7, Date.valueOf(creationDate));
+            LocalDateTime creationDate = trial.getCreationDate() != null ? trial.getCreationDate() : LocalDateTime.now();
+            ps.setTimestamp(7, Timestamp.valueOf(creationDate));
             ps.setString(8, trial.getNotes());
             return ps.executeUpdate() > 0;
 
@@ -189,8 +188,8 @@ public class TrialDAO {
             ps.setObject(4, trial.getSupplierId());
             ps.setObject(5, trial.getSupCountryId());
             ps.setObject(6, trial.getUserId());
-            LocalDate creationDate = trial.getCreationDate() != null ? trial.getCreationDate() : LocalDate.now();
-            ps.setDate(7, Date.valueOf(creationDate));
+            LocalDateTime creationDate = trial.getCreationDate() != null ? trial.getCreationDate() : LocalDateTime.now();
+            ps.setTimestamp(7, Timestamp.valueOf(creationDate));
             ps.setString(8, trial.getNotes());
             ps.setInt(9, trial.getTrialId());
             return ps.executeUpdate() > 0;
@@ -277,8 +276,8 @@ public class TrialDAO {
                     trial.setSupplierId(rs.getObject("supplier_id") != null ? rs.getInt("supplier_id") : null);
                     trial.setSupCountryId(rs.getObject("sup_country_id") != null ? rs.getInt("sup_country_id") : null);
                     trial.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
-                    Date sqlDate = rs.getDate("creation_date");
-                    trial.setCreationDate(sqlDate != null ? sqlDate.toLocalDate() : null);
+                    Timestamp timestamp = rs.getTimestamp("creation_date");
+                    trial.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     trial.setNotes(rs.getString("notes"));
                     trial.setSectionName(rs.getString("section_name"));
                     trial.setMatrialName(rs.getString("matrial_name"));

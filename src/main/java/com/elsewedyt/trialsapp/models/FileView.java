@@ -1,6 +1,6 @@
 package com.elsewedyt.trialsapp.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 public class FileView {
     private int FileId;
@@ -10,7 +10,7 @@ public class FileView {
     private String fileTypeName;
     private String testSituation;
     private String comment;
-    private LocalDate fileCreationDate;
+    private LocalDateTime  fileCreationDate;
     private String filePath;
 
     public int getFileId() {
@@ -69,11 +69,11 @@ public class FileView {
         this.comment = comment;
     }
 
-    public LocalDate getFileCreationDate() {
+    public LocalDateTime  getFileCreationDate() {
         return fileCreationDate;
     }
 
-    public void setFileCreationDate(LocalDate fileCreationDate) {
+    public void setFileCreationDate(LocalDateTime  fileCreationDate) {
         this.fileCreationDate = fileCreationDate;
     }
 

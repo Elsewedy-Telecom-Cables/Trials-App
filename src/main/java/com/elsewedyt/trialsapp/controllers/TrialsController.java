@@ -137,7 +137,9 @@ public class TrialsController implements Initializable {
 
     private ObservableList<Trial> trialsList;
     private Trial trialObj = null;
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+   // private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -316,10 +318,10 @@ public class TrialsController implements Initializable {
 
             // Format creation date column
             creation_date_column.setCellValueFactory(cellData -> {
-                LocalDate date = cellData.getValue().getCreationDate();
+                LocalDateTime dateTime = cellData.getValue().getCreationDate();
                 StringProperty formatted = new SimpleStringProperty();
-                if (date != null) {
-                    formatted.set(date.format(dateFormatter));
+                if (dateTime != null) {
+                    formatted.set(dateTime.format(dateFormatter));
                 } else {
                     formatted.set("");
                 }
