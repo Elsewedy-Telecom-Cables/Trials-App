@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="782.0" prefWidth="1372.0" stylesheets="@style5.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.NewDashboardController">
+<AnchorPane prefHeight="782.0" prefWidth="1372.0" stylesheets="@style3.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.NewDashboardController">
    <children>
       <HBox alignment="CENTER" layoutX="20.4" layoutY="3.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="1292.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
@@ -73,7 +73,7 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="17.2" layoutY="69.0" prefHeight="147.0" prefWidth="1288.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <VBox alignment="TOP_CENTER" layoutX="4.8" layoutY="61.0" prefHeight="147.0" prefWidth="1288.0" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="4.7999999999999545">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="1288.0">
                <children>
@@ -153,7 +153,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="54.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="212.0" text="Supplier" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="212.0" text="Suppliers" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -169,7 +169,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="248.0" text="Matrials" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="248.0" text="Materials-Cable Types" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -177,7 +177,7 @@
                               <Insets bottom="2.0" right="7.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="matrial_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Matrials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
+                        <ComboBox fx:id="matrial_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Materials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -189,7 +189,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="205.0" text="Section" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="205.0" text="Sections" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -236,7 +236,7 @@
                         </Button>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="10.0" left="5.0" top="10.0" />
+                        <Insets bottom="5.0" left="5.0" top="10.0" />
                      </HBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="385.0" styleClass="box" HBox.hgrow="ALWAYS">
@@ -252,7 +252,7 @@
                         </Label>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="10.0" left="5.0" top="10.0" />
+                        <Insets bottom="5.0" left="5.0" top="10.0" />
                      </HBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="385.0" styleClass="box" HBox.hgrow="ALWAYS">
@@ -268,7 +268,7 @@
                         </Label>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="10.0" left="5.0" top="10.0" />
+                        <Insets bottom="5.0" left="5.0" top="10.0" />
                      </HBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="233.0" HBox.hgrow="ALWAYS">
@@ -290,14 +290,14 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="table_view" layoutX="17.0" layoutY="228.8" prefHeight="498.0" prefWidth="1362.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="229.0">
+      <TableView fx:id="table_view" layoutX="4.8" layoutY="223.8" prefHeight="498.0" prefWidth="1362.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="4.7999999999999545" AnchorPane.topAnchor="221.0">
          <columns>
             <TableColumn fx:id="no_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="No" />
             <TableColumn fx:id="trial_id_column" maxWidth="1000.0" minWidth="4.0" prefWidth="4.0" text="ID" />
             <TableColumn fx:id="trial_purpose_column" prefWidth="20.0" text="Trial Purpose" />
             <TableColumn fx:id="trial_creation_date_column" minWidth="14.0" prefWidth="14.0" text="Trail Creation Date" />
             <TableColumn fx:id="section_column" minWidth="6.0" prefWidth="6.0" text="Section" />
-            <TableColumn fx:id="matrial_name_column" minWidth="7.0" prefWidth="7.0" text="Matrial" />
+            <TableColumn fx:id="matrial_name_column" minWidth="13.0" prefWidth="13.0" text="Material-Cable Type" />
             <TableColumn fx:id="supplier_name_column" prefWidth="12.0" text="Supplier" />
             <TableColumn fx:id="supplier_country_name_column" prefWidth="10.0" text="Sup-Country" />
             <TableColumn fx:id="trial_notes_column" prefWidth="14.0" text="Trial Notes" />
@@ -312,11 +312,11 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox alignment="CENTER" layoutX="17.2" layoutY="632.2" prefHeight="44.0" prefWidth="690.0" styleClass="input-03" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+      <VBox alignment="CENTER" layoutX="17.2" layoutY="632.2" prefHeight="44.0" prefWidth="690.0" styleClass="box2" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0">
          <children>
             <HBox alignment="CENTER" prefHeight="62.0" prefWidth="310.0">
                <children>
-                  <Label prefHeight="26.0" prefWidth="142.0" text="Total Trials Count">
+                  <Label prefHeight="26.0" prefWidth="133.0" text="Total Trials Count">
                      <font>
                         <Font name="Montserrat Bold" size="14.0" />
                      </font>

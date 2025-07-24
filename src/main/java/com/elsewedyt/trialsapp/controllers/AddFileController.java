@@ -800,22 +800,50 @@ public class AddFileController implements Initializable {
                 btn.setOnAction(event -> openFile(getTableView().getItems().get(getIndex()).getFilePath()));
             }
 
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || getTableView().getItems().get(getIndex()).getFilePath() == null) {
-                    setGraphic(null);
-                } else {
-                    String fullFileName = new java.io.File(getTableView().getItems().get(getIndex()).getFilePath()).getName();
-                    String fileName = fullFileName.replaceFirst("^\\d+_", "");
-                    btn.setText(fileName);
-                    btn.setGraphic(openIcon);
-                    setGraphic(btn);
-                }
-            }
+//            @Override
+//            protected void updateItem(String item, boolean empty) {
+//                super.updateItem(item, empty);
+//                if (empty || getTableView().getItems().get(getIndex()).getFilePath() == null) {
+//                    setGraphic(null);
+//                } else {
+//                    String fullFileName = new java.io.File(getTableView().getItems().get(getIndex()).getFilePath()).getName();
+//                    String fileName = fullFileName.replaceFirst("^\\d+_", "");
+//                    btn.setText(fileName);
+//                    btn.setGraphic(openIcon);
+//                    setGraphic(btn);
+//                }
+//            }
+//        });
+@Override
+protected void updateItem(String item, boolean empty) {
+    super.updateItem(item, empty);
+    if (empty || getTableView().getItems().get(getIndex()).getFilePath() == null) {
+        setGraphic(null);
+    } else {
+        String fullFileName = new java.io.File(getTableView().getItems().get(getIndex()).getFilePath()).getName();
+
+        String nameWithoutExtension = fullFileName.contains(".") ?
+                fullFileName.substring(0, fullFileName.lastIndexOf(".")) : fullFileName;
+
+        String originalName = nameWithoutExtension.contains("_") ?
+                nameWithoutExtension.substring(0, nameWithoutExtension.indexOf("_")) : nameWithoutExtension;
+
+        String extension = fullFileName.contains(".") ?
+                fullFileName.substring(fullFileName.lastIndexOf(".")) : "";
+
+        String fileName = originalName + extension;
+
+        btn.setText(fileName);
+        btn.setGraphic(openIcon);
+        setGraphic(btn);
+        Tooltip tooltip = new Tooltip(fileName);
+        tooltip.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-background-color: #f4f4f4; -fx-text-fill: #333;");
+        Tooltip.install(btn, tooltip);
+    }
+   }
         });
 
-        // Download Button
+                    // Download Button
         download_file_column.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button();
             private final FontIcon downloadIcon = new FontIcon("fas-download");
@@ -858,20 +886,24 @@ public class AddFileController implements Initializable {
         });
 
         // Apply consistent styling to columns
-        String columnStyle = "-fx-alignment: CENTER; -fx-font-size: 12px; -fx-font-weight: bold;";
-        file_id_column.setStyle(columnStyle);
-        trial_id_column.setStyle(columnStyle);
-        trial_purpose_column.setStyle(columnStyle);
-        department_name_column.setStyle(columnStyle);
-        file_type_name_column.setStyle(columnStyle);
-        upload_file_date_column.setStyle("-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;");
-        test_situation_column.setStyle(columnStyle);
-        comment_column.setStyle("-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;");
-        upload_file_column.setStyle(columnStyle);
-        open_file_column.setStyle(columnStyle);
-        download_file_column.setStyle(columnStyle);
-        delete_file_column.setStyle(columnStyle);
+        String columnStyle1 = "-fx-alignment: CENTER; -fx-font-size: 12px; -fx-font-weight: bold;";
+        String columnStyle2 = "-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;";
+        String columnStyle3 = "-fx-alignment: CENTER; -fx-font-size: 10px; -fx-font-weight: bold;";
+        file_id_column.setStyle(columnStyle1);
+        trial_id_column.setStyle(columnStyle1);
+        trial_purpose_column.setStyle(columnStyle1);
+        department_name_column.setStyle(columnStyle1);
+        file_type_name_column.setStyle(columnStyle1);
+        upload_file_date_column.setStyle(columnStyle2);
+        test_situation_column.setStyle(columnStyle1);
+        comment_column.setStyle(columnStyle2);
+        upload_file_column.setStyle(columnStyle1);
+        open_file_column.setStyle(columnStyle3);
+        download_file_column.setStyle(columnStyle1);
+        delete_file_column.setStyle(columnStyle1);
+        table_view.setFixedCellSize(36);
     }
+
 
     // Add new file rows (up to 2 if multiple file types exist)
     @FXML
@@ -925,9 +957,7 @@ public class AddFileController implements Initializable {
                 String extension = fileName.contains(".") ?
                         fileName.substring(fileName.lastIndexOf(".")) : "";
 
-                String uniqueName = namePart + "_" + deptId + "-" + userId + "-" + timestamp + extension;
-
-
+                String uniqueName = namePart + "_" + deptId + "-" + userId + "_" + timestamp + extension;
 
                 java.io.File dest = new java.io.File(SERVER_UPLOAD_PATH + uniqueName);
 

@@ -2,11 +2,11 @@
 package com.elsewedyt.trialsapp.controllers;
 
 import com.elsewedyt.trialsapp.dao.*;
-import com.elsewedyt.trialsapp.logging.Logging;
 import com.elsewedyt.trialsapp.models.*;
 import com.elsewedyt.trialsapp.services.ShiftManager;
 import com.elsewedyt.trialsapp.services.WindowUtils;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +30,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class NewDashboardController implements Initializable {
 
@@ -65,15 +69,28 @@ public class NewDashboardController implements Initializable {
     @FXML private Label dept_name_lbl;
 
     // Department columns
-    @FXML private TableColumn<NewTrialsView, String> tecOfficeFilePath_column;
-    @FXML private TableColumn<NewTrialsView, String> planningFilePath_column;
-    @FXML private TableColumn<NewTrialsView, String> productionFilePath_column;
-    @FXML private TableColumn<NewTrialsView, String> processFilePath_column;
-    @FXML private TableColumn<NewTrialsView, String> rAndDFilePath_column;
-    @FXML private TableColumn<NewTrialsView, String> qualityControlFilePath_column;
+//    @FXML private TableColumn<NewTrialsView, String> tecOfficeFilePath_column;
+//    @FXML private TableColumn<NewTrialsView, String> planningFilePath_column;
+//    @FXML private TableColumn<NewTrialsView, String> productionFilePath_column;
+//    @FXML private TableColumn<NewTrialsView, String> processFilePath_column;
+//    @FXML private TableColumn<NewTrialsView, String> rAndDFilePath_column;
+//    @FXML private TableColumn<NewTrialsView, String> qualityControlFilePath_column;
+    // FXML fields for department columns
+    @FXML
+    private TableColumn<NewTrialsView, List<String>> tecOfficeFilePath_column;
+    @FXML
+    private TableColumn<NewTrialsView, List<String>> planningFilePath_column;
+    @FXML
+    private TableColumn<NewTrialsView, List<String>> productionFilePath_column;
+    @FXML
+    private TableColumn<NewTrialsView, List<String>> processFilePath_column;
+    @FXML
+    private TableColumn<NewTrialsView, List<String>> rAndDFilePath_column;
+    @FXML
+    private TableColumn<NewTrialsView, List<String>> qualityControlFilePath_column;
 
     private ObservableList<NewTrialsView> trialsViewList;
-   // private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
 
     private static String downloadPath = null;
@@ -105,7 +122,7 @@ public class NewDashboardController implements Initializable {
         addFilterListeners();
         loadData();
         updateTrialsCount();
-        table_view.getStylesheets().add(getClass().getResource("/screens/style5.css").toExternalForm());
+        table_view.getStylesheets().add(getClass().getResource("/screens/style3.css").toExternalForm());
         supplier_country_Comb.setItems(FXCollections.observableArrayList());
 
         // Add listener to supplier_combo to update supplier_country_combo
@@ -200,10 +217,14 @@ public class NewDashboardController implements Initializable {
     }
 
     private void loadData() {
-        // Load data directly from NewTrialsViewDAO
+        // Debug: Log the contents of trialsViewList for Tec Office
+//        for (NewTrialsView trial : trialsViewList) {
+//          //  if (trial.getTecOfficeFilePath() != null) {
+//             //   System.out.println("Loaded Tec Office FilePath: " + trial.getTecOfficeFilePath() + " for Trial ID: " + trial.getTrialId());
+//        //    }
+//        }
         trialsViewList = NewTrialsViewDAO.getAllTrialsView();
         table_view.setItems(trialsViewList);
-
         // Set up table columns
         no_column.setCellFactory(column -> new TableCell<NewTrialsView, String>() {
             @Override
@@ -236,12 +257,6 @@ public class NewDashboardController implements Initializable {
         // Group department columns under "Departments" header
         TableColumn<NewTrialsView, Void> departmentsHeader = new TableColumn<>("Departments");
         departmentsHeader.getColumns().addAll(
-//                tecOfficeFilePath_column,
-//                planningFilePath_column,
-//                productionFilePath_column,
-//                processFilePath_column,
-//                rAndDFilePath_column,
-//                qualityControlFilePath_column
 
                 tecOfficeFilePath_column,
                 qualityControlFilePath_column,
@@ -307,10 +322,160 @@ public class NewDashboardController implements Initializable {
 
 
     // In NewDashboardController
-    private void setupDepartmentColumn(TableColumn<NewTrialsView, String> column, String title, String property) {
+//    private void setupDepartmentColumn(TableColumn<NewTrialsView, String> column, String title, String property) {
+//        column.setText(title);
+//        // Adjust property name to match NewTrialsView getter (randDFilePath for getRandDFilePath)
+//        String adjustedProperty = property.equals("rAndDFilePath") ? "randDFilePath" : property;
+//        // Add CSS class to identify department columns
+//        column.getStyleClass().add("department-column");
+//        // Add special CSS class for the last department column
+//        if (property.equals("qualityControlFilePath")) {
+//            column.getStyleClass().add("last-department-column");
+//        }
+//
+//        column.setCellValueFactory(new PropertyValueFactory<>(adjustedProperty));
+//        column.setCellFactory(col -> new TableCell<NewTrialsView, String>() {
+//            private final FontIcon icon = new FontIcon("fas-folder-open"); // Use FontAwesome5 icon
+//
+//            {
+//                icon.setIconSize(20);
+//                icon.setIconColor(javafx.scene.paint.Color.web("#ecab29"));
+//                icon.setCursor(Cursor.HAND);
+//                icon.setOnMouseClicked(e -> {
+//                    NewTrialsView item = getTableView().getItems().get(getIndex());
+//                    // Define final variable for filePath
+//                    final String selectedFilePath;
+//                    switch (property) {
+//                        case "tecOfficeFilePath":
+//                            selectedFilePath = item.getTecOfficeFilePath();
+//                            break;
+//                        case "planningFilePath":
+//                            selectedFilePath = item.getPlanningFilePath();
+//                            break;
+//                        case "productionFilePath":
+//                            selectedFilePath = item.getProductionFilePath();
+//                            break;
+//                        case "processFilePath":
+//                            selectedFilePath = item.getProcessFilePath();
+//                            break;
+//                        case "rAndDFilePath":
+//                            selectedFilePath = item.getRandDFilePath();
+//                            break;
+//                        case "qualityControlFilePath":
+//                            selectedFilePath = item.getQualityControlFilePath();
+//                            break;
+//                        default:
+//                            selectedFilePath = null;
+//                            break;
+//                    }
+//                    if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
+//                        // Open file using WindowUtils
+//                        WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3(WindowUtils.OPEN_FILES_PAGE, controller -> {
+//                            if (controller instanceof OpenFilesController) {
+//                                ((OpenFilesController) controller).setFilePath(selectedFilePath);
+//                                ((OpenFilesController) controller).initData(item.getTrialId(), getDepartmentNameFromProperty(property));
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            protected void updateItem(String path, boolean empty) {
+//                super.updateItem(path, empty);
+//                if (empty || path == null || path.isEmpty()) {
+//                    setGraphic(null);
+//                } else {
+//                    setGraphic(icon);
+//                }
+//                setStyle("-fx-alignment: CENTER;");
+//            }
+//        });
+//    }
+
+//    private void setupDepartmentColumn(TableColumn<NewTrialsView, String> column, String title, String property) {
+//        column.setText(title);
+//        // Adjust property name to match NewTrialsView getter (randDFilePath for getRandDFilePath)
+//        String adjustedProperty = property.equals("rAndDFilePath") ? "randDFilePath" : property;
+//        // Add CSS class to identify department columns
+//        column.getStyleClass().add("department-column");
+//        // Add special CSS class for the last department column
+//        if (property.equals("qualityControlFilePath")) {
+//            column.getStyleClass().add("last-department-column");
+//        }
+//
+//        column.setCellValueFactory(new PropertyValueFactory<>(adjustedProperty));
+//        column.setCellFactory(col -> new TableCell<NewTrialsView, String>() {
+//            private final FontIcon icon = new FontIcon("fas-folder-open"); // Use FontAwesome5 icon
+//
+//            {
+//                icon.setIconSize(20);
+//                icon.setIconColor(javafx.scene.paint.Color.web("#ecab29"));
+//                icon.setCursor(Cursor.HAND);
+//                icon.setOnMouseClicked(e -> {
+//                    NewTrialsView item = getTableView().getItems().get(getIndex());
+//                    // Define final variable for filePath
+//                    final String selectedFilePath;
+//                    switch (property) {
+//                        case "tecOfficeFilePath":
+//                            selectedFilePath = item.getTecOfficeFilePath();
+//                            // Debug: Log the file path for Tec Office when clicked
+//                            System.out.println("Clicked Tec Office FilePath: " + selectedFilePath + " for Trial ID: " + item.getTrialId());
+//                            break;
+//                        case "planningFilePath":
+//                            selectedFilePath = item.getPlanningFilePath();
+//                            break;
+//                        case "productionFilePath":
+//                            selectedFilePath = item.getProductionFilePath();
+//                            break;
+//                        case "processFilePath":
+//                            selectedFilePath = item.getProcessFilePath();
+//                            break;
+//                        case "rAndDFilePath":
+//                            selectedFilePath = item.getRandDFilePath();
+//                            break;
+//                        case "qualityControlFilePath":
+//                            selectedFilePath = item.getQualityControlFilePath();
+//                            break;
+//                        default:
+//                            selectedFilePath = null;
+//                            break;
+//                    }
+//                    if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
+//                        // Open file using WindowUtils
+//                        WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3(WindowUtils.OPEN_FILES_PAGE, controller -> {
+//                            if (controller instanceof OpenFilesController) {
+//                                ((OpenFilesController) controller).setFilePath(selectedFilePath);
+//                                ((OpenFilesController) controller).initData(item.getTrialId(), getDepartmentNameFromProperty(property));
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            protected void updateItem(String path, boolean empty) {
+//                super.updateItem(path, empty);
+//                // Debug: Log the file path for Tec Office when rendering the cell
+//                if (property.equals("tecOfficeFilePath")) {
+//                    System.out.println("Rendering Tec Office FilePath: " + path + " for row: " + getIndex());
+//                }
+//                if (empty || path == null || path.isEmpty()) {
+//                    setGraphic(null);
+//                } else {
+//                    setGraphic(icon);
+//                }
+//                setStyle("-fx-alignment: CENTER;");
+//            }
+//        });
+//    }
+
+
+
+    private void setupDepartmentColumn(TableColumn<NewTrialsView, List<String>> column, String title, String property) {
         column.setText(title);
-        // Adjust property name to match NewTrialsView getter (randDFilePath for getRandDFilePath)
-        String adjustedProperty = property.equals("rAndDFilePath") ? "randDFilePath" : property;
+        // Adjust property name to match NewTrialsView getter (randDFilePaths for getRandDFilePaths)
+        String adjustedProperty = property.equals("rAndDFilePath") ? "randDFilePaths" : property + "s"; // Add 's' for list properties
         // Add CSS class to identify department columns
         column.getStyleClass().add("department-column");
         // Add special CSS class for the last department column
@@ -318,8 +483,27 @@ public class NewDashboardController implements Initializable {
             column.getStyleClass().add("last-department-column");
         }
 
-        column.setCellValueFactory(new PropertyValueFactory<>(adjustedProperty));
-        column.setCellFactory(col -> new TableCell<NewTrialsView, String>() {
+        // Set cell value factory to retrieve list of file paths
+        column.setCellValueFactory(cellData -> {
+            switch (property) {
+                case "tecOfficeFilePath":
+                    return new SimpleObjectProperty<>(cellData.getValue().getTecOfficeFilePaths());
+                case "planningFilePath":
+                    return new SimpleObjectProperty<>(cellData.getValue().getPlanningFilePaths());
+                case "productionFilePath":
+                    return new SimpleObjectProperty<>(cellData.getValue().getProductionFilePaths());
+                case "processFilePath":
+                    return new SimpleObjectProperty<>(cellData.getValue().getProcessFilePaths());
+                case "rAndDFilePath":
+                    return new SimpleObjectProperty<>(cellData.getValue().getRandDFilePaths());
+                case "qualityControlFilePath":
+                    return new SimpleObjectProperty<>(cellData.getValue().getQualityControlFilePaths());
+                default:
+                    return null;
+            }
+        });
+
+        column.setCellFactory(col -> new TableCell<NewTrialsView, List<String>>() {
             private final FontIcon icon = new FontIcon("fas-folder-open"); // Use FontAwesome5 icon
 
             {
@@ -328,37 +512,37 @@ public class NewDashboardController implements Initializable {
                 icon.setCursor(Cursor.HAND);
                 icon.setOnMouseClicked(e -> {
                     NewTrialsView item = getTableView().getItems().get(getIndex());
-                    // Define final variable for filePath
-                    final String selectedFilePath;
+                    List<String> filePaths;
+                    String departmentName = getDepartmentNameFromProperty(property);
                     switch (property) {
                         case "tecOfficeFilePath":
-                            selectedFilePath = item.getTecOfficeFilePath();
+                            filePaths = item.getTecOfficeFilePaths();
                             break;
                         case "planningFilePath":
-                            selectedFilePath = item.getPlanningFilePath();
+                            filePaths = item.getPlanningFilePaths();
                             break;
                         case "productionFilePath":
-                            selectedFilePath = item.getProductionFilePath();
+                            filePaths = item.getProductionFilePaths();
                             break;
                         case "processFilePath":
-                            selectedFilePath = item.getProcessFilePath();
+                            filePaths = item.getProcessFilePaths();
                             break;
                         case "rAndDFilePath":
-                            selectedFilePath = item.getRandDFilePath();
+                            filePaths = item.getRandDFilePaths();
                             break;
                         case "qualityControlFilePath":
-                            selectedFilePath = item.getQualityControlFilePath();
+                            filePaths = item.getQualityControlFilePaths();
                             break;
                         default:
-                            selectedFilePath = null;
+                            filePaths = null;
                             break;
                     }
-                    if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
-                        // Open file using WindowUtils
+                    if (filePaths != null && !filePaths.isEmpty()) {
+                        // Open file window with trialId and departmentName
                         WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3(WindowUtils.OPEN_FILES_PAGE, controller -> {
                             if (controller instanceof OpenFilesController) {
-                                ((OpenFilesController) controller).setFilePath(selectedFilePath);
-                                ((OpenFilesController) controller).initData(item.getTrialId(), getDepartmentNameFromProperty(property));
+                                // No need to pass filePaths since OpenFilesController uses FileViewDAO
+                                ((OpenFilesController) controller).initData(item.getTrialId(), departmentName);
                             }
                         });
                     }
@@ -366,9 +550,12 @@ public class NewDashboardController implements Initializable {
             }
 
             @Override
-            protected void updateItem(String path, boolean empty) {
-                super.updateItem(path, empty);
-                if (empty || path == null || path.isEmpty()) {
+            protected void updateItem(List<String> paths, boolean empty) {
+                super.updateItem(paths, empty);
+                // Debug: Log the file paths for all department columns when rendering
+               // System.out.println("Rendering " + property + " FilePaths: " + paths + " for row: " + getIndex() + ", Trial ID: " +
+               //         (getTableRow() != null && getTableRow().getItem() != null ? getTableRow().getItem().getTrialId() : "N/A"));
+                if (empty || paths == null || paths.isEmpty()) {
                     setGraphic(null);
                 } else {
                     setGraphic(icon);
@@ -377,10 +564,11 @@ public class NewDashboardController implements Initializable {
             }
         });
     }
+    // Helper method to get department name from property
     private String getDepartmentNameFromProperty(String property) {
         switch (property) {
             case "tecOfficeFilePath":
-                return "Tec Office";
+                return "Technical Office";
             case "planningFilePath":
                 return "Planning";
             case "productionFilePath":
@@ -395,6 +583,7 @@ public class NewDashboardController implements Initializable {
                 return "";
         }
     }
+
     private void showInfo(String message) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -437,8 +626,8 @@ public class NewDashboardController implements Initializable {
 
     private void updateTrialsCount() {
         int totalTrials = TrialDAO.getTrialsCount();
-        int cuTrials = TrialDAO.getTrialsCountBySection(1);
-        int foTrials = TrialDAO.getTrialsCountBySection(2);
+        int foTrials = TrialDAO.getTrialsCountBySection(1);
+        int cuTrials = TrialDAO.getTrialsCountBySection(2);
         trials_count_textF.setText(String.valueOf(totalTrials));
         cu_trials_count_textF.setText(String.valueOf(cuTrials));
         fo_trials_count_textF.setText(String.valueOf(foTrials));
@@ -521,4 +710,5 @@ public class NewDashboardController implements Initializable {
         updateTrialsCount();
         table_view.refresh();
     }
+
 }

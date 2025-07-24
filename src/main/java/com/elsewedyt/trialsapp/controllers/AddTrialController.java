@@ -199,21 +199,19 @@ public class AddTrialController implements Initializable {
             if (success) {
                 WindowUtils.ALERT("Success", "Trial saved successfully.", WindowUtils.ALERT_INFORMATION);
                 clearHelp();
-                // Trigger table update in the TrialsController
-                if (stage != null) {
-                    // Assuming TrialsController is accessible and has a refreshTable method
-                    TrialsController trialsController = (TrialsController) stage.getUserData();
-                    if (trialsController != null) {
-                        Platform.runLater(() -> {
-                            trialsController.refreshTable();
-                            System.out.println("Table refresh triggered successfully");
-
-                        });
-                    } else {
-                        System.out.println("TrialsController is null!");
-                    }
+                // New Way
+                TrialsController trialsController = TrialsController.getInstance();
+                if (trialsController != null) {
+                    Platform.runLater(() -> {
+                        trialsController.refreshTable();
+                    //    System.out.println("Table refresh triggered successfully");
+                    });
+                } else {
+                    System.out.println("TrialsController instance is null!");
                 }
+
                 closeWindow(); // Close the add trial window
+
             } else {
                 WindowUtils.ALERT("Error", "Failed to save trial.", WindowUtils.ALERT_ERROR);
             }

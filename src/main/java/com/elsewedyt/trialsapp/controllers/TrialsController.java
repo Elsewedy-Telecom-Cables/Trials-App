@@ -39,110 +39,51 @@ import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class TrialsController implements Initializable {
-    @FXML
-    private Button add_trial_btn;
-
-    @FXML
-    private Button clearSearch_btn;
-
-    @FXML
-    private TableColumn<Trial, String> creation_date_column;
-
-    @FXML
-    private Label date_lbl;
-
-    @FXML
-    private VBox department_lbl;
-
-    @FXML
-    private TableColumn<Trial, String> edit_column;
-
-    @FXML
-    private TableColumn<Trial, String> files_column;
-
-
-
-    @FXML
-    private TextField filter_creation_textF;
-
-    @FXML
-    private TextField filter_trial_id_textF;
-
-    @FXML
-    private TextField filter_trial_purpose_textF;
-
-    @FXML
-    private TableColumn<Trial, String> id_column;
-
-    @FXML
-    private ImageView logo_ImageView;
-
-    @FXML
-    private ComboBox<Supplier> supplier_Comb;
-    @FXML
-    private ComboBox<SupplierCountry> supplier_country_Comb;
-
-    @FXML
-    private ComboBox<Matrial> matrial_Comb;
-
-    @FXML
-    private TableColumn<Trial, String> matrial_column;
-
-    @FXML
-    private TableColumn<Trial, String> no_column;
-
-    @FXML
-    private TableColumn<Trial, String> notes_column;
-
-    @FXML
-    private Button searchWithFilter_btn;
-
-    @FXML
-    private ComboBox<Section> section_Comb;
-
-    @FXML
-    private Label shift_label;
-
-    @FXML
-    private TableColumn<Trial, String> supplier_column;
-
-    @FXML
-    private TableColumn<Trial, String> supplier_country_column;
-
-    @FXML
-    private TableColumn<Trial, String> trial_purpose_column;
-    @FXML
-    private TableColumn<Trial, String> section_column;
-
-
-
-    @FXML
-    private TextField trials_count_textF;
-    @FXML
-    private TextField fo_trials_count_textF;
-    @FXML
-    private TextField cu_trials_count_textF;
-
-
-    @FXML
-    private TableView<Trial> trials_table_view;
-
-    @FXML
-    private Button update_btn;
-
-    @FXML
-    private Label welcome_lbl;
-    @FXML
-    private Label dept_name_lbl;
+    @FXML private Button add_trial_btn;
+    @FXML private Button clearSearch_btn;
+    @FXML private TableColumn<Trial, String> creation_date_column;
+    @FXML private Label date_lbl;
+    @FXML private VBox department_lbl;
+    @FXML private TableColumn<Trial, String> edit_column;
+    @FXML private TableColumn<Trial, String> files_column;
+    @FXML private TextField filter_creation_textF;
+    @FXML private TextField filter_trial_id_textF;
+    @FXML private TextField filter_trial_purpose_textF;
+    @FXML private TableColumn<Trial, String> id_column;
+    @FXML private ImageView logo_ImageView;
+    @FXML private ComboBox<Supplier> supplier_Comb;
+    @FXML private ComboBox<SupplierCountry> supplier_country_Comb;
+    @FXML private ComboBox<Matrial> matrial_Comb;
+    @FXML private TableColumn<Trial, String> matrial_column;
+    @FXML private TableColumn<Trial, String> no_column;
+    @FXML private TableColumn<Trial, String> notes_column;
+    @FXML private Button searchWithFilter_btn;
+    @FXML private ComboBox<Section> section_Comb;
+    @FXML private Label shift_label;
+    @FXML private TableColumn<Trial, String> supplier_column;
+    @FXML private TableColumn<Trial, String> supplier_country_column;
+    @FXML private TableColumn<Trial, String> trial_purpose_column;
+    @FXML private TableColumn<Trial, String> section_column;
+    @FXML private TextField trials_count_textF;
+    @FXML private TextField fo_trials_count_textF;
+    @FXML private TextField cu_trials_count_textF;
+    @FXML private TableView<Trial> trials_table_view;
+    @FXML private Button update_btn;
+    @FXML private Label welcome_lbl;
+    @FXML private Label dept_name_lbl;
 
     private ObservableList<Trial> trialsList;
     private Trial trialObj = null;
-   // private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
+    private static TrialsController instance;
 
+    public static TrialsController getInstance() {
+        return instance;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance = this;
         update_btn.setOnAction(event -> refreshTable());
         // Set focus to welcome label
         Platform.runLater(() -> welcome_lbl.requestFocus());
@@ -287,6 +228,92 @@ public class TrialsController implements Initializable {
 
     }
 
+    private void addFilterListeners() {
+        // Real-time filtering for text fields
+        filter_trial_id_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        filter_trial_purpose_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        filter_creation_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        // Real-time filtering for ComboBoxes
+        section_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        matrial_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        supplier_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+        supplier_country_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
+    }
+
+    private void filterTrials() {
+        String trialPurpose = filter_trial_purpose_textF.getText().toLowerCase();
+        Integer trialId = null;
+        try {
+            String trialIdText = filter_trial_id_textF.getText();
+            if (trialIdText != null && !trialIdText.trim().isEmpty()) {
+                trialId = Integer.parseInt(trialIdText.trim());
+            }
+        } catch (NumberFormatException e) {
+            WindowUtils.ALERT("Error", "Please enter a valid Trial ID (numeric value)", WindowUtils.ALERT_ERROR);
+            filter_trial_id_textF.clear();
+            return;
+        }
+
+        // Use as a string
+        String creationDatePart = filter_creation_textF.getText().toLowerCase();
+
+        Integer sectionId = section_Comb.getSelectionModel().getSelectedItem() != null ?
+                section_Comb.getSelectionModel().getSelectedItem().getSectionId() : null;
+        Integer matrialId = matrial_Comb.getSelectionModel().getSelectedItem() != null ?
+                matrial_Comb.getSelectionModel().getSelectedItem().getMatrialId() : null;
+        Integer supplierId = supplier_Comb.getSelectionModel().getSelectedItem() != null ?
+                supplier_Comb.getSelectionModel().getSelectedItem().getSupplierId() : null;
+        Integer supplierCountryId = supplier_country_Comb.getSelectionModel().getSelectedItem() != null ?
+                supplier_country_Comb.getSelectionModel().getSelectedItem().getSupCountryId() : null;
+
+        // Retrieve all trials (preferably from a cached unfiltered copy)
+        List<Trial> allTrials = TrialDAO.getAllTrials();
+        final Integer finalTrialId = trialId; // Create a final copy of trialId for lambda
+        List<Trial> filtered = allTrials.stream()
+                .filter(trial -> trial.getTrialPurpose().toLowerCase().contains(trialPurpose))
+                .filter(trial -> finalTrialId == null || trial.getTrialId() == finalTrialId) // Fixed filter
+                .filter(trial -> sectionId == null || trial.getSectionId() == sectionId)
+                .filter(trial -> matrialId == null || trial.getMatrialId() == matrialId)
+                .filter(trial -> supplierId == null || trial.getSupplierId() == supplierId)
+                .filter(trial -> supplierCountryId == null || trial.getSupCountryId() == supplierCountryId)
+                .filter(trial -> {
+                    if (creationDatePart.isEmpty()) return true;
+                    String formattedDate = trial.getCreationDate().format(dateFormatter).toLowerCase();
+                    return formattedDate.contains(creationDatePart);
+                })
+                .collect(Collectors.toList());
+
+        trialsList.setAll(filtered);
+        updateTrialsCount();
+    }
+    @FXML
+    void filterTrial_id_country(KeyEvent event) {
+        filterTrials();
+    }
+    @FXML
+    void filterTrialPurpose(KeyEvent event) {
+        filterTrials();
+    }
+
+    @FXML
+    void filterCreationDate(KeyEvent event) {
+        filterTrials();
+    }
+
+    @FXML
+    void searchWithFilter(ActionEvent event) {
+        filterTrials();
+    }
+
+    private void updateTrialsCount() {
+        int totalTrials = TrialDAO.getTrialsCount();
+        int foTrials = TrialDAO.getTrialsCountBySection(1);// Fiber Trials Counts
+        int cuTrials = TrialDAO.getTrialsCountBySection(2);  // Cupper Trials Counts
+        trials_count_textF.setText(totalTrials + "");
+        cu_trials_count_textF.setText(cuTrials + "");
+        fo_trials_count_textF.setText(foTrials + "");
+    }
+
     private void loadData() {
         Platform.runLater(() -> {
             // Load all trials
@@ -383,9 +410,9 @@ public class TrialsController implements Initializable {
                     folderIcon.setFill(Color.web("#ecab29"));
                     plusIcon.setIconSize(10); // أصغر قليلاً ليبدو داخل المجلد
                     plusIcon.setFill(Color.web("#3b3b3b")); // رمادي غامق
-                   // plusIcon.setFill(Color.web("#2c7be5")); // أزرق أنيق
-                  //  plusIcon.setFill(Color.web("#ffffff")); //  ابيض
-                   // plusIcon.setFill(Color.web("#000000")); //  اسمر
+                    // plusIcon.setFill(Color.web("#2c7be5")); // أزرق أنيق
+                    //  plusIcon.setFill(Color.web("#ffffff")); //  ابيض
+                    // plusIcon.setFill(Color.web("#000000")); //  اسمر
 
                     container.setSpacing(2); // تجعل الأيقونتين متداخلتين قليلاً لتبدو كرمز واحد
                     container.setAlignment(Pos.CENTER); // توسيط الأيقونات داخل الخلية
@@ -415,7 +442,7 @@ public class TrialsController implements Initializable {
                     container.setOnMouseClicked(clickHandler);
                 }
 
-//                @Override
+                //                @Override
 //                protected void updateItem(String item, boolean empty) {
 //                    super.updateItem(item, empty);
 //                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
@@ -426,27 +453,27 @@ public class TrialsController implements Initializable {
 //                    setText(null);
 //                }
 //            });
-@Override
-protected void updateItem(String item, boolean empty) {
-    super.updateItem(item, empty);
-    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
-        setGraphic(null);
-        setStyle("");
-    } else {
-        setGraphic(container);
-       // setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
-       // setStyle("-fx-background-color: #e5e5e5;"); // أو استخدم class من CSS
-     //   setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+                        setGraphic(null);
+                        setStyle("");
+                    } else {
+                        setGraphic(container);
+                        // setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
+                        // setStyle("-fx-background-color: #e5e5e5;"); // أو استخدم class من CSS
+                        //   setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
 
 
-    }
-    setText(null);
-}
+                    }
+                    setText(null);
+                }
             });
 
 
 
-                // Configure edit column with edit and delete icons
+            // Configure edit column with edit and delete icons
             edit_column.setCellFactory(param -> new TableCell<Trial, String>() {
                 private final FontIcon editIcon = new FontIcon("fa-pencil-square");
                 private final FontIcon deleteIcon = new FontIcon("fas-trash");
@@ -572,88 +599,6 @@ protected void updateItem(String item, boolean empty) {
         });
     }
 
-    // trials_count_textF.setText(String.valueOf(trialsList.size()));
-    private void updateTrialsCount() {
-        int totalTrials = TrialDAO.getTrialsCount();
-        int cuTrials = TrialDAO.getTrialsCountBySection(1);  // Cupper Trials Counts
-        int foTrials = TrialDAO.getTrialsCountBySection(2);// Fiber Trials Counts
-        trials_count_textF.setText(totalTrials + "");
-        cu_trials_count_textF.setText(cuTrials + "");
-        fo_trials_count_textF.setText(foTrials + "");
-    }
-
-    private void addFilterListeners() {
-        // Real-time filtering for text fields
-        filter_trial_id_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        filter_trial_purpose_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        filter_creation_textF.textProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        // Real-time filtering for ComboBoxes
-        section_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        matrial_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        supplier_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-        supplier_country_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> filterTrials());
-    }
-
-    private void filterTrials() {
-        String trialPurpose = filter_trial_purpose_textF.getText().toLowerCase();
-        Integer trialId = null;
-        try {
-            String trialIdText = filter_trial_id_textF.getText();
-            if (trialIdText != null && !trialIdText.trim().isEmpty()) {
-                trialId = Integer.parseInt(trialIdText.trim());
-            }
-        } catch (NumberFormatException e) {
-            WindowUtils.ALERT("Error", "Please enter a valid Trial ID (numeric value)", WindowUtils.ALERT_ERROR);
-            filter_trial_id_textF.clear();
-            return;
-        }
-
-        // Use as a string
-        String creationDatePart = filter_creation_textF.getText().toLowerCase();
-
-        Integer sectionId = section_Comb.getSelectionModel().getSelectedItem() != null ?
-                section_Comb.getSelectionModel().getSelectedItem().getSectionId() : null;
-        Integer matrialId = matrial_Comb.getSelectionModel().getSelectedItem() != null ?
-                matrial_Comb.getSelectionModel().getSelectedItem().getMatrialId() : null;
-        Integer supplierId = supplier_Comb.getSelectionModel().getSelectedItem() != null ?
-                supplier_Comb.getSelectionModel().getSelectedItem().getSupplierId() : null;
-        Integer supplierCountryId = supplier_country_Comb.getSelectionModel().getSelectedItem() != null ?
-                supplier_country_Comb.getSelectionModel().getSelectedItem().getSupCountryId() : null;
-
-        // Retrieve all trials (preferably from a cached unfiltered copy)
-        List<Trial> allTrials = TrialDAO.getAllTrials();
-        final Integer finalTrialId = trialId; // Create a final copy of trialId for lambda
-        List<Trial> filtered = allTrials.stream()
-                .filter(trial -> trial.getTrialPurpose().toLowerCase().contains(trialPurpose))
-                .filter(trial -> finalTrialId == null || trial.getTrialId() == finalTrialId) // Fixed filter
-                .filter(trial -> sectionId == null || trial.getSectionId() == sectionId)
-                .filter(trial -> matrialId == null || trial.getMatrialId() == matrialId)
-                .filter(trial -> supplierId == null || trial.getSupplierId() == supplierId)
-                .filter(trial -> supplierCountryId == null || trial.getSupCountryId() == supplierCountryId)
-                .filter(trial -> {
-                    if (creationDatePart.isEmpty()) return true;
-                    String formattedDate = trial.getCreationDate().format(dateFormatter).toLowerCase();
-                    return formattedDate.contains(creationDatePart);
-                })
-                .collect(Collectors.toList());
-
-        trialsList.setAll(filtered);
-        updateTrialsCount();
-    }
-    @FXML
-    void filterTrial_id_country(KeyEvent event) {
-        filterTrials();
-    }
-    @FXML
-    void filterTrialPurpose(KeyEvent event) {
-        filterTrials();
-    }
-
-    @FXML
-    void filterCreationDate(KeyEvent event) {
-        filterTrials();
-    }
-
     void clearHelp(){
         // Clear text fields
         filter_trial_purpose_textF.clear();
@@ -678,11 +623,6 @@ protected void updateItem(String item, boolean empty) {
         WindowUtils.OPEN_ADD_TRIAL_PAGE(false, this); // Pass this TrialsController instance
     }
 
-    @FXML
-    void searchWithFilter(ActionEvent event) {
-        filterTrials();
-    }
-
     // Update the table view and related data
     @FXML
     void update() {
@@ -703,5 +643,7 @@ protected void updateItem(String item, boolean empty) {
             updateTrialsCount();
         });
     }
+
+
 
 }

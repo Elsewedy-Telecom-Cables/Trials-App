@@ -82,42 +82,92 @@ public class LoggingSetting {
             return "";
         }
     }
+//    private static File currentJarFile;
+//    private static long jarLastModifiedTime = -1;
+//    public static void startJarUpdateWatcher() {
+//        ScheduledService<Void> jarCheckService = new ScheduledService<>() {
+//            @Override
+//            protected Task<Void> createTask() {
+//                return new Task<>() {
+//                    @Override
+//                    protected Void call() {
+//                        if (currentJarFile != null && currentJarFile.exists()) {
+//                            long currentModified = currentJarFile.lastModified();
+//                            if (currentModified > jarLastModifiedTime) {
+//                                jarLastModifiedTime = currentModified;
+//
+//                                Platform.runLater(() -> {
+//                                    Alert alert = new Alert(Alert.AlertType.WARNING);
+//                                    alert.setTitle("Application Update");
+//                                    alert.setHeaderText("The application has been updated.");
+//                                    alert.setContentText("The application must be closed to apply the new version.");
+//                                    alert.showAndWait();
+////                                    alert.setTitle("تحديث التطبيق");
+////                                    alert.setHeaderText("تم تحديث التطبيق.");
+////                                    alert.setContentText("يجب إغلاق التطبيق لتطبيق النسخة الجديدة.");
+//
+//                                });
+//                            }
+//                        }
+//                        return null;
+//                    }
+//                };
+//            }
+//        };
+//        jarCheckService.setPeriod(Duration.seconds(10));
+//        jarCheckService.start();
+//    }
+//
+//    public static void initJarWatcher() {
+//        try {
+//            String path = MainApp.class
+//                    .getProtectionDomain()
+//                    .getCodeSource()
+//                    .getLocation()
+//                    .toURI()
+//                    .getPath();
+//
+//            currentJarFile = new File(path);
+//            if (currentJarFile.exists()) {
+//                jarLastModifiedTime = currentJarFile.lastModified();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+public static void startJarUpdateWatcher() {
+    ScheduledService<Void> jarCheckService = new ScheduledService<>() {
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<>() {
+                @Override
+                protected Void call() {
+                    if (currentJarFile != null && currentJarFile.exists()) {
+                        long currentModified = currentJarFile.lastModified();
+                        if (currentModified > jarLastModifiedTime) {
+                            jarLastModifiedTime = currentModified;
+
+                            Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Application Update");
+                                alert.setHeaderText("The application has been updated.");
+                                alert.setContentText("The application must be closed to apply the new version.");
+
+                                alert.showAndWait();
+                            });
+                        }
+                    }
+                    return null;
+                }
+            };
+        }
+    };
+    jarCheckService.setPeriod(Duration.seconds(10));
+    jarCheckService.start();
+}
+
     private static File currentJarFile;
     private static long jarLastModifiedTime = -1;
-    public static void startJarUpdateWatcher() {
-        ScheduledService<Void> jarCheckService = new ScheduledService<>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<>() {
-                    @Override
-                    protected Void call() {
-                        if (currentJarFile != null && currentJarFile.exists()) {
-                            long currentModified = currentJarFile.lastModified();
-                            if (currentModified > jarLastModifiedTime) {
-                                jarLastModifiedTime = currentModified;
-
-                                Platform.runLater(() -> {
-                                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                                    alert.setTitle("Application Update");
-                                    alert.setHeaderText("The application has been updated.");
-                                    alert.setContentText("The application must be closed to apply the new version.");
-//                                    alert.setTitle("تحديث التطبيق");
-//                                    alert.setHeaderText("تم تحديث التطبيق.");
-//                                    alert.setContentText("يجب إغلاق التطبيق لتطبيق النسخة الجديدة.");
-//                                    alert.showAndWait();
-
-                                });
-                            }
-                        }
-                        return null;
-                    }
-                };
-            }
-        };
-        jarCheckService.setPeriod(Duration.seconds(10));
-        jarCheckService.start();
-    }
-
     public static void initJarWatcher() {
         try {
             String path = MainApp.class

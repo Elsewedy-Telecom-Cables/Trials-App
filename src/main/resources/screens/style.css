@@ -89,6 +89,12 @@
     -fx-border-radius: 20;
     -fx-padding: 10;
 }
+.box2 {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #b7b4b4;
+    -fx-border-width: 1;
+}
 /* checkbox */
 .accepted-checkbox:selected .box {
     -fx-background-color: #90EE90; /* Green */
@@ -187,7 +193,6 @@
 .hold-checkbox .box {
     -fx-background-color: transparent;
 }
-
 
 
 

@@ -11,9 +11,9 @@ public class DbConnect {
     private static Connection externalConnection = null;
 
     // Server Connection
-    //private static final String HOST = "10.1.212.147";  // Server IP
-    //private static final String HOST = "ETCSVR";  // Server NAME
-    private static final String HOST = "localhost";  // local
+   // private static final String HOST = "10.1.212.147";  // Server IP
+  //  private static final String HOST = "ETCSVR";  // Server NAME
+   private static final String HOST = "localhost";  // local
     private static final int PORT = 1433;
     public static final String DB_NAME_CONECCTION = "dbtrials";  // DB Name
     private static final String USER = "sa";   // Server and local User

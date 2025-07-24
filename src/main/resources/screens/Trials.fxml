@@ -78,7 +78,7 @@
             <TableColumn fx:id="id_column" maxWidth="1000.0" minWidth="9.0" prefWidth="9.0" text="ID" />
           <TableColumn fx:id="trial_purpose_column" minWidth="70.0" prefWidth="70.0" text="Trial Purpose" />
           <TableColumn fx:id="section_column" prefWidth="15.0" text="Section" />
-            <TableColumn fx:id="matrial_column" prefWidth="20.0" text="Matrial" />
+            <TableColumn fx:id="matrial_column" minWidth="25.0" prefWidth="25.0" text="Matrial-Cable Type" />
             <TableColumn fx:id="supplier_column" prefWidth="30.0" text="Supplier" />
             <TableColumn fx:id="supplier_country_column" prefWidth="20.0" text="Sup-Country" />
             <TableColumn fx:id="creation_date_column" minWidth="26.0" prefWidth="26.0" text="Trial Creation Date" />
@@ -233,7 +233,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="92.0" prefWidth="230.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Supplier" textFill="#026069">
+                        <Label text="Suppliers" textFill="#026069">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -249,7 +249,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="77.0" prefWidth="230.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Matrials" textFill="#026069">
+                        <Label text="Materials-Cable Types" textFill="#026069">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -257,7 +257,7 @@
                               <Insets bottom="4.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="matrial_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Matrials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
+                        <ComboBox fx:id="matrial_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Materials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin></ComboBox>
@@ -289,7 +289,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="1010.0" layoutY="616.0" prefHeight="46.0" prefWidth="686.0" styleClass="input-03" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="7.0">
+      <VBox alignment="CENTER" layoutX="1010.0" layoutY="616.0" prefHeight="46.0" prefWidth="686.0" styleClass="box2" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="7.0">
          <children>
             <HBox alignment="CENTER" prefHeight="62.0" prefWidth="310.0">
                <children>
@@ -309,7 +309,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label text="Coupper Trials Count">
+                  <Label text="Copper Trials Count">
                      <font>
                         <Font name="Montserrat Bold" size="14.0" />
                      </font>

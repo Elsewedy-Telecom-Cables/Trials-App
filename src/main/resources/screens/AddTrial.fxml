@@ -32,7 +32,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="306.0">
                <children>
-                  <Label text="Matrial">
+                  <Label text="Material-Cable Type">
                      <font>
                         <Font name="Montserrat Bold" size="16.0" />
                      </font>
@@ -96,7 +96,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="306.0">
                <children>
-                  <Label text="Craetion Date">
+                  <Label text="Creation Date">
                      <font>
                         <Font name="Montserrat Bold" size="16.0" />
                      </font>

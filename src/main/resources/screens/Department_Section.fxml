@@ -121,7 +121,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <HBox.margin>
-                        <Insets bottom="-10.0" left="8.0" right="8.0" top="4.0" />
+                        <Insets bottom="-5.0" left="8.0" right="8.0" top="4.0" />
                      </HBox.margin>
                   </TableView>
                </children>
@@ -235,7 +235,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <HBox.margin>
-                        <Insets bottom="-10.0" left="8.0" right="8.0" top="4.0" />
+                        <Insets bottom="-5.0" left="8.0" right="8.0" top="4.0" />
                      </HBox.margin>
                   </TableView>
                </children>

@@ -34,8 +34,9 @@
     -fx-background-radius: 20;
     -fx-border-color: #9fb0b2;
     -fx-border-radius: 20;
-    -fx-padding: 10;
+    -fx-padding: 5;
 }
+
 
 /* Unified button styling (if needed for visual consistency) */
 .button {

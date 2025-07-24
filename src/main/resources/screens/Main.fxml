@@ -83,19 +83,19 @@
       <ImageView fx:id="trials_image_view" fitHeight="277.0" fitWidth="461.0" layoutX="191.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
       <HBox alignment="CENTER" layoutX="650.0" layoutY="261.0" prefHeight="56.0" prefWidth="162.0" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="5.0">
          <children>
-            <Button fx:id="prepare_data_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openPrepareData" prefHeight="35.0" prefWidth="155.0" styleClass="button-7" text="Prepare Data " textFill="WHITE">
+            <Button fx:id="prepare_data_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openPrepareData" prefHeight="35.0" prefWidth="140.0" styleClass="button-7" text="Database  " textFill="WHITE">
                <font>
                   <Font name="Montserrat Bold" size="15.0" />
                </font>
                <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-cog" iconSize="15" text="" />
+                  <FontIcon iconColor="WHITE" iconLiteral="fa-database" />
                </graphic>
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="272.6" layoutY="391.2" prefHeight="56.0" prefWidth="126.0" AnchorPane.bottomAnchor="64.80000000000001" AnchorPane.rightAnchor="470.0">
+      <HBox alignment="CENTER" layoutX="272.6" layoutY="391.2" prefHeight="56.0" prefWidth="200.0" AnchorPane.bottomAnchor="64.80000000000001" AnchorPane.rightAnchor="445.0">
          <children>
-            <Button fx:id="trials_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openTrials" prefHeight="35.0" prefWidth="128.0" styleClass="button-3" text="Trials  " textFill="WHITE">
+            <Button fx:id="trials_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openTrials" prefHeight="35.0" prefWidth="200.0" styleClass="button-3" text="Adding new Trials  " textFill="WHITE">
                <font>
                   <Font name="Montserrat Bold" size="15.0" />
                </font>
@@ -105,15 +105,12 @@
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="452.0" layoutY="349.0" prefHeight="56.0" prefWidth="162.0" AnchorPane.bottomAnchor="125.0" AnchorPane.rightAnchor="220.0">
+      <HBox alignment="CENTER" layoutX="452.0" layoutY="349.0" prefHeight="56.0" prefWidth="210.0" AnchorPane.bottomAnchor="125.0" AnchorPane.rightAnchor="195.0">
          <children>
-            <Button fx:id="dashboard_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openDashboard" prefHeight="35.0" prefWidth="155.0" styleClass="button-20" text="Dashboard  " textFill="WHITE">
+            <Button fx:id="dashboard_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openDashboard" prefHeight="35.0" prefWidth="200.0" styleClass="button-20" text="All Departments Data" textFill="WHITE">
                <font>
-                  <Font name="Montserrat Bold" size="15.0" />
+                  <Font name="Montserrat Bold" size="14.0" />
                </font>
-               <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-database" iconSize="18" />
-               </graphic>
             </Button>
          </children>
       </HBox>

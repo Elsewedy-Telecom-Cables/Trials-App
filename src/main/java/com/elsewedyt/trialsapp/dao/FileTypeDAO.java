@@ -158,5 +158,4 @@ public class FileTypeDAO {
 
         return null;
     }
-    // i need to create file type By Dept ID
 }
