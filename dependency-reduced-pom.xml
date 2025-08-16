@@ -43,6 +43,12 @@
                   <resource>META-INF/services/org.kordamp.ikonli.IkonProvider</resource>
                 </transformer>
                 <transformer>
+                  <resource>META-INF/services/jakarta.mail.Provider</resource>
+                </transformer>
+                <transformer>
+                  <resource>META-INF/services/jakarta.activation.DataContentHandler</resource>
+                </transformer>
+                <transformer>
                   <resource>org/kordamp/ikonli/fontawesome5/fonts/fontawesome5-solid.ttf</resource>
                   <file>fontawesome5-solid.ttf</file>
                 </transformer>

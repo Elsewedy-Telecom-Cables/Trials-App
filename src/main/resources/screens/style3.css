@@ -4,7 +4,7 @@
     -fx-background-radius: 20;
     -fx-border-color: #9fb0b2;
     -fx-border-radius: 20;
-    -fx-padding: 10;
+    -fx-padding: 7;
 }
 .box2 {
     -fx-background-radius: 5;
@@ -90,6 +90,11 @@
 .table-view .column-header {
     -fx-background-color: #d6d8db;
     -fx-border-color: #ffffff;
+}
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
 }
 .table-view .filler {
     -fx-background-color: white;

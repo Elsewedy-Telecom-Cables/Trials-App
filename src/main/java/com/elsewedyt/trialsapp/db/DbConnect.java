@@ -1,5 +1,7 @@
 package com.elsewedyt.trialsapp.db;
 
+import com.elsewedyt.trialsapp.services.ConfigLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,12 +14,21 @@ public class DbConnect {
 
     // Server Connection
    // private static final String HOST = "10.1.212.147";  // Server IP
-  //  private static final String HOST = "ETCSVR";  // Server NAME
-   private static final String HOST = "localhost";  // local
+
+ //  private static final String HOST = "localhost";  // local
+  // private static final String HOST = "SWD100924";  // local moh.gabr   computer name
+  //  private static final String HOST = "10.1.208.74";  // local moh.gabr   computer name
+    private static final String HOST = "ETCSVR";  // Server NAME
+    public static final String USER = ConfigLoader.getProperty("DB.USER");
+    private static final String PASSWORD = ConfigLoader.getProperty("DB.PASSWORD");
+    public static final String DB_NAME_CONECCTION = ConfigLoader.getProperty("DB.NAME");
     private static final int PORT = 1433;
-    public static final String DB_NAME_CONECCTION = "dbtrials";  // DB Name
-    private static final String USER = "sa";   // Server and local User
-    private static final String PASSWORD = "Pro@12345"; // Server and local Pass
+
+
+
+
+   // private static final String USER = "sa";   // Server and local User
+  //  private static final String PASSWORD = "Pro@12345"; // Server and local Pass
 
 
 public static Connection getConnect() {

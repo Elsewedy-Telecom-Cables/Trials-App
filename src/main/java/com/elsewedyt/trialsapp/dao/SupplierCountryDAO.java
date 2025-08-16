@@ -173,12 +173,12 @@ import java.sql.*;
 
 public class SupplierCountryDAO {
     public static String lastErrorMessage = null;
-    // Get all supplier countries (with country name via JOIN)
+  //   Get all supplier countries (with country name via JOIN)
     public static ObservableList<SupplierCountry> getAllSupplierCountries() {
         ObservableList<SupplierCountry> list = FXCollections.observableArrayList();
 
         String query = """
-            SELECT sc.sup_country_id, sc.country_id, c.country_name, 
+            SELECT sc.sup_country_id, sc.country_id, c.country_name,
                    sc.supplier_id, s.supplier_name
             FROM dbtrials.dbo.supplier_country sc
             LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id
@@ -206,6 +206,7 @@ public class SupplierCountryDAO {
 
         return list;
     }
+
 
     // Insert a new supplier country (by country_id)
     public static boolean insertSupplierCountry(SupplierCountry sc) {

@@ -102,12 +102,6 @@
             <version>8.20.8</version>
         </dependency>
 
-        <!-- JavaMail for email functionality -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
 
         <!-- jBCrypt for password hashing -->
         <dependency>
@@ -153,14 +147,17 @@
             <artifactId>ikonli-fontawesome5-pack</artifactId>
             <version>12.4.0</version>
         </dependency>
-
         <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-fontawesome5-pack</artifactId>
-            <version>12.4.0</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
         </dependency>
-
-        <!-- FontAwesomeFX for icons -->
+        <!-- Jakarta Activation -->
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <version>2.0.1</version> <!-- Updated to match Jakarta Mail -->
+        </dependency>
     </dependencies>
 
     <build>
@@ -207,6 +204,13 @@
                                 <!-- Merge Ikonli service files -->
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>META-INF/services/org.kordamp.ikonli.IkonProvider</resource>
+                                </transformer>
+                                <!-- Ensure Jakarta Mail and Activation services are merged -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/services/jakarta.mail.Provider</resource>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/services/jakarta.activation.DataContentHandler</resource>
                                 </transformer>
                                 <!-- Include FontAwesome font files -->
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">

@@ -153,7 +153,7 @@ public class WindowUtils {
     }
 
 
-    public static String iconImagePath = "/images/trials.png";
+    public static String iconImagePath = "/images/trials02.png";
     public static String EXCEL_ICON = "/images/excel.png";
     public static int ALERT_WARNING = 1;
     public static int ALERT_ERROR = 2;

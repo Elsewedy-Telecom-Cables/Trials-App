@@ -2,6 +2,7 @@ package com.elsewedyt.trialsapp.controllers;
 
 import com.elsewedyt.trialsapp.dao.*;
 import com.elsewedyt.trialsapp.models.*;
+import com.elsewedyt.trialsapp.services.ConfigLoader;
 import com.elsewedyt.trialsapp.services.WindowUtils;
 import com.elsewedyt.trialsapp.logging.Logging;
 import javafx.application.Platform;
@@ -13,12 +14,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+//import javax.mail.*;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AddTrialController implements Initializable {
 
@@ -142,7 +151,6 @@ public class AddTrialController implements Initializable {
         }
     }
 
-
     // Add a new trial
     private void addTrial() {
         try {
@@ -155,15 +163,13 @@ public class AddTrialController implements Initializable {
 
             if (selectedDate != null) {
                 if (selectedDate.equals(LocalDate.now())) {
-                    creationDate = LocalDateTime.now(); // سجل الوقت الحالي إذا التاريخ هو اليوم
+                    creationDate = LocalDateTime.now(); // Record current time if date is today
                 } else {
-                    creationDate = selectedDate.atStartOfDay(); // تاريخ مختلف: الساعة 00:00
+                    creationDate = selectedDate.atStartOfDay(); // Different date: set to 00:00
                 }
             } else {
-                creationDate = LocalDateTime.now(); // لم يتم اختيار أي تاريخ
+                creationDate = LocalDateTime.now(); // No date selected
             }
-
-
 
             Section selectedSection = section_combo.getValue();
             Matrial selectedMatrial = matrial_combo.getValue();
@@ -204,11 +210,23 @@ public class AddTrialController implements Initializable {
                 if (trialsController != null) {
                     Platform.runLater(() -> {
                         trialsController.refreshTable();
-                    //    System.out.println("Table refresh triggered successfully");
                     });
                 } else {
                     System.out.println("TrialsController instance is null!");
                 }
+
+                // Send email notification in a separate thread
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.submit(() -> sendEmailNotification(
+                        UserContext.getCurrentUser().getFullName(),
+                        selectedSection.getSectionName(),
+                        selectedMatrial.getMatrialName(),
+                        selectedSupplier.getSupplierName(),
+                        selectedSupplierCountry.getCountryName(),
+                        trialPurpose,
+                        notes
+                ));
+                executor.shutdown();
 
                 closeWindow(); // Close the add trial window
 
@@ -221,6 +239,247 @@ public class AddTrialController implements Initializable {
         }
     }
 
+       public static final String mailName = ConfigLoader.getProperty("TRIAL.MAIL");
+    private static final String mailPassword = ConfigLoader.getProperty("TRIAL.MAIL.PASSWORD");
+
+    private void sendEmailNotification(String userFullName, String sectionName, String matrialName,
+                                       String supplierName, String supplierCountry, String trialPurpose, String notes) {
+        // Email configuration
+        String fromEmail = mailName;
+        String password = mailPassword;
+        List<String> toEmails = new ArrayList<>();
+
+        // Get active users' emails, excluding specific ones
+        Set<String> excludedEmails = new HashSet<>();
+      //  excludedEmails.add("moh.gabr@elsewedy.com"); // exclude specific emails
+        toEmails.addAll(UserDAO.getActiveUsersEmails(excludedEmails));
+        // Add specific recipients
+      //  toEmails.add("moh.khalid@elsewedy.com");
+
+        // CC recipient
+        String ccEmail = "m.magdy@elsewedy.com";
+
+        // SMTP server properties for Elsewedy mail server
+        Properties properties = new Properties();
+        properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "imail.elsewedy.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2 TLSv1.3");
+        properties.put("mail.smtp.ssl.trust", "imail.elsewedy.com");
+        properties.put("mail.smtp.ssl.ciphersuites", "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256");
+        // properties.put("mail.debug", "true"); // Disabled as per request
+
+        // Create a session with authentication
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        });
+
+        try {
+            // Create a new email message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+
+            // Add TO recipients
+            for (String toEmail : toEmails) {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+            }
+
+            // Add CC recipient
+            message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
+
+            // Set email subject
+            message.setSubject("New Trial Added in Trials Application");
+
+            // Handle notes if empty
+            String notesText = (notes == null || notes.trim().isEmpty()) ? "No notes provided." : notes;
+
+            // Set email body
+            String emailBody = "Dears,\n" +
+                    "Kindly be informed that Eng. " + userFullName +
+                    " – Technical Office Department has initiated a new TRIAL.\n" +
+                    "Kindly monitor the execution of the TRIAL in the production hall, and then upload the relevant operational and\n" +
+                    "technical tests data so that Technical Office can prepare the final report.\n\n" +
+                    "Trial Details:\n" +
+                    "Section: " + sectionName + "\n" +
+                    "Material - Cable Type: " + matrialName + "\n" +
+                    "Supplier: " + supplierName + "\n" +
+                    "Supplier Country: " + supplierCountry + "\n" +
+                    "Trial Purpose: " + trialPurpose + "\n" +
+                    "Notes: " + notesText + "\n\n" +
+                    "Best Regards";
+
+            message.setText(emailBody);
+
+            // Send the email
+            Transport.send(message);
+         //   System.out.println("Email sent successfully to: " + toEmails + ", CC: " + ccEmail);
+
+        } catch (MessagingException e) {
+            Logging.logException("ERROR", this.getClass().getName(), "sendEmailNotification", e);
+            WindowUtils.ALERT("Error", "Failed to send email notification: " + e.getMessage(), WindowUtils.ALERT_ERROR);
+        }
+    }
+
+
+
+//    // Add a new trial
+//    private void addTrial() {
+//        try {
+//            // Get and validate required fields
+//            String notes = notes_textArea.getText();
+//            String trialPurpose = trial_purpose_textArea.getText();
+//
+//            LocalDate selectedDate = creationDate_datePiker.getValue();
+//            LocalDateTime creationDate;
+//
+//            if (selectedDate != null) {
+//                if (selectedDate.equals(LocalDate.now())) {
+//                    creationDate = LocalDateTime.now(); // سجل الوقت الحالي إذا التاريخ هو اليوم
+//                } else {
+//                    creationDate = selectedDate.atStartOfDay(); // تاريخ مختلف: الساعة 00:00
+//                }
+//            } else {
+//                creationDate = LocalDateTime.now(); // لم يتم اختيار أي تاريخ
+//            }
+//
+//
+//
+//            Section selectedSection = section_combo.getValue();
+//            Matrial selectedMatrial = matrial_combo.getValue();
+//            Supplier selectedSupplier = supplier_combo.getValue();
+//            SupplierCountry selectedSupplierCountry = supplier_country_combo.getValue();
+//
+//            // Prepare validation error list
+//            List<String> validationErrors = new ArrayList<>();
+//
+//            if (selectedSection == null) validationErrors.add("Select a section.");
+//            if (selectedMatrial == null) validationErrors.add("Select a material.");
+//            if (selectedSupplier == null) validationErrors.add("Select a supplier.");
+//            if (selectedSupplierCountry == null) validationErrors.add("Select a supplier country.");
+//            if (trialPurpose == null || trialPurpose.trim().isEmpty()) validationErrors.add("Trial purpose is required.");
+//
+//            if (!validationErrors.isEmpty()) {
+//                WindowUtils.ALERT("Validation Error", String.join("\n", validationErrors), WindowUtils.ALERT_WARNING);
+//                return;
+//            }
+//
+//            // Build Trial object
+//            Trial trial = new Trial();
+//            trial.setCreationDate(creationDate);
+//            trial.setNotes(notes);
+//            trial.setTrialPurpose(trialPurpose);
+//            trial.setSectionId(selectedSection.getSectionId());
+//            trial.setMatrialId(selectedMatrial.getMatrialId());
+//            trial.setSupplierId(selectedSupplier.getSupplierId());
+//            trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
+//            trial.setUserId(UserContext.getCurrentUser().getUserId());
+//
+//            boolean success = TrialDAO.insertTrial(trial);
+//            if (success) {
+//                WindowUtils.ALERT("Success", "Trial saved successfully.", WindowUtils.ALERT_INFORMATION);
+//                clearHelp();
+//                // New Way
+//                TrialsController trialsController = TrialsController.getInstance();
+//                if (trialsController != null) {
+//                    Platform.runLater(() -> {
+//                        trialsController.refreshTable();
+//                    //    System.out.println("Table refresh triggered successfully");
+//                    });
+//                } else {
+//                    System.out.println("TrialsController instance is null!");
+//                }
+//
+//                ExecutorService executor = Executors.newSingleThreadExecutor();
+//                executor.submit(() -> sendEmailNotification(trialPurpose, ));
+//                executor.shutdown();
+//
+//                closeWindow(); // Close the add trial window
+//
+//            } else {
+//                WindowUtils.ALERT("Error", "Failed to save trial.", WindowUtils.ALERT_ERROR);
+//            }
+//        } catch (Exception ex) {
+//            Logging.logException("ERROR", this.getClass().getName(), "addTrial", ex);
+//            WindowUtils.ALERT("Error", "Exception during saving.", WindowUtils.ALERT_ERROR);
+//        }
+//    }
+
+//
+//    private void sendEmailNotification(String userFullName , String  sectionName , String matrialName ,
+//                                       String supplierName,String supplierCountry, String trialPurpose ,String notes) {
+//
+//        // Email configuration
+//         String fromEmail = mailName ;
+//         String password = mailPassword ;
+//        List<String> toEmails = new ArrayList<>();
+//
+//        toEmails.add("moh.gabr@elsewedy.com");
+//        toEmails.add("moh.khalid@elsewedy.com"); //
+//        toEmails.add("h.farid@elsewedy.com"); // AI I need Add this in CC
+//
+//        // SMTP server properties for Microsoft 365
+//        Properties properties = new Properties();
+//        properties.put("mail.smtp.auth", "true");
+//        properties.put("mail.smtp.starttls.enable", "true");
+//        properties.put("mail.smtp.host", "imail.elsewedy.com");
+//      //  properties.put("mail.smtp.host", "smtp.office365.com"); // Microsoft 365 SMTP server
+//        properties.put("mail.smtp.port", "587"); // Port for STARTTLS
+//        properties.put("mail.smtp.ssl.protocols", "TLSv1.2 TLSv1.3"); // Explicitly enable TLS 1.2 and 1.3
+//        properties.put("mail.smtp.ssl.trust", "imail.elsewedy.com"); // Trust the SMTP server
+//        properties.put("mail.smtp.ssl.ciphersuites", "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"); // Compatible cipher suites
+//      //  properties.put("mail.debug", "true"); // Enable debug mode for detailed logs
+//
+//        // Create a session with authentication
+//        Session session = Session.getInstance(properties, new Authenticator() {
+//            @Override
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(fromEmail, password);
+//            }
+//        });
+//
+//        try {
+//            // Create a new email message
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(fromEmail));
+//
+//            // Add recipients
+//            for (String toEmail : toEmails) {
+//                message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+//            }
+//
+//            // Set email subject
+//            message.setSubject("New Trial Added in Trials Application");
+//
+//            String emailBody = "Dears,\n" +
+//                    "          Kindly be informed that Eng."+userFullName+
+//                    "–Technical Office Department has initiated a new TRIAL.\n" +
+//                    "Kindly monitor the execution of the TRIAL in the production hall, and then upload the relevant operational and\n"+
+//                    "technical tests data so that Technical Office can prepare the final report for the \n\n"+ "" +
+//                    "Trial Details : trialPurpose " +
+//                    "\n"+
+//                    "Section : " + sectionName +
+//                    "\nMaterial - Cable Type : " + matrialName +
+//                    "\nSupplier : " + supplierName +
+//                    "\nSupplier Country : " + supplierCountry +
+//                    "\nTrial Purpose : " + trialPurpose +
+//                    "\nNotes : " + notes +
+//                    ".\n\nBest Regards";
+//            message.setText(emailBody);
+//
+//            // Send the email
+//            Transport.send(message);
+//            System.out.println("Email sent successfully to: " + toEmails);
+//
+//        } catch (MessagingException e) {
+//            Logging.logException("ERROR", this.getClass().getName(), "sendEmailNotification", e);
+//            WindowUtils.ALERT("Error", "Failed to send email notification: " + e.getMessage(), WindowUtils.ALERT_ERROR);
+//        }
+//    }
 
     // Update an existing trial
     private boolean updateTrial() {

@@ -149,7 +149,7 @@ public static void startJarUpdateWatcher() {
 
                             Platform.runLater(() -> {
                                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                                alert.setTitle("Application Update");
+                                alert.setTitle("Trials Application Update");
                                 alert.setHeaderText("The application has been updated.");
                                 alert.setContentText("The application must be closed to apply the new version.");
 

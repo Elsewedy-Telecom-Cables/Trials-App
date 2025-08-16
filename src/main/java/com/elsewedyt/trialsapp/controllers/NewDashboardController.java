@@ -39,13 +39,12 @@ import javafx.scene.control.TableView;
 public class NewDashboardController implements Initializable {
 
     @FXML private Button clearSearch_btn;
-    @FXML private TextField cu_trials_count_textF;
     @FXML private Label date_lbl;
     @FXML private TextField filter_trial_purpose_textF;
     @FXML private TextField filter_trial_id_textF;
     @FXML private DatePicker from_trial_creation_date_DP;
     @FXML private DatePicker to_trial_creation_date_DP;
-    @FXML private TextField fo_trials_count_textF;
+
     @FXML private TableColumn<NewTrialsView, String> trial_id_column;
     @FXML private ImageView logo_ImageView;
     @FXML private ComboBox<Matrial> matrial_Comb;
@@ -63,7 +62,7 @@ public class NewDashboardController implements Initializable {
     @FXML private TableView<NewTrialsView> table_view;
     @FXML private TableColumn<NewTrialsView, String> trial_creation_date_column;
     @FXML private TableColumn<NewTrialsView, String> trial_purpose_column;
-    @FXML private TextField trials_count_textF;
+
     @FXML private Button update_btn;
     @FXML private Label welcome_lbl;
     @FXML private Label dept_name_lbl;
@@ -113,15 +112,15 @@ public class NewDashboardController implements Initializable {
         update_btn.setCursor(Cursor.HAND);
 
         // Set text fields as non-editable
-        trials_count_textF.setEditable(false);
-        cu_trials_count_textF.setEditable(false);
-        fo_trials_count_textF.setEditable(false);
+       // trials_count_textF.setEditable(false);
+       // cu_trials_count_textF.setEditable(false);
+      //  fo_trials_count_textF.setEditable(false);
 
         // Initialize combo boxes and listeners
         initializeComboBoxes();
         addFilterListeners();
         loadData();
-        updateTrialsCount();
+        //updateTrialsCount();
         table_view.getStylesheets().add(getClass().getResource("/screens/style3.css").toExternalForm());
         supplier_country_Comb.setItems(FXCollections.observableArrayList());
 
@@ -628,9 +627,9 @@ public class NewDashboardController implements Initializable {
         int totalTrials = TrialDAO.getTrialsCount();
         int foTrials = TrialDAO.getTrialsCountBySection(1);
         int cuTrials = TrialDAO.getTrialsCountBySection(2);
-        trials_count_textF.setText(String.valueOf(totalTrials));
-        cu_trials_count_textF.setText(String.valueOf(cuTrials));
-        fo_trials_count_textF.setText(String.valueOf(foTrials));
+      //  trials_count_textF.setText(String.valueOf(totalTrials));
+     //   cu_trials_count_textF.setText(String.valueOf(cuTrials));
+      //  fo_trials_count_textF.setText(String.valueOf(foTrials));
     }
 
     private void addFilterListeners() {
@@ -678,7 +677,7 @@ public class NewDashboardController implements Initializable {
                 trialPurpose, trialId, sectionId, materialId, supplierId, supplierCountry,
                 fromTrialCreationDate, toTrialCreationDate);
         table_view.setItems(trialsViewList);
-        updateTrialsCount();
+       // updateTrialsCount();
     }
 
     @FXML
@@ -707,7 +706,7 @@ public class NewDashboardController implements Initializable {
     @FXML
     void update(ActionEvent event) {
         loadData();
-        updateTrialsCount();
+     //   updateTrialsCount();
         table_view.refresh();
     }
 

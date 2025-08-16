@@ -61,7 +61,7 @@ public class MainController implements Initializable {
         // Load and set company logo
         Image img = new Image(MainController.class.getResourceAsStream("/images/company_logo.png"));
         logo_ImageView.setImage(img);
-        Image img2 = new Image(MainController.class.getResourceAsStream("/images/trials.png"));
+        Image img2 = new Image(MainController.class.getResourceAsStream("/images/trials02.png"));
         trials_image_view.setImage(img2);
 
         // Set current date and time

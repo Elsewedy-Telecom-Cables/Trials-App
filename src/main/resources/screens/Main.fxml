@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="512.0" prefWidth="820.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.MainController">
+<AnchorPane prefHeight="556.0" prefWidth="862.0" style="-fx-background-color: #fffbee;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.MainController">
    <children>
-      <HBox alignment="CENTER" layoutY="2.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="66.0" prefWidth="820.0">
+      <HBox alignment="CENTER" layoutX="27.0" layoutY="2.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="66.0" prefWidth="836.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0">
          <children>
             <VBox prefHeight="66.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                <children>
@@ -29,7 +29,7 @@
                         <Font name="Montserrat Bold" size="11.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="15.0" left="10.0" />
+                        <Insets bottom="15.0" left="11.0" />
                      </VBox.margin>
                   </Label>
                </children>
@@ -44,7 +44,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="shift_label" alignment="CENTER" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="352.0" text="Shift : One" textFill="#cc2020" VBox.vgrow="ALWAYS">
+                  <Label fx:id="shift_label" alignment="CENTER" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="352.0" text="Shift : One" textFill="#dd3615" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="Montserrat Bold" size="13.0" />
                      </font>
@@ -68,50 +68,72 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="8.0" layoutY="467.0" prefHeight="42.0" prefWidth="129.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="5.0">
+      <ImageView fx:id="trials_image_view" fitHeight="239.0" fitWidth="820.0" layoutX="40.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+      <HBox alignment="CENTER" layoutX="15.0" layoutY="461.0" prefHeight="60.0" prefWidth="855.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <Button fx:id="users_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openViewUsers" prefHeight="35.0" prefWidth="126.0" styleClass="button-5" text="Users   ">
-               <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-users" iconSize="10" />
-               </graphic>
-               <font>
-                  <Font name="Montserrat Bold" size="15.0" />
-               </font>
-            </Button>
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="150.0">
+               <children>
+                  <Button fx:id="users_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openViewUsers" prefHeight="35.0" prefWidth="140.0" styleClass="button-21" text="Users   ">
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-users" iconSize="10" />
+                     </graphic>
+                     <font>
+                        <Font name="Montserrat Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="280.0">
+               <children>
+                  <Button fx:id="trials_btn" mnemonicParsing="false" onAction="#openTrials" prefHeight="35.0" prefWidth="300.0" styleClass="button-22" text="Adding Trials + Uploading Files" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="260.0">
+               <children>
+                  <Button fx:id="dashboard_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openDashboard" prefHeight="35.0" prefWidth="260.0" styleClass="button-24" text="All Departments Data" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="160.0">
+               <children>
+                  <Button fx:id="prepare_data_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openPrepareData" prefHeight="35.0" prefWidth="150.0" styleClass="button-23" text="Database  " textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-database" />
+                     </graphic>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </HBox>
          </children>
       </HBox>
-      <ImageView fx:id="trials_image_view" fitHeight="277.0" fitWidth="461.0" layoutX="191.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox alignment="CENTER" layoutX="650.0" layoutY="261.0" prefHeight="56.0" prefWidth="162.0" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="5.0">
+      <HBox alignment="CENTER" layoutX="40.0" layoutY="91.0" prefHeight="80.0" prefWidth="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <children>
-            <Button fx:id="prepare_data_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openPrepareData" prefHeight="35.0" prefWidth="140.0" styleClass="button-7" text="Database  " textFill="WHITE">
+            <Label text="TELECOM TRIALS" textFill="#dd3615">
                <font>
-                  <Font name="Montserrat Bold" size="15.0" />
+                  <Font name="Montserrat Bold" size="45.0" />
                </font>
-               <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-database" />
-               </graphic>
-            </Button>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="272.6" layoutY="391.2" prefHeight="56.0" prefWidth="200.0" AnchorPane.bottomAnchor="64.80000000000001" AnchorPane.rightAnchor="445.0">
-         <children>
-            <Button fx:id="trials_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openTrials" prefHeight="35.0" prefWidth="200.0" styleClass="button-3" text="Adding new Trials  " textFill="WHITE">
-               <font>
-                  <Font name="Montserrat Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-plus" iconSize="13" />
-               </graphic>
-            </Button>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="452.0" layoutY="349.0" prefHeight="56.0" prefWidth="210.0" AnchorPane.bottomAnchor="125.0" AnchorPane.rightAnchor="195.0">
-         <children>
-            <Button fx:id="dashboard_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openDashboard" prefHeight="35.0" prefWidth="200.0" styleClass="button-20" text="All Departments Data" textFill="WHITE">
-               <font>
-                  <Font name="Montserrat Bold" size="14.0" />
-               </font>
-            </Button>
+            </Label>
          </children>
       </HBox>
    </children>

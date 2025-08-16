@@ -130,9 +130,13 @@ public class TrialsController implements Initializable {
             Logging.logException("ERROR", this.getClass().getName(), "initialize Permission", ex);
         }
 
+
         // Initialize ComboBoxes
         initializeComboBoxes();
-        // Add listener to supplier_combo to update supplier_country_combo when a supplier is selected
+
+        supplier_country_Comb.setItems(FXCollections.observableArrayList());
+
+        // Add listener to supplier_combo to update supplier_country_combo
         supplier_Comb.getSelectionModel().selectedItemProperty().addListener((obs, oldSupplier, newSupplier) -> {
             updateSupplierCountries(newSupplier);
         });
@@ -171,6 +175,20 @@ public class TrialsController implements Initializable {
                 setText(empty || item == null ? null : item.getSupplierName());
             }
         });
+//        supplier_country_Comb.setCellFactory(param -> new ListCell<SupplierCountry>() {
+//            @Override
+//            protected void updateItem(SupplierCountry item, boolean empty) {
+//                super.updateItem(item, empty);
+//                setText(empty || item == null ? null : item.getCountryName());
+//            }
+//        });
+//        supplier_country_Comb.setButtonCell(new ListCell<SupplierCountry>() {
+//            @Override
+//            protected void updateItem(SupplierCountry item, boolean empty) {
+//                super.updateItem(item, empty);
+//                setText(empty || item == null ? null : item.getCountryName());
+//            }
+//        });
         supplier_country_Comb.setCellFactory(param -> new ListCell<SupplierCountry>() {
             @Override
             protected void updateItem(SupplierCountry item, boolean empty) {
@@ -185,7 +203,6 @@ public class TrialsController implements Initializable {
                 setText(empty || item == null ? null : item.getCountryName());
             }
         });
-
         matrial_Comb.setCellFactory(param -> new ListCell<Matrial>() {
             @Override
             protected void updateItem(Matrial item, boolean empty) {

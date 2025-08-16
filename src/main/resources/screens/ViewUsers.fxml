@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="605.0" prefWidth="1254.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.ViewUsersController">
    <children>
-      <TableView id="table01" fx:id="users_tbl_view" layoutX="11.2" layoutY="66.4" nodeOrientation="LEFT_TO_RIGHT" prefHeight="495.0" prefWidth="1232.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="66.0">
+      <TableView id="table01" fx:id="users_tbl_view" layoutX="11.2" layoutY="66.4" nodeOrientation="LEFT_TO_RIGHT" prefHeight="497.0" prefWidth="1238.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="66.0">
          <columns>
             <TableColumn fx:id="userId_colm" maxWidth="2500.0" prefWidth="15.0" text="ID" />
             <TableColumn fx:id="empId_colm" maxWidth="3000.0" prefWidth="30.0" styleClass="userIdCol" text="Emp Code" />
@@ -31,32 +31,32 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="20.0" layoutY="15.0" prefHeight="60.0" prefWidth="907.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+      <VBox alignment="CENTER" layoutX="20.0" layoutY="15.0" prefHeight="60.0" prefWidth="907.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="979.0" spacing="30.0">
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="979.0" spacing="30.0">
                <children>
-                  <Button fx:id="add_user_btn" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAddUserPage" prefHeight="35.0" prefWidth="142.0" styleClass="input-01" text="Add User" HBox.hgrow="ALWAYS">
+                  <Button fx:id="add_user_btn" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAddUserPage" prefHeight="35.0" prefWidth="120.0" styleClass="input-01" text="Add User" HBox.hgrow="ALWAYS">
                      <font>
-                        <Font name="System Bold" size="17.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </HBox.margin>
                      <graphic>
-                        <FontIcon iconColor="#066f78" iconLiteral="fa-user-plus" iconSize="15" wrappingWidth="20.999998450279236" />
+                        <FontIcon iconColor="#066f78" iconLiteral="fa-user-plus" iconSize="16" wrappingWidth="20.999998450279236" />
                      </graphic>
                   </Button>
-                  <TextField fx:id="filterUsers_txtF" alignment="CENTER" onKeyPressed="#filter_Users" prefHeight="40.0" prefWidth="862.0" promptText="Search" styleClass="input" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="filterUsers_txtF" alignment="CENTER" onKeyPressed="#filter_Users" prefHeight="40.0" prefWidth="900.0" promptText="Search" styleClass="input" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="clearSearch_btn" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clearSearch" prefHeight="35.0" prefWidth="150.0" styleClass="input-01" text="Clear Search" HBox.hgrow="ALWAYS">
+                  <Button fx:id="clearSearch_btn" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clearSearch" prefHeight="35.0" prefWidth="120.0" styleClass="input-01" text="Clear" HBox.hgrow="ALWAYS">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets />
                      </HBox.margin>
                      <graphic>
                         <FontIcon iconColor="#066f78" iconLiteral="fa-eraser" />
@@ -66,16 +66,16 @@
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="10.4" layoutY="527.0" prefHeight="35.0" prefWidth="1024.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0">
+      <HBox alignment="CENTER" layoutX="10.4" layoutY="527.0" prefHeight="35.0" prefWidth="1024.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0">
          <children>
             <Label fx:id="users_num_lable" alignment="CENTER" prefHeight="27.0" prefWidth="133.0" text="No of users" textFill="#00727c">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="users_count_textF" alignment="CENTER" prefHeight="30.0" prefWidth="65.0" styleClass="input-01">
+            <TextField fx:id="users_count_textF" alignment="CENTER" prefHeight="22.0" prefWidth="66.0" styleClass="input-01">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </TextField>
          </children>

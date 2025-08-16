@@ -10,7 +10,9 @@ import javafx.collections.ObservableList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -309,6 +311,33 @@ public class UserDAO {
         }
         return users;
     }
+    // New method to get emails of active users with exclusion option
+    public static List<String> getActiveUsersEmails(Set<String> excludedEmails) {
+        List<String> emails = new ArrayList<>();
+        String query = """
+        SELECT user_name
+        FROM dbtrials.dbo.users
+        WHERE active = 1
+    """;
+
+        try (Connection con = DbConnect.getConnect();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String username = rs.getString("user_name");
+                String email = username + "@elsewedy.com";
+                if (excludedEmails == null || !excludedEmails.contains(email)) {
+                    emails.add(email);
+                }
+            }
+
+        } catch (Exception e) {
+            Logging.logExpWithMessage("ERROR", UserDAO.class.getName(), "getActiveUsersEmails", e, "sql", query);
+        }
+        return emails;
+    }
+
 }
 
 
