@@ -339,6 +339,7 @@ import com.elsewedyt.trialsapp.models.FileView;
 import com.elsewedyt.trialsapp.models.FileType;
 import com.elsewedyt.trialsapp.services.WindowUtils;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -354,6 +355,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -380,7 +382,7 @@ public class OpenFilesController implements Initializable {
     @FXML
     private TableColumn<FileView, String> full_name_column;
     @FXML
-    private TableColumn<FileView, String> craetion_file_date_column;
+    private TableColumn<FileView, LocalDateTime> craetion_file_date_column;
 
     @FXML
     private Label View_Department_files_lbl;
@@ -446,10 +448,25 @@ public class OpenFilesController implements Initializable {
         file_type_name_column.setCellValueFactory(new PropertyValueFactory<>("fileTypeName"));
         full_name_column.setCellValueFactory(new PropertyValueFactory<>("userFullName"));
         comment_column.setCellValueFactory(new PropertyValueFactory<>("comment"));
+//        craetion_file_date_column.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getFileCreationDate() != null
+//                        ? cellData.getValue().getFileCreationDate().format(dateFormatter)
+//                        : ""));
+
         craetion_file_date_column.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFileCreationDate() != null
-                        ? cellData.getValue().getFileCreationDate().format(dateFormatter)
-                        : ""));
+                new SimpleObjectProperty<>(cellData.getValue().getFileCreationDate()));
+        craetion_file_date_column.setCellFactory(column -> new TableCell<FileView, LocalDateTime>() {
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(dateFormatter.format(item));
+                }
+            }
+        });
+
         craetion_file_date_column.setStyle("-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;");
 
         // Test Situation Column with colored text

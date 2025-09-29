@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="703.0" prefWidth="1454.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.OpenFilesController">
+<AnchorPane prefHeight="703.0" prefWidth="1454.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.OpenFilesController">
    <children>
       <TableView fx:id="table_view" layoutX="22.0" layoutY="73.0" prefHeight="556.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="58.0">
          <columns>
@@ -26,7 +26,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER" layoutX="658.0" layoutY="11.0" prefHeight="38.0" prefWidth="138.0" styleClass="title-box" AnchorPane.topAnchor="3.0">
+      <HBox alignment="CENTER" layoutX="691.0" layoutY="3.2" prefHeight="38.0" prefWidth="138.0" styleClass="title-box" AnchorPane.topAnchor="1.0">
          <children>
             <Label fx:id="View_Department_files_lbl" alignment="CENTER" prefHeight="24.0" prefWidth="114.0" text="View-Files">
                <font>

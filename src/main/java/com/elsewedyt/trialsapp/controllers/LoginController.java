@@ -49,7 +49,6 @@ public class LoginController implements Initializable {
         user_name_txtF.setText(LoggingSetting.getCurrentUsername());
 
 
-
     }
 
     @FXML
@@ -59,23 +58,23 @@ public class LoginController implements Initializable {
 
 
         if (username.isEmpty() || password.isEmpty()) {
-            WindowUtils.ALERT("ERR", "Please enter username and password", WindowUtils.ALERT_WARNING);
+            WindowUtils.ALERT("WARNING", "Please enter username and password", WindowUtils.ALERT_WARNING);
             return;
         }
 
         User user = UserDAO.getUserByUsername(username);
 
         if (user == null) {
-            WindowUtils.ALERT("ERR", "Error in user name", WindowUtils.ALERT_WARNING);
+            WindowUtils.ALERT("WARNING", "Error in user name", WindowUtils.ALERT_WARNING);
             return;
         }
 
         if (!user.getPassword().equals(password)) {
-            WindowUtils.ALERT("ERR", "Error in password", WindowUtils.ALERT_WARNING);
+            WindowUtils.ALERT("WARNING", "Error in password", WindowUtils.ALERT_WARNING);
             return;
         }
         if (user.getActive() == 0) {
-            WindowUtils.ALERT("ERR", "This User Not Active", WindowUtils.ALERT_WARNING);
+            WindowUtils.ALERT("WARNING", "This User Not Active", WindowUtils.ALERT_WARNING);
             return;
         }
 
@@ -85,8 +84,8 @@ public class LoginController implements Initializable {
             CLOSE(event);
             OPEN_MAIN_PAGE();
         } catch (Exception ex) {
-            WindowUtils.ALERT("ERR", "An unexpected error occurred", WindowUtils.ALERT_WARNING);
-            Logging.logException("ERR", this.getClass().getName(), "login", ex);
+            WindowUtils.ALERT("ERROR", "An unexpected error occurred", WindowUtils.ALERT_WARNING);
+            Logging.logException("ERROR", this.getClass().getName(), "login", ex);
         }
 
     }

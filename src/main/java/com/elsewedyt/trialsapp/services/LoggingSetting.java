@@ -82,6 +82,7 @@ public class LoggingSetting {
             return "";
         }
     }
+
 //    private static File currentJarFile;
 //    private static long jarLastModifiedTime = -1;
 //    public static void startJarUpdateWatcher() {

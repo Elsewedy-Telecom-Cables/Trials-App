@@ -33,7 +33,6 @@ public class MainController implements Initializable {
 
     @FXML
     private Label welcome_lbl;
-
     @FXML
     private Button users_btn;
     @FXML
@@ -41,7 +40,7 @@ public class MainController implements Initializable {
     @FXML
     private ImageView trials_image_view;
     @FXML
-    private Button prepare_data_btn;
+    private Button prepare_data_btn;   // Database Button
     @FXML
     private Button trials_btn;
     @FXML
@@ -52,6 +51,10 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // Set focus to welcome label
         Platform.runLater(() -> welcome_lbl.requestFocus());
+
+        if(UserContext.getCurrentUser().getDepartmentId() == 1){   // Technical Office  Department
+            trials_btn.setText("Adding Trials + Uploading Files");
+        }
 
         // Set shift information
         ShiftManager.setSHIFT(LocalDateTime.now());

@@ -723,7 +723,9 @@ public class DashboardController implements Initializable {
     @FXML private Label welcome_lbl;
 
     private ObservableList<TrialsView> trialsViewList;
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+   // private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm a");
+
     private static String downloadPath = null;
     private static final String SERVER_UPLOAD_PATH = "\\\\ETCSVR\\TrialsUpload\\";
 
@@ -895,9 +897,11 @@ public class DashboardController implements Initializable {
 
         trial_id_column.setCellValueFactory(new PropertyValueFactory<>("trialId"));
         trial_purpose_column.setCellValueFactory(new PropertyValueFactory<>("trialPurpose"));
+
         trial_creation_date_column.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getTrialCreationDate() != null ?
                         cellData.getValue().getTrialCreationDate().format(dateFormatter) : ""));
+
         trial_notes_column.setCellValueFactory(new PropertyValueFactory<>("trialNotes"));
         section_column.setCellValueFactory(new PropertyValueFactory<>("sectionName"));
         matrial_name_column.setCellValueFactory(new PropertyValueFactory<>("materialName"));

@@ -1,10 +1,8 @@
 package com.elsewedyt.trialsapp.services;
 
-import com.elsewedyt.trialsapp.controllers.AddTrialController;
-import com.elsewedyt.trialsapp.controllers.AddUserController;
-import com.elsewedyt.trialsapp.controllers.LoginController;
-import com.elsewedyt.trialsapp.controllers.TrialsController;
+import com.elsewedyt.trialsapp.controllers.*;
 import com.elsewedyt.trialsapp.db.DEF;
+import com.elsewedyt.trialsapp.logging.Logging;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -63,7 +61,46 @@ public class WindowUtils {
             e.printStackTrace();
         }
     }
+    public static void OPEN_WINDOW_FULL_SCREEN2(String fxmlPath, Runnable onCloseAction, Consumer<AddFileController> controllerInitializer) {
+        try {
+            System.out.println("Loading FXML: " + fxmlPath);
+            FXMLLoader loader = new FXMLLoader(WindowUtils.class.getResource(fxmlPath));
+            Parent root = loader.load();
+            AddFileController controller = loader.getController();
+            System.out.println("Controller loaded: " + (controller != null ? controller.getClass().getName() : "null"));
 
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(WindowUtils.class.getResourceAsStream(iconImagePath)));
+
+            if (controller != null) {
+                System.out.println("Setting stage for controller");
+                controller.setStage(stage);
+                if (controllerInitializer != null) {
+                    System.out.println("Calling controllerInitializer");
+                    controllerInitializer.accept(controller);
+                }
+            } else {
+                Logging.logException("ERROR", WindowUtils.class.getName(), "OPEN_WINDOW_FULL_SCREEN2", new IllegalStateException("Controller is null for FXML: " + fxmlPath));
+            }
+
+            if (onCloseAction != null) {
+                stage.setOnCloseRequest(event -> onCloseAction.run());
+            }
+
+            stage.setResizable(true);
+            stage.setMaximized(true);
+            System.out.println("Showing stage");
+            stage.show();
+
+        } catch (Exception e) {
+            Logging.logException("ERROR", WindowUtils.class.getName(), "OPEN_WINDOW_FULL_SCREEN2", e);
+            System.out.println("Failed to open window: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     public static void OPEN_WINDOW_NOT_RESIZABLE(String fxmlPath, Runnable onCloseAction) {
         try {
             Parent root = FXMLLoader.load(WindowUtils.class.getResource(fxmlPath));
@@ -120,8 +157,52 @@ public class WindowUtils {
                 return null; // Return null in case of an error
             }
         }
+    public static void OPEN_WINDOW_WITH_CONTROLLER_AND_STAGE(String fxmlPath, Consumer<AddFileController> controllerHandler) {
+        try {
+         //   System.out.println("Loading FXML: " + fxmlPath);
+            FXMLLoader loader = new FXMLLoader(WindowUtils.class.getResource(fxmlPath));
+            if (loader.getLocation() == null) {
+                throw new IllegalStateException("FXML file not found: " + fxmlPath);
+            }
+            Parent root = loader.load();
+            AddFileController controller = loader.getController();
+       //     System.out.println("Controller loaded: " + (controller != null ? controller.getClass().getName() : "null"));
 
-    public static void OPEN_WINDOW_NOT_RESIZABLE_3(String fxmlPath, Consumer<Object> controllerHandler) {
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(true);
+            stage.setMaximized(true);
+            stage.getIcons().add(new Image(WindowUtils.class.getResourceAsStream(iconImagePath)));
+
+            if (controller != null) {
+              //  System.out.println("Setting stage for controller");
+                controller.setStage(stage);
+                if (controllerHandler != null) {
+                 //   System.out.println("Calling controllerHandler");
+                    controllerHandler.accept(controller);
+                }
+            } else {
+                Logging.logException("ERROR", WindowUtils.class.getName(), "OPEN_WINDOW_NOT_RESIZABLE_3", new IllegalStateException("Controller is null for FXML: " + fxmlPath));
+            }
+
+            // Disable close button (X)
+            stage.setOnCloseRequest(event -> {
+                event.consume();
+            //    System.out.println("Close request via X ignored. Use Close button instead.");
+                ALERT("Info", "Please use the Red Close Button to Exit ➡  X ", ALERT_INFORMATION);
+            });
+
+           // System.out.println("Showing stage");
+            stage.show();
+        } catch (Exception e) {
+            Logging.logException("ERROR", WindowUtils.class.getName(), "OPEN_WINDOW_NOT_RESIZABLE_3", e);
+          //  System.out.println("Failed to open window: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+     public static void OPEN_WINDOW_WITH_CONTROLLER(String fxmlPath, Consumer<Object> controllerHandler) {
         try {
             FXMLLoader loader = new FXMLLoader(WindowUtils.class.getResource(fxmlPath));
             Parent root = loader.load();
@@ -134,7 +215,8 @@ public class WindowUtils {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setResizable(false);
+            stage.setMaximized(true);      // Open maximized by default
+            stage.setResizable(true);
             stage.show();
 
         } catch (Exception e) {

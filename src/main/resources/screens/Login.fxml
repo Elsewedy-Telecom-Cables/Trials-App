@@ -27,8 +27,8 @@
                </font>
             </Label>
             <ImageView fx:id="logo_image_view" fitHeight="60.0" fitWidth="129.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" scaleX="1.1" scaleY="1.1" scaleZ="1.1" />
-            <FontIcon iconColor="#848080" iconLiteral="fa-user" iconSize="25" layoutX="479.0" layoutY="227.0" selectionFill="BLACK" wrappingWidth="23.199951171875" />
-            <FontIcon iconColor="#848080" iconLiteral="fa-lock" iconSize="25" layoutX="480.0" layoutY="288.0" selectionFill="BLACK" wrappingWidth="13.5999755859375" />
+            <FontIcon iconColor="#848080" iconLiteral="fas-user" iconSize="25" layoutX="479.0" layoutY="227.0" selectionFill="BLACK" wrappingWidth="23.199951171875" />
+            <FontIcon iconColor="#848080" iconLiteral="fas-lock" iconSize="25" layoutX="480.0" layoutY="288.0" selectionFill="BLACK" wrappingWidth="13.5999755859375" />
             <TextField fx:id="user_name_txtF" alignment="CENTER" layoutX="123.0" layoutY="197.0" prefHeight="43.0" prefWidth="350.0" promptText="Enter user name" styleClass="input">
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -44,7 +44,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
                <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fa-sign-in" iconSize="20" />
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-sign-in-alt" iconSize="20" />
                </graphic>
             </Button>
          </children>

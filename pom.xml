@@ -7,7 +7,7 @@
     <groupId>com.elsewedyt</groupId>
     <artifactId>trialsapp</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>calibrationapp</name>
+    <name>trialsapp</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -88,7 +88,7 @@
             <version>5.5.13.4</version>
         </dependency>
 
-        <!-- PDFBox for PDF manipulation -->
+        <!-- PDF Box for PDF manipulation -->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox-app</artifactId>

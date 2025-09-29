@@ -106,7 +106,7 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <FontIcon iconColor="#00727d" iconLiteral="fa-refresh" />
+                                    <FontIcon iconColor="#00727d" iconLiteral="fas-sync" />
                                  </graphic>
                               </Button>
                            </children>
@@ -159,7 +159,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <graphic>
-                              <FontIcon iconColor="#01545b" iconLiteral="fa-search" iconSize="12" wrappingWidth="10.400023460388184" />
+                              <FontIcon iconColor="#01545b" iconLiteral="fas-search" iconSize="12" wrappingWidth="10.400023460388184" />
                            </graphic>
                            <VBox.margin>
                               <Insets bottom="3.0" />
@@ -354,7 +354,7 @@
                         <Font name="Montserrat Bold" size="15.0" />
                      </font>
                      <graphic>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-plus" iconSize="11" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-plus" iconSize="11" />
                      </graphic>
                   </Button>
                </children>

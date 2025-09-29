@@ -224,9 +224,8 @@ public class NewTrialsViewDAO {
                     "LEFT JOIN supplier_country sc ON t.sup_country_id = sc.sup_country_id " +
                     "LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id " +
                     "LEFT JOIN files f ON t.trial_id = f.trial_id " +
-                    "LEFT JOIN departments d ON f.department_id = d.department_id";
-
-               //     "ORDER BY t.trial_id, f.creation_date DESC";
+                    "LEFT JOIN departments d ON f.department_id = d.department_id " +
+                     "ORDER BY t.trial_id DESC";
 
             try (Connection conn = DbConnect.getConnect();
                  PreparedStatement stmt = conn.prepareStatement(sql)) {

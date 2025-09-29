@@ -60,8 +60,8 @@ public class AddUserController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> page_title.requestFocus());
         userDeptartment_ComBox.setItems(DepartmentDAO.getAllDepartments());
-        listComboUserRole = FXCollections.observableArrayList(DEF.USER_ROLE_SUPER_ADMIN,DEF.USER_ROLE_DEPARTMENT_MANAGER,DEF.USER_ROLE_SUPER_VISOR,DEF.USER_ROLE_USER_STRING);
-        listComboUserActive = FXCollections.observableArrayList(DEF.USER_ACTIVE_STRING,DEF.USER_NOT_ACTIVE_STRING);
+        listComboUserRole = FXCollections.observableArrayList(DEF.USER_ROLE_SUPER_ADMIN, DEF.USER_ROLE_DEPARTMENT_MANAGER, DEF.USER_ROLE_SUPER_VISOR, DEF.USER_ROLE_USER_STRING);
+        listComboUserActive = FXCollections.observableArrayList(DEF.USER_ACTIVE_STRING, DEF.USER_NOT_ACTIVE_STRING);
         userRole_ComBox.setItems(listComboUserRole);
         userActive_ComBox.setItems(listComboUserActive);
         // setCueser
@@ -72,7 +72,7 @@ public class AddUserController implements Initializable {
                 for (Department dept : userDeptartment_ComBox.getItems()) {
                     if (dept.getDepartmentId() == deptId) {
                         userDeptartment_ComBox.getSelectionModel().select(dept);
-                       // userDeptartment_ComBox.setDisable(true); // منع التعديل
+                        // userDeptartment_ComBox.setDisable(true); // منع التعديل
                         // جعل الكومبو "قراءة فقط" بدون أن يتغير شكله
                         userDeptartment_ComBox.setMouseTransparent(true);
                         userDeptartment_ComBox.setFocusTraversable(false);
@@ -108,7 +108,7 @@ public class AddUserController implements Initializable {
                 userDeptartment_ComBox.setDisable(false);
             } else {
                 // Others: prevent changing department
-               // userDeptartment_ComBox.setDisable(true);
+                // userDeptartment_ComBox.setDisable(true);
                 // جعل الكومبو "قراءة فقط" بدون أن يتغير شكله
                 userDeptartment_ComBox.setMouseTransparent(true);
                 userDeptartment_ComBox.setFocusTraversable(false);
@@ -140,7 +140,18 @@ public class AddUserController implements Initializable {
         saveUser_btn.setText("Update");
     }
 
-    boolean  addUserHelp() {
+    void clearUserPage() {
+        emp_id_txtF.clear();
+        user_name_txtF.clear();
+        password_passF.clear();
+        full_name_txtF.clear();
+        phone_txtF.clear();
+        userRole_ComBox.getSelectionModel().clearSelection();
+        userActive_ComBox.getSelectionModel().clearSelection();
+        userDeptartment_ComBox.getSelectionModel().clearSelection();
+    }
+
+    boolean addUserHelp() {
         Department selectDepartment = null;
 
         try {
@@ -199,8 +210,6 @@ public class AddUserController implements Initializable {
                     validationErrors.add("User Name already exists. Please choose another.");
                 }
             }
-
-
 
 
             // Validate password
@@ -263,16 +272,6 @@ public class AddUserController implements Initializable {
         }
     }
 
-    void clearUserPage() {
-        emp_id_txtF.clear();
-        user_name_txtF.clear();
-        password_passF.clear();
-        full_name_txtF.clear();
-        phone_txtF.clear();
-        userRole_ComBox.getSelectionModel().clearSelection();
-        userActive_ComBox.getSelectionModel().clearSelection();
-        userDeptartment_ComBox.getSelectionModel().clearSelection();
-    }
 
     public boolean UpdateUserHelp() {
         User us = null;
@@ -339,34 +338,33 @@ public class AddUserController implements Initializable {
     }
 
 
-@FXML
-void saveUserButton(ActionEvent event) {
-    try {
-        if (!update) {
-            boolean added = addUserHelp();  // تحقق من نجاح الإضافة
-            if (added) {
+    @FXML
+    void saveUserButton(ActionEvent event) {
+        try {
+            if (!update) {
+                boolean added = addUserHelp();  // تحقق من نجاح الإضافة
+                if (added) {
+                    clearUserPage();
+                    WindowUtils.ALERT("Success", "User added successfully", WindowUtils.ALERT_INFORMATION);
+                    CLOSE(event);
+                    OPEN_VIEW_USERS_PAGE();
+                }
+            } else {
+                boolean updated = UpdateUserHelp();
+                if (updated) {
+                    WindowUtils.ALERT("Success", "User updated successfully", WindowUtils.ALERT_INFORMATION);
+                } else {
+                    WindowUtils.ALERT("Warning", "User update failed or no changes made", WindowUtils.ALERT_WARNING);
+                }
                 clearUserPage();
-                WindowUtils.ALERT("Success", "User added successfully", WindowUtils.ALERT_INFORMATION);
                 CLOSE(event);
                 OPEN_VIEW_USERS_PAGE();
             }
-        } else {
-            boolean updated = UpdateUserHelp();
-            if (updated) {
-                WindowUtils.ALERT("Success", "User updated successfully", WindowUtils.ALERT_INFORMATION);
-            } else {
-                WindowUtils.ALERT("Warning", "User update failed or no changes made", WindowUtils.ALERT_WARNING);
-            }
-            clearUserPage();
-            CLOSE(event);
-            OPEN_VIEW_USERS_PAGE();
+
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "saveUserButton", ex);
         }
-
-    } catch (Exception ex) {
-        Logging.logException("ERROR", this.getClass().getName(), "saveUserButton", ex);
     }
-}
-
 
 
 }

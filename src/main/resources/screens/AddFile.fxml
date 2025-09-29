@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="705.0" prefWidth="1453.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.AddFileController">
+<AnchorPane prefHeight="705.0" prefWidth="1484.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.AddFileController">
    <children>
       <TableView fx:id="table_view" layoutX="28.0" layoutY="63.0" prefHeight="594.0" prefWidth="1404.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="60.0">
         <columns>
@@ -35,17 +35,22 @@
             <Font name="System Bold" size="15.0" />
          </font>
          <graphic>
-            <FontIcon iconColor="#00727d" iconLiteral="fa-plus" iconSize="14" />
+            <FontIcon iconColor="#00727d" iconLiteral="fas-plus" iconSize="14" />
          </graphic>
       </Button>
-      <HBox alignment="CENTER" layoutX="651.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" styleClass="title-box" AnchorPane.topAnchor="3.0">
+      <HBox alignment="CENTER" layoutX="686.0" layoutY="0.8" prefHeight="30.0" prefWidth="150.0" styleClass="title-box" AnchorPane.topAnchor="0.8">
          <children>
-            <Label fx:id="title_lbl" alignment="CENTER" prefHeight="38.0" prefWidth="114.0" styleClass="title-label" text="Add-Files">
+            <Label fx:id="title_lbl" alignment="CENTER" prefHeight="38.0" prefWidth="114.0" styleClass="title-label" text="Add-Files" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
          </children>
       </HBox>
+      <Button fx:id="close_btn" alignment="CENTER" layoutX="1405.4" layoutY="3.2" mnemonicParsing="false" onAction="#closePage" prefHeight="26.0" prefWidth="42.0" styleClass="close-button" text="X" textFill="RED" AnchorPane.rightAnchor="6.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

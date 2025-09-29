@@ -150,7 +150,7 @@
                   </ComboBox>
                </children>
             </VBox>
-            <FontIcon iconColor="WHITE" iconLiteral="fa-check" iconSize="15" layoutX="517.0" layoutY="548.0" />
+            <FontIcon iconColor="WHITE" iconLiteral="fas-check" iconSize="15" layoutX="517.0" layoutY="548.0" />
          </children>
       </Pane>
       <HBox alignment="CENTER" layoutY="-8.0" prefHeight="58.0" prefWidth="570.0">

@@ -89,7 +89,7 @@
                                     <Insets left="5.0" right="10.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <FontIcon iconColor="#00727d" iconLiteral="fa-refresh" />
+                                    <FontIcon iconColor="#00727d" iconLiteral="fas-sync" />
                                  </graphic>
                               </Button>
                            </children>
@@ -220,7 +220,7 @@
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                            <graphic>
-                              <FontIcon iconLiteral="fa-eraser" iconSize="12" />
+                              <FontIcon iconLiteral="fas-eraser" iconSize="12" />
                            </graphic>
                         </Button>
                         <Button fx:id="searchWithFilter_btn" mnemonicParsing="false" onAction="#searchWithFilter" prefHeight="34.0" prefWidth="169.0" styleClass="input-06" text="Search " HBox.hgrow="ALWAYS">
@@ -228,7 +228,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                            <graphic>
-                              <FontIcon iconLiteral="fa-search" iconSize="12" wrappingWidth="10.400023460388184" />
+                              <FontIcon iconLiteral="fas-search" iconSize="12" wrappingWidth="10.400023460388184" />
                            </graphic>
                            <HBox.margin>
                               <Insets left="15.0" />

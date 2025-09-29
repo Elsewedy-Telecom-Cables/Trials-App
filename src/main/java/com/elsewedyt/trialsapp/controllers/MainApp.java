@@ -31,7 +31,7 @@ public class MainApp extends Application {
         } catch (Exception e) {
             e.printStackTrace();
             Logging.logException("ERROR", this.getClass().getName(), "start", e);
-            Logging.logException("ERROR", this.getClass().getName(), "start", e);
+           // Logging.logException("ERROR", this.getClass().getName(), "start", e);
         }
     }
 

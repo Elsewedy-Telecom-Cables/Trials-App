@@ -60,7 +60,7 @@ public class NewDashboardController implements Initializable {
     @FXML private ComboBox<SupplierCountry> supplier_country_Comb;
     @FXML private TableColumn<NewTrialsView, String> supplier_country_name_column;
     @FXML private TableView<NewTrialsView> table_view;
-    @FXML private TableColumn<NewTrialsView, String> trial_creation_date_column;
+    @FXML private TableColumn<NewTrialsView, LocalDateTime> trial_creation_date_column;
     @FXML private TableColumn<NewTrialsView, String> trial_purpose_column;
 
     @FXML private Button update_btn;
@@ -236,9 +236,24 @@ public class NewDashboardController implements Initializable {
 
         trial_id_column.setCellValueFactory(new PropertyValueFactory<>("trialId"));
         trial_purpose_column.setCellValueFactory(new PropertyValueFactory<>("trialPurpose"));
+//        trial_creation_date_column.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getTrialCreationDate() != null ?
+//                        cellData.getValue().getTrialCreationDate().format(dateFormatter) : ""));
+
         trial_creation_date_column.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getTrialCreationDate() != null ?
-                        cellData.getValue().getTrialCreationDate().format(dateFormatter) : ""));
+                new SimpleObjectProperty<>(cellData.getValue().getTrialCreationDate()));
+        trial_creation_date_column.setCellFactory(column -> new TableCell<NewTrialsView, LocalDateTime>() {
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(dateFormatter.format(item));
+                }
+            }
+        });
+
         trial_notes_column.setCellValueFactory(new PropertyValueFactory<>("trialNotes"));
         section_column.setCellValueFactory(new PropertyValueFactory<>("sectionName"));
         matrial_name_column.setCellValueFactory(new PropertyValueFactory<>("materialName"));
@@ -538,7 +553,7 @@ public class NewDashboardController implements Initializable {
                     }
                     if (filePaths != null && !filePaths.isEmpty()) {
                         // Open file window with trialId and departmentName
-                        WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3(WindowUtils.OPEN_FILES_PAGE, controller -> {
+                        WindowUtils.OPEN_WINDOW_WITH_CONTROLLER(WindowUtils.OPEN_FILES_PAGE, controller -> {
                             if (controller instanceof OpenFilesController) {
                                 // No need to pass filePaths since OpenFilesController uses FileViewDAO
                                 ((OpenFilesController) controller).initData(item.getTrialId(), departmentName);

@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="686.0" prefWidth="1302.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.DashboardController">
+<AnchorPane prefHeight="686.0" prefWidth="1302.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.DashboardController">
    <children>
       <HBox alignment="CENTER" layoutX="10.4" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="1292.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0">
          <children>
@@ -89,7 +89,7 @@
                                     <Insets left="5.0" right="10.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <FontIcon iconColor="#00727d" iconLiteral="fa-refresh" />
+                                    <FontIcon iconColor="#00727d" iconLiteral="fas-sync" />
                                  </graphic>
                               </Button>
                            </children>
@@ -244,7 +244,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                            <graphic>
-                              <FontIcon iconColor="#01545b" iconLiteral="fa-search" iconSize="12" wrappingWidth="10.400023460388184" />
+                              <FontIcon iconColor="#01545b" iconLiteral="fas-search" iconSize="12" wrappingWidth="10.400023460388184" />
                            </graphic>
                            <HBox.margin>
                               <Insets left="7.0" />
@@ -258,12 +258,12 @@
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="350.0" styleClass="box" HBox.hgrow="ALWAYS">
                      <children>
                         <DatePicker fx:id="to_trial_creation_date_DP" prefHeight="30.0" prefWidth="220.0" style="-fx-font-size: 13; -fx-font-weight: bold;" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="105.0" text="To Trial C-Data">
+                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="To Trial C-Data">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="3.0" />
+                              <Insets left="5.0" />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -274,7 +274,7 @@
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="350.0" styleClass="box" HBox.hgrow="ALWAYS">
                      <children>
                         <DatePicker fx:id="from_trial_creation_date_DP" prefHeight="30.0" prefWidth="220.0" style="-fx-font-size: 13; -fx-font-weight: bold;" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="From Trial C-Data">
+                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="130.0" text="From Trial C-Data">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>

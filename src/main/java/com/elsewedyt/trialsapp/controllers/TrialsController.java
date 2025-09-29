@@ -7,6 +7,7 @@ import com.elsewedyt.trialsapp.services.ShiftManager;
 import com.elsewedyt.trialsapp.services.UserService;
 import com.elsewedyt.trialsapp.services.WindowUtils;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -41,7 +42,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 public class TrialsController implements Initializable {
     @FXML private Button add_trial_btn;
     @FXML private Button clearSearch_btn;
-    @FXML private TableColumn<Trial, String> creation_date_column;
+    @FXML private TableColumn<Trial, LocalDateTime> creation_date_column;
     @FXML private Label date_lbl;
     @FXML private VBox department_lbl;
     @FXML private TableColumn<Trial, String> edit_column;
@@ -80,6 +81,7 @@ public class TrialsController implements Initializable {
     public static TrialsController getInstance() {
         return instance;
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -360,16 +362,18 @@ public class TrialsController implements Initializable {
             supplier_country_column.setCellValueFactory(new PropertyValueFactory<>("supplierCountryName"));
             notes_column.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
-            // Format creation date column
-            creation_date_column.setCellValueFactory(cellData -> {
-                LocalDateTime dateTime = cellData.getValue().getCreationDate();
-                StringProperty formatted = new SimpleStringProperty();
-                if (dateTime != null) {
-                    formatted.set(dateTime.format(dateFormatter));
-                } else {
-                    formatted.set("");
+            creation_date_column.setCellValueFactory(cellData ->
+                    new SimpleObjectProperty<>(cellData.getValue().getCreationDate()));
+            creation_date_column.setCellFactory(column -> new TableCell<Trial, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(dateFormatter.format(item));
+                    }
                 }
-                return formatted;
             });
 
             // Configure files column with file icon
@@ -417,8 +421,8 @@ public class TrialsController implements Initializable {
 //                }
 //            });
             files_column.setCellFactory(param -> new TableCell<>() {
-                private final FontIcon folderIcon = new FontIcon("fa-folder");
-                private final FontIcon plusIcon = new FontIcon("fa-plus");
+                private final FontIcon folderIcon = new FontIcon("fas-folder");
+                private final FontIcon plusIcon = new FontIcon("fas-plus");
                 private final HBox container = new HBox(folderIcon, plusIcon);
 
                 {
@@ -449,11 +453,16 @@ public class TrialsController implements Initializable {
                             int departmentId = UserContext.getCurrentUser().getDepartmentId();
                             FileType fileType = FileTypeDAO.getFileTypeByDepartmentId(departmentId);
 
-                            WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3("/screens/AddFile.fxml", controller -> {
-                                ((AddFileController) controller).initData(Trialid, trialPurpose, departmentName);
+//                            WindowUtils.OPEN_WINDOW_FULL_SCREEN2("/screens/AddFile.fxml", controller -> {
+//                                ((AddFileController) controller).initData(Trialid, trialPurpose, departmentName);
+//                            });
+                            // In TrialsController or wherever you open the window
+                            WindowUtils.OPEN_WINDOW_WITH_CONTROLLER_AND_STAGE("/screens/AddFile.fxml", controller -> {
+                                controller.initData(Trialid, trialPurpose, departmentName);
                             });
                         }
                     };
+
 
                     // تطبيق الحدث على  HBox
                     container.setOnMouseClicked(clickHandler);
