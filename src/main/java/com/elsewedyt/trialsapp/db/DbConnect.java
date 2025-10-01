@@ -11,8 +11,8 @@ import java.util.Properties;
 public class DbConnect {
 
 
-    private static final String HOST = "10.1.212.147";  // Server IP
-   // private static final String HOST = "localhost";  // Server IP
+    //private static final String HOST = "10.1.212.147";  // Server IP
+    private static final String HOST = "localhost";  // Server IP
     private static final int PORT = 1433;
     public static final String USER = ConfigLoader.getProperty("DB.USER");
     private static final String PASSWORD = ConfigLoader.getProperty("DB.PASSWORD");

@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="686.0" prefWidth="1302.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.TrialsController">
+<AnchorPane prefHeight="686.0" prefWidth="1387.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.TrialsController">
    <children>
       <HBox alignment="CENTER" layoutX="10.4" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="54.0" prefWidth="1292.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0">
          <children>
@@ -74,21 +74,18 @@
       </HBox>
       <TableView fx:id="trials_table_view" layoutX="7.2" layoutY="180.0" prefHeight="448.0" prefWidth="1288.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="180.0">
         <columns>
-            <TableColumn fx:id="no_column" maxWidth="1000.0" minWidth="8.0" prefWidth="8.0" text="No" />
-            <TableColumn fx:id="id_column" maxWidth="1000.0" minWidth="9.0" prefWidth="9.0" text="ID" />
-          <TableColumn fx:id="trial_purpose_column" minWidth="70.0" prefWidth="70.0" text="Trial Purpose" />
-          <TableColumn fx:id="section_column" prefWidth="15.0" text="Section" />
-            <TableColumn fx:id="matrial_column" minWidth="25.0" prefWidth="25.0" text="Matrial-Cable Type" />
-            <TableColumn fx:id="supplier_column" prefWidth="30.0" text="Supplier" />
-            <TableColumn fx:id="supplier_country_column" prefWidth="20.0" text="Sup-Country" />
-            <TableColumn fx:id="creation_date_column" minWidth="26.0" prefWidth="26.0" text="Trial Creation Date" />
-            <TableColumn fx:id="notes_column" prefWidth="40.0" text="Notes" />
-            <TableColumn fx:id="files_column" maxWidth="1000.0" prefWidth="10.0" text="Files" />
-            <TableColumn fx:id="edit_column" maxWidth="1000.0" prefWidth="10.0" text="U - D" />
+            <TableColumn fx:id="no_column" maxWidth="1.7976931348623157E308" minWidth="35.0" prefWidth="40.0" text="No" />
+            <TableColumn fx:id="id_column" maxWidth="1.7976931348623157E308" minWidth="35.0" prefWidth="40.0" text="ID" />
+          <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="250.0" prefWidth="340.0" text="Trial Purpose" />
+          <TableColumn fx:id="section_column" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="60.0" text="Section" />
+            <TableColumn fx:id="matrial_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="220.0" text="Matrial-Cable Type" />
+            <TableColumn fx:id="supplier_column" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="150.0" text="Supplier" />
+            <TableColumn fx:id="supplier_country_column" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="110.0" text="Sup-Country" />
+            <TableColumn fx:id="creation_date_column" maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="180.0" text="Trial Creation Date" />
+            <TableColumn fx:id="notes_column" maxWidth="1.7976931348623157E308" minWidth="140.0" prefWidth="245.0" text="Notes" />
+            <TableColumn fx:id="files_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="50.0" text="Files" />
+            <TableColumn fx:id="edit_column" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="65.0" text="U - D" />
         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <VBox alignment="TOP_CENTER" layoutX="7.2" layoutY="67.0" prefHeight="101.0" prefWidth="1288.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0">
          <children>
