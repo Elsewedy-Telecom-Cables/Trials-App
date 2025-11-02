@@ -302,6 +302,7 @@ public class FileDAO {
 
         return file;
     }
+
     //Check if any files exist for a specific trial
     public static boolean hasFilesForTrial(int trialId) {
         String query = "SELECT COUNT(*) FROM dbtrials.dbo.files WHERE trial_id = ?";

@@ -2596,7 +2596,6 @@ public class AddFileController implements Initializable {
     }
 
 
-
     @FXML
     void closePage(ActionEvent event) {
         boolean hasFiles = FileDAO.hasFilesForTrial(trialId);

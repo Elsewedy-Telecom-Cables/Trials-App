@@ -1,4 +1,4 @@
-package com.elsewedyt.trialsapp.PDF;
+package com.elsewedyt.trialsapp.Pdf;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;

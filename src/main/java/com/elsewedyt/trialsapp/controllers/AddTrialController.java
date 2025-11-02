@@ -53,22 +53,6 @@ public class AddTrialController implements Initializable {
     private int CURRENT_TRIAL_ID = 0;
     private boolean update = false;
 
-    // Set the stage for the controller
-//    public void setStage(Stage stage) {
-//        this.stage = stage;
-//    }
-//
-//    // Close the current window
-//    public void closeWindow() {
-//        if (stage != null) {
-//            stage.close();
-//        }
-//    }
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    //    System.out.println("setStage called with stage: " + (stage != null ? stage.getTitle() : "null"));
-    }
-
     public void closeWindow() {
         if (stage != null) {
             stage.close();
@@ -208,17 +192,6 @@ public class AddTrialController implements Initializable {
                 clearHelp();
                 // New Way
                 TrialsController trialsController = TrialsController.getInstance();
-//                if (trialsController != null) {
-//                    Platform.runLater(() -> {
-//                        trialsController.refreshTable();
-//                    });
-//                }
-                // Refresh TrialsController table
-//                if (trialsController != null) {
-//                    Platform.runLater(() -> {
-//                        trialsController.refreshTable();
-//                    });
-//                }
                     if (trialsController != null) {
                 Platform.runLater(() -> {
                     trialsController.refreshTable();
@@ -251,8 +224,101 @@ public class AddTrialController implements Initializable {
         }
     }
 
+    // Update an existing trial
+    private boolean updateTrial() {
+        try {
+            String notes = notes_textArea.getText();
+            String trialPurpose = trial_purpose_textArea.getText();
+            LocalDate selectedDate = creationDate_datePiker.getValue();
+            LocalDateTime creationDate;
+
+            if (selectedDate != null) {
+                if (selectedDate.equals(LocalDate.now())) {
+                    creationDate = LocalDateTime.now(); // تاريخ اليوم → وقت فعلي
+                } else {
+                    creationDate = selectedDate.atStartOfDay(); // تاريخ مختلف → 12:00 AM
+                }
+            } else {
+                creationDate = LocalDateTime.now(); // لم يتم اختيار تاريخ
+            }
+            Section selectedSection = section_combo.getValue();
+            Matrial selectedMatrial = matrial_combo.getValue();
+            Supplier selectedSupplier = supplier_combo.getValue();
+            SupplierCountry selectedSupplierCountry = supplier_country_combo.getValue();
+
+            List<String> validationErrors = new ArrayList<>();
+
+            if (selectedSection == null) validationErrors.add("Select a section.");
+            if (selectedMatrial == null) validationErrors.add("Select a material.");
+            if (selectedSupplier == null) validationErrors.add("Select a supplier.");
+            if (selectedSupplierCountry == null) validationErrors.add("Select a supplier country.");
+            if (trialPurpose == null || trialPurpose.trim().isEmpty()) validationErrors.add("Trial purpose is required.");
+
+            if (!validationErrors.isEmpty()) {
+                WindowUtils.ALERT("Validation Error", String.join("\n", validationErrors), WindowUtils.ALERT_WARNING);
+                return false;
+            }
+
+            Trial trial = new Trial();
+            trial.setTrialId(CURRENT_TRIAL_ID);
+            trial.setCreationDate(creationDate);
+            trial.setNotes(notes);
+            trial.setTrialPurpose(trialPurpose);
+            trial.setSectionId(selectedSection.getSectionId());
+            trial.setMatrialId(selectedMatrial.getMatrialId());
+            trial.setSupplierId(selectedSupplier.getSupplierId());
+            trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
+            trial.setUserId(UserContext.getCurrentUser().getUserId());
+
+            boolean success = TrialDAO.updateTrial(trial);
+            if (success) {
+                WindowUtils.ALERT("Success", "Trial updated successfully.", WindowUtils.ALERT_INFORMATION);
+                clearHelp();
+            } else {
+                WindowUtils.ALERT("Error", "Failed to update trial.", WindowUtils.ALERT_ERROR);
+            }
+            return success;
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "updateTrial", ex);
+            WindowUtils.ALERT("Error", "Exception during updating.", WindowUtils.ALERT_ERROR);
+            return false;
+        }
+    }
+
+    // Load trial data for editing
+    public void setTrialData(int trialId, boolean update) {
+        try {
+            this.update = update;
+            CURRENT_TRIAL_ID = trialId;
+            Trial trial = TrialDAO.getTrialById(trialId);
+
+            LocalDateTime creationDateTime = trial.getCreationDate();
+            creationDate_datePiker.setValue(creationDateTime != null ? creationDateTime.toLocalDate() : null);
+
+            notes_textArea.setText(trial.getNotes());
+            trial_purpose_textArea.setText(trial.getTrialPurpose());
+            section_combo.getSelectionModel().select(SectionDAO.getSectionById(trial.getSectionId()));
+            matrial_combo.getSelectionModel().select(MatrialDAO.getMatrialById(trial.getMatrialId()));
+            Supplier selectedSupplier = SupplierDAO.getSupplierById(trial.getSupplierId());
+            supplier_combo.getSelectionModel().select(selectedSupplier);
+            // Update supplier countries based on the selected supplier
+            updateSupplierCountries(selectedSupplier);
+            supplier_country_combo.getSelectionModel().select(SupplierCountryDAO.getSupplierCountryById(trial.getSupCountryId()));
+            clear_btn.setVisible(false);
+        } catch (Exception ex) {
+            Logging.logException("ERROR", this.getClass().getName(), "setTrialData", ex);
+            WindowUtils.ALERT("Error", "Exception during loading trial data.", WindowUtils.ALERT_ERROR);
+        }
+    }
+
+    // Set the save button text to "Update" for edit mode
+    public void setSaveButton() {
+        save_btn.setText("Update");
+    }
+
     public static final String mailName = ConfigLoader.getProperty("TRIAL.MAIL");
     private static final String mailPassword = ConfigLoader.getProperty("TRIAL.MAIL.PASSWORD");
+
     private void sendEmailNotification(String userFullName, String sectionName, String matrialName,
                                        String supplierName, String supplierCountry, String trialPurpose, String notes) {
         // Email configuration
@@ -263,7 +329,7 @@ public class AddTrialController implements Initializable {
         // Get active users' emails, excluding specific ones
         Set<String> excludedEmails = new HashSet<>();
         //  excludedEmails.add("moh.gabr@elsewedy.com"); // exclude specific emails
-       toEmails.addAll(UserDAO.getActiveUsersEmails(excludedEmails));
+        toEmails.addAll(UserDAO.getActiveUsersEmails(excludedEmails));
 
 
         // CC recipients as a list
@@ -413,98 +479,6 @@ public class AddTrialController implements Initializable {
     }
 
 
-
-    // Update an existing trial
-    private boolean updateTrial() {
-        try {
-            String notes = notes_textArea.getText();
-            String trialPurpose = trial_purpose_textArea.getText();
-            LocalDate selectedDate = creationDate_datePiker.getValue();
-            LocalDateTime creationDate;
-
-            if (selectedDate != null) {
-                if (selectedDate.equals(LocalDate.now())) {
-                    creationDate = LocalDateTime.now(); // تاريخ اليوم → وقت فعلي
-                } else {
-                    creationDate = selectedDate.atStartOfDay(); // تاريخ مختلف → 12:00 AM
-                }
-            } else {
-                creationDate = LocalDateTime.now(); // لم يتم اختيار تاريخ
-            }
-            Section selectedSection = section_combo.getValue();
-            Matrial selectedMatrial = matrial_combo.getValue();
-            Supplier selectedSupplier = supplier_combo.getValue();
-            SupplierCountry selectedSupplierCountry = supplier_country_combo.getValue();
-
-            List<String> validationErrors = new ArrayList<>();
-
-            if (selectedSection == null) validationErrors.add("Select a section.");
-            if (selectedMatrial == null) validationErrors.add("Select a material.");
-            if (selectedSupplier == null) validationErrors.add("Select a supplier.");
-            if (selectedSupplierCountry == null) validationErrors.add("Select a supplier country.");
-            if (trialPurpose == null || trialPurpose.trim().isEmpty()) validationErrors.add("Trial purpose is required.");
-
-            if (!validationErrors.isEmpty()) {
-                WindowUtils.ALERT("Validation Error", String.join("\n", validationErrors), WindowUtils.ALERT_WARNING);
-                return false;
-            }
-
-            Trial trial = new Trial();
-            trial.setTrialId(CURRENT_TRIAL_ID);
-            trial.setCreationDate(creationDate);
-            trial.setNotes(notes);
-            trial.setTrialPurpose(trialPurpose);
-            trial.setSectionId(selectedSection.getSectionId());
-            trial.setMatrialId(selectedMatrial.getMatrialId());
-            trial.setSupplierId(selectedSupplier.getSupplierId());
-            trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
-            trial.setUserId(UserContext.getCurrentUser().getUserId());
-
-            boolean success = TrialDAO.updateTrial(trial);
-            if (success) {
-                WindowUtils.ALERT("Success", "Trial updated successfully.", WindowUtils.ALERT_INFORMATION);
-                clearHelp();
-            } else {
-                WindowUtils.ALERT("Error", "Failed to update trial.", WindowUtils.ALERT_ERROR);
-            }
-            return success;
-        } catch (Exception ex) {
-            Logging.logException("ERROR", this.getClass().getName(), "updateTrial", ex);
-            WindowUtils.ALERT("Error", "Exception during updating.", WindowUtils.ALERT_ERROR);
-            return false;
-        }
-    }
-
-    // Load trial data for editing
-    public void setTrialData(int trialId, boolean update) {
-        try {
-            this.update = update;
-            CURRENT_TRIAL_ID = trialId;
-            Trial trial = TrialDAO.getTrialById(trialId);
-
-            LocalDateTime creationDateTime = trial.getCreationDate();
-            creationDate_datePiker.setValue(creationDateTime != null ? creationDateTime.toLocalDate() : null);
-
-            notes_textArea.setText(trial.getNotes());
-            trial_purpose_textArea.setText(trial.getTrialPurpose());
-            section_combo.getSelectionModel().select(SectionDAO.getSectionById(trial.getSectionId()));
-            matrial_combo.getSelectionModel().select(MatrialDAO.getMatrialById(trial.getMatrialId()));
-            Supplier selectedSupplier = SupplierDAO.getSupplierById(trial.getSupplierId());
-            supplier_combo.getSelectionModel().select(selectedSupplier);
-            // Update supplier countries based on the selected supplier
-            updateSupplierCountries(selectedSupplier);
-            supplier_country_combo.getSelectionModel().select(SupplierCountryDAO.getSupplierCountryById(trial.getSupCountryId()));
-            clear_btn.setVisible(false);
-        } catch (Exception ex) {
-            Logging.logException("ERROR", this.getClass().getName(), "setTrialData", ex);
-            WindowUtils.ALERT("Error", "Exception during loading trial data.", WindowUtils.ALERT_ERROR);
-        }
-    }
-
-    // Set the save button text to "Update" for edit mode
-    public void setSaveButton() {
-        save_btn.setText("Update");
-    }
 
 
 }

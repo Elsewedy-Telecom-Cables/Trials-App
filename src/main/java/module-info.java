@@ -16,6 +16,7 @@ module com.elsewedyt.trialsapp {
     requires com.fasterxml.jackson.databind;
     requires org.kordamp.ikonli.javafx;
     requires javafx.base;
+    requires javafx.graphics;
     //requires com.elsewedyt.trialsapp;
 
 

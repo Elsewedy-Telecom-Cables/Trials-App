@@ -32,12 +32,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
+
 
 public class TrialsController implements Initializable {
     @FXML private Button add_trial_btn;
@@ -177,20 +180,6 @@ public class TrialsController implements Initializable {
                 setText(empty || item == null ? null : item.getSupplierName());
             }
         });
-//        supplier_country_Comb.setCellFactory(param -> new ListCell<SupplierCountry>() {
-//            @Override
-//            protected void updateItem(SupplierCountry item, boolean empty) {
-//                super.updateItem(item, empty);
-//                setText(empty || item == null ? null : item.getCountryName());
-//            }
-//        });
-//        supplier_country_Comb.setButtonCell(new ListCell<SupplierCountry>() {
-//            @Override
-//            protected void updateItem(SupplierCountry item, boolean empty) {
-//                super.updateItem(item, empty);
-//                setText(empty || item == null ? null : item.getCountryName());
-//            }
-//        });
         supplier_country_Comb.setCellFactory(param -> new ListCell<SupplierCountry>() {
             @Override
             protected void updateItem(SupplierCountry item, boolean empty) {
@@ -327,7 +316,7 @@ public class TrialsController implements Initializable {
     private void updateTrialsCount() {
         int totalTrials = TrialDAO.getTrialsCount();
         int foTrials = TrialDAO.getTrialsCountBySection(1);// Fiber Trials Counts
-        int cuTrials = TrialDAO.getTrialsCountBySection(2);  // Cupper Trials Counts
+        int cuTrials = TrialDAO.getTrialsCountBySection(2);  // Copper Trials Counts
         trials_count_textF.setText(totalTrials + "");
         cu_trials_count_textF.setText(cuTrials + "");
         fo_trials_count_textF.setText(foTrials + "");
@@ -376,74 +365,29 @@ public class TrialsController implements Initializable {
                 }
             });
 
-            // Configure files column with file icon
-//            files_column.setCellFactory(param -> new TableCell<>() {
-//              //  private final FontIcon fileIcon = new FontIcon("fa-file");
-//                private final FontIcon fileIcon = new FontIcon("fa-folder-plus");
-//               // HBox iconBox = new HBox(new FontIcon("fa-folder"), new FontIcon("fa-plus"));
-//                private final HBox container = new HBox(fileIcon);
-//
-//                {
-//                    fileIcon.setIconSize(14);
-//                    fileIcon.setFill(Color.web("#ecab29"));
-//                    fileIcon.setCursor(Cursor.HAND);
-//                    Tooltip.install(fileIcon, new Tooltip("Add/View File"));
-//
-//                    fileIcon.setOnMouseClicked(event -> {
-//                        Trial selectedTrial = getTableView().getItems().get(getIndex());
-//                        if (selectedTrial != null) {
-//                            int Trialid = selectedTrial.getTrialId();
-//                            String trialPurpose = selectedTrial.getTrialPurpose();
-//                            String departmentName = UserContext.getCurrentUser().getDepartmentName();
-//                            int departmentId = UserContext.getCurrentUser().getDepartmentId();
-//                            FileType fileType = FileTypeDAO.getFileTypeByDepartmentId(departmentId);
-//                           // String fileTypeName = fileType != null ? fileType.getFileTypeName() : null;
-//
-//                            WindowUtils.OPEN_WINDOW_NOT_RESIZABLE_3("/screens/AddFile.fxml", controller -> {
-//                                ((AddFileController) controller).initData(Trialid, trialPurpose, departmentName);
-//                            });
-//                        }
-//                    });
-//
-//                    container.setSpacing(0.7);
-//                    container.setStyle("-fx-alignment: center;");
-//                }
-//
-//                @Override
-//                protected void updateItem(String item, boolean empty) {
-//                    super.updateItem(item, empty);
-//                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
-//                        setGraphic(null);
-//                    } else {
-//                        setGraphic(container);
-//                    }
-//                    setText(null);
-//                }
-//            });
+
             files_column.setCellFactory(param -> new TableCell<>() {
                 private final FontIcon folderIcon = new FontIcon("fas-folder");
                 private final FontIcon plusIcon = new FontIcon("fas-plus");
                 private final HBox container = new HBox(folderIcon, plusIcon);
 
                 {
-                    // إعداد الشكل
+
                     folderIcon.setIconSize(20);
                     folderIcon.setFill(Color.web("#ecab29"));
-                    plusIcon.setIconSize(10); // أصغر قليلاً ليبدو داخل المجلد
-                    plusIcon.setFill(Color.web("#3b3b3b")); // رمادي غامق
+                    plusIcon.setIconSize(10);
+                    plusIcon.setFill(Color.web("#3b3b3b"));
                     // plusIcon.setFill(Color.web("#2c7be5")); // أزرق أنيق
                     //  plusIcon.setFill(Color.web("#ffffff")); //  ابيض
                     // plusIcon.setFill(Color.web("#000000")); //  اسمر
 
-                    container.setSpacing(2); // تجعل الأيقونتين متداخلتين قليلاً لتبدو كرمز واحد
-                    container.setAlignment(Pos.CENTER); // توسيط الأيقونات داخل الخلية
+                    container.setSpacing(2);
+                    container.setAlignment(Pos.CENTER);
                     container.setCursor(Cursor.HAND);
 
-                    // نفس التولتيب
                     Tooltip tooltip = new Tooltip("Add/View File");
                     Tooltip.install(container, tooltip);
 
-                    // نفس الحدث عند الضغط على أي من الأيقونات
                     EventHandler<MouseEvent> clickHandler = event -> {
                         Trial selectedTrial = getTableView().getItems().get(getIndex());
                         if (selectedTrial != null) {
@@ -453,32 +397,15 @@ public class TrialsController implements Initializable {
                             int departmentId = UserContext.getCurrentUser().getDepartmentId();
                             FileType fileType = FileTypeDAO.getFileTypeByDepartmentId(departmentId);
 
-//                            WindowUtils.OPEN_WINDOW_FULL_SCREEN2("/screens/AddFile.fxml", controller -> {
-//                                ((AddFileController) controller).initData(Trialid, trialPurpose, departmentName);
-//                            });
-                            // In TrialsController or wherever you open the window
                             WindowUtils.OPEN_WINDOW_WITH_CONTROLLER_AND_STAGE("/screens/AddFile.fxml", controller -> {
                                 controller.initData(Trialid, trialPurpose, departmentName);
                             });
                         }
                     };
 
-
-                    // تطبيق الحدث على  HBox
                     container.setOnMouseClicked(clickHandler);
                 }
 
-                //                @Override
-//                protected void updateItem(String item, boolean empty) {
-//                    super.updateItem(item, empty);
-//                    if (empty || getTableRow() == null || getTableRow().getItem() == null) {
-//                        setGraphic(null);
-//                    } else {
-//                        setGraphic(container);
-//                    }
-//                    setText(null);
-//                }
-//            });
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -487,9 +414,6 @@ public class TrialsController implements Initializable {
                         setStyle("");
                     } else {
                         setGraphic(container);
-                        // setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
-                        // setStyle("-fx-background-color: #e5e5e5;"); // أو استخدم class من CSS
-                        //   setStyle("-fx-background-color: #f9f9f9;"); // أو استخدم class من CSS
 
 
                     }
@@ -625,6 +549,8 @@ public class TrialsController implements Initializable {
         });
     }
 
+
+
     void clearHelp(){
         // Clear text fields
         filter_trial_purpose_textF.clear();
@@ -639,6 +565,7 @@ public class TrialsController implements Initializable {
         // Reload all trials
         loadData();
     }
+
     @FXML
     void clearSearch(ActionEvent event) {
      clearHelp();

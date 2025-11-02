@@ -30,7 +30,6 @@ public class DbConnect {
                     HOST, PORT, DB_NAME_CONECCTION
             );
 
-            // لاحظ: user/password ما يتحطوش جوة الـ URL لو حاططهم في Properties
             Properties props = new Properties();
             props.setProperty("user", USER);
             props.setProperty("password", PASSWORD);

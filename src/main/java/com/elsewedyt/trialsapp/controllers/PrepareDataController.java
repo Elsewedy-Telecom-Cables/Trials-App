@@ -13,7 +13,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.Initializable;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -118,7 +117,7 @@ public class PrepareDataController implements Initializable {
     private Button add_country_btn;
 
     ObservableList<FileType> fileTypeList;
-    ObservableList<Matrial> matrialList;
+    ObservableList<Matrial> materialList;
     ObservableList<SupplierCountry> supplierCountryList;
     ObservableList<Supplier> supplierList;
     ObservableList<Country> countryList;
@@ -317,8 +316,9 @@ public class PrepareDataController implements Initializable {
         loadSuppliersData();
 
         // Initialize ObservableLists
+      //  fileTypeList = fileTypeDAO.getAllFileTypes();
         fileTypeList = fileTypeDAO.getAllFileTypes();
-        matrialList = matrialDAO.getAllMatrials();
+        materialList = matrialDAO.getAllMatrials();
         supplierCountryList = supplierCountryDAO.getAllSupplierCountries();
         supplierList = supplierDAO.getAllSuppliers();
         countryList = countryDAO.getAllCountries();
@@ -327,7 +327,7 @@ public class PrepareDataController implements Initializable {
         // Set items to TableViews
 
         file_type_table_view.setItems(fileTypeList);
-        matrial_table_view.setItems(matrialList);
+        matrial_table_view.setItems(materialList);
         supplier_country_table_view.setItems(supplierCountryList);
         supplier_table_view.setItems(supplierList);
 
@@ -393,7 +393,7 @@ public class PrepareDataController implements Initializable {
                                         try {
                                             FileType fileType = file_type_table_view.getSelectionModel().getSelectedItem();
                                             fileTypeDAO.deleteFileType(fileType.getFileTypeId());
-                                            HelpclearFileTyple();
+                                            helpclearFileTyple();
                                             fileTypeList = fileTypeDAO.getAllFileTypes();
                                             file_type_table_view.setItems(fileTypeList);
                                             WindowUtils.ALERT("Success", "File Type deleted successfully", WindowUtils.ALERT_INFORMATION);
@@ -459,8 +459,8 @@ public class PrepareDataController implements Initializable {
                                         try {
                                             Matrial matrial = matrial_table_view.getSelectionModel().getSelectedItem();
                                             matrialDAO.deleteMatrial(matrial.getMatrialId());
-                                            matrialList = matrialDAO.getAllMatrials();
-                                            matrial_table_view.setItems(matrialList);
+                                            materialList = matrialDAO.getAllMatrials();
+                                            matrial_table_view.setItems(materialList);
                                             WindowUtils.ALERT("Success", "Matrial deleted successfully", WindowUtils.ALERT_INFORMATION);
                                         } catch (Exception ex) {
                                             Logging.logException("ERROR", getClass().getName(), "deleteMatrial", ex);
@@ -483,7 +483,7 @@ public class PrepareDataController implements Initializable {
             return cell;
         };
         matrial_delete_colm.setCellFactory(cellFactory);
-        matrial_table_view.setItems(matrialList);
+        matrial_table_view.setItems(materialList);
     }
 
     // Load Supplier Countries Data
@@ -644,7 +644,7 @@ public class PrepareDataController implements Initializable {
     // Filter Matrials
     @FXML
     void filter_matrial(KeyEvent event) {
-        FilteredList<Matrial> filteredData = new FilteredList<>(matrialList, p -> true);
+        FilteredList<Matrial> filteredData = new FilteredList<>(materialList, p -> true);
         filter_matrial_textF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(matrial -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -662,7 +662,6 @@ public class PrepareDataController implements Initializable {
         sortedData.comparatorProperty().bind(matrial_table_view.comparatorProperty());
         matrial_table_view.setItems(sortedData);
     }
-
 
     // Filter Supplier Countries
     @FXML
@@ -836,8 +835,8 @@ public class PrepareDataController implements Initializable {
                 matrial_name_textF.clear();
                 update_matrial_name_textF.clear();
                 filter_matrial_textF.clear();
-                matrialList = matrialDAO.getAllMatrials();
-                matrial_table_view.setItems(matrialList);
+                materialList = matrialDAO.getAllMatrials();
+                matrial_table_view.setItems(materialList);
             }else {
                 String err = MatrialDAO.lastErrorMessage;
                 if (err != null && (err.toLowerCase().contains("duplicate") || err.contains("UNIQUE"))) {
@@ -927,7 +926,7 @@ public class PrepareDataController implements Initializable {
     }
 
 
-    void HelpclearFileTyple(){
+    void helpclearFileTyple(){
         filter_file_type_textF.clear();
         update_file_type_name_textF.clear();
         file_type_name_textF.clear();
@@ -938,7 +937,7 @@ public class PrepareDataController implements Initializable {
     // Clear File Type
     @FXML
     void clear_file_type(ActionEvent event) {
-        HelpclearFileTyple();
+        helpclearFileTyple();
     }
 
     // Clear Matrial
@@ -970,6 +969,7 @@ public class PrepareDataController implements Initializable {
         update_supplier_name_textF.clear();
         supplier_name_textF.clear();
     }
+
 
 
 //    // Update File Type
@@ -1104,8 +1104,8 @@ public class PrepareDataController implements Initializable {
                 update_matrial_name_textF.clear();
                 matrial_name_textF.clear();
                 filter_matrial_textF.clear();
-                matrialList = matrialDAO.getAllMatrials();
-                matrial_table_view.setItems(matrialList);
+                materialList = matrialDAO.getAllMatrials();
+                matrial_table_view.setItems(materialList);
             } else {
                 WindowUtils.ALERT("ERR", "matrial_updated_failed", WindowUtils.ALERT_ERROR);
             }

@@ -41,6 +41,7 @@ public class WindowUtils {
             e.printStackTrace();
         }
     }
+
     public static void OPEN_WINDOW_FULL_SCREEN(String fxmlPath, Runnable onCloseAction) {
         try {
             Parent root = FXMLLoader.load(WindowUtils.class.getResource(fxmlPath));
@@ -61,6 +62,7 @@ public class WindowUtils {
             e.printStackTrace();
         }
     }
+
     public static void OPEN_WINDOW_FULL_SCREEN2(String fxmlPath, Runnable onCloseAction, Consumer<AddFileController> controllerInitializer) {
         try {
             System.out.println("Loading FXML: " + fxmlPath);
@@ -101,6 +103,7 @@ public class WindowUtils {
             e.printStackTrace();
         }
     }
+
     public static void OPEN_WINDOW_NOT_RESIZABLE(String fxmlPath, Runnable onCloseAction) {
         try {
             Parent root = FXMLLoader.load(WindowUtils.class.getResource(fxmlPath));
@@ -123,6 +126,8 @@ public class WindowUtils {
     public interface StageAware {
         void setStage(Stage stage);
     }
+
+
 
         // Open a non-resizable window and return the Stage
         public static Stage OPEN_WINDOW_NOT_RESIZABLE_2(String fxmlPath, Runnable onCloseAction, Object controllerData) {
@@ -157,6 +162,7 @@ public class WindowUtils {
                 return null; // Return null in case of an error
             }
         }
+
     public static void OPEN_WINDOW_WITH_CONTROLLER_AND_STAGE(String fxmlPath, Consumer<AddFileController> controllerHandler) {
         try {
          //   System.out.println("Loading FXML: " + fxmlPath);
@@ -224,11 +230,11 @@ public class WindowUtils {
         }
     }
 
-
     public static void CLOSE(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
     public static void CLOSE2(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
@@ -297,6 +303,7 @@ public class WindowUtils {
 
         }
     }
+
     public static void OPEN_TRIALS_PAGE_PAGE() {
         try {
             OPEN_WINDOW_FULL_SCREEN(
@@ -307,6 +314,7 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_TRIALS_PAGE_PAGE", ex);
         }
     }
+
     public static void OPEN_DASHBOARD_PAGE() {
         try {
             OPEN_WINDOW_FULL_SCREEN(
@@ -317,6 +325,7 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_DASHBOARD_PAGE", ex);
         }
     }
+
     public static void OPEN_NEW_DASHBOARD_PAGE() {
         try {
             OPEN_WINDOW_FULL_SCREEN(
@@ -327,6 +336,7 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_DASHBOARD_PAGE", ex);
         }
     }
+
     public static void OPEN_PREPARE_DATA_PAGE() {
         try {
             OPEN_WINDOW_FULL_SCREEN(
@@ -337,6 +347,7 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_PREPARE_DATA_PAGE", ex);
         }
     }
+
     public static void OPEN_DEPARTMENT_SECTION_PAGE() {
         try {
             OPEN_WINDOW_NOT_RESIZABLE(
@@ -369,6 +380,7 @@ public class WindowUtils {
             logException(ERROR, WindowUtils.class.getName(), "OPEN_ADD_USER_PAGE", ex);
         }
     }
+
     public static void OPEN_ADD_TRIAL_PAGE() {
         try {
             OPEN_WINDOW_NOT_RESIZABLE(
@@ -380,14 +392,6 @@ public class WindowUtils {
         }
     }
 
-//    public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose) {
-//        try {
-//            Runnable onClose = reopenDashboardOnClose ? WindowUtils::OPEN_MAIN_PAGE : null;
-//            OPEN_WINDOW_NOT_RESIZABLE_2(ADD_TRIAL_PAGE, onClose);
-//        } catch (Exception ex) {
-//            logException(ERROR, WindowUtils.class.getName(), "OPEN_CAL_PLAN_PAGE", ex);
-//        }
-//    }
 public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose, TrialsController trialsController) {
     try {
         Runnable onClose = reopenDashboardOnClose ? WindowUtils::OPEN_MAIN_PAGE : null;

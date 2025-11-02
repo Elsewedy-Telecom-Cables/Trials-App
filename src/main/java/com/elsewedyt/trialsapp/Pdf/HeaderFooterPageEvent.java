@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.elsewedyt.trialsapp.PDF;
+package com.elsewedyt.trialsapp.Pdf;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
