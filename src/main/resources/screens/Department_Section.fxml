@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="445.0" prefWidth="1028.0" stylesheets="@style2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.Department_SectionController">
+<AnchorPane prefHeight="445.0" prefWidth="1028.0" stylesheets="@style2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controller.Department_SectionController">
    <children>
       <VBox layoutX="18.0" layoutY="25.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="394.0" prefWidth="480.0" styleClass="box">
          <children>

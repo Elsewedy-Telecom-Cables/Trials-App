@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="731.0" prefWidth="1446.0" stylesheets="@style2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.PrepareDataController">
+<AnchorPane prefHeight="731.0" prefWidth="1446.0" stylesheets="@style2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controller.PrepareDataController">
    <children>
-      <HBox alignment="CENTER" layoutX="11.2" layoutY="-4.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="48.0" prefWidth="1424.0" styleClass="box-samll1" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
+      <HBox alignment="CENTER" layoutX="11.2" layoutY="-4.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="48.0" prefWidth="1424.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="344.0" HBox.hgrow="ALWAYS">
                <children>
@@ -63,9 +63,9 @@
             </VBox>
             <VBox alignment="TOP_RIGHT" prefHeight="54.0" prefWidth="344.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="logo_ImageView" fitHeight="38.0" fitWidth="180.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" scaleX="1.1" scaleY="1.1" scaleZ="1.1">
+                  <ImageView fx:id="logo_ImageView" fitHeight="45.0" fitWidth="160.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
-                        <Insets bottom="10.0" right="10.0" />
+                        <Insets right="3.0" top="5.0" />
                      </VBox.margin>
                   </ImageView>
                </children>
@@ -74,7 +74,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="-7.0" layoutY="50.0" prefHeight="20.0" prefWidth="211.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0">
          <children>
-            <Button fx:id="deptartments_sections_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openDepartment_Section" prefHeight="31.0" prefWidth="198.0" text="Departments - Sections ">
+            <Button fx:id="departments_sections_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openDepartment_Section" prefHeight="31.0" prefWidth="198.0" text="Departments - Sections ">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -224,7 +224,7 @@
                               <Insets top="4.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="clear_matrial_btn" mnemonicParsing="false" onAction="#clear_matrial" prefHeight="28.0" prefWidth="78.0" styleClass="box-02" text="Clear " HBox.hgrow="ALWAYS">
+                              <Button fx:id="clear_material_btn" mnemonicParsing="false" onAction="#clear_material" prefHeight="28.0" prefWidth="78.0" styleClass="box-02" text="Clear " HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -235,7 +235,7 @@
                                     <FontIcon iconLiteral="fas-eraser" />
                                  </graphic>
                               </Button>
-                              <TextField fx:id="filter_matrial_textF" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#filter_matrial" prefHeight="25.0" prefWidth="200.0" promptText="search" styleClass="input" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="filter_material_textF" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#filter_material" prefHeight="25.0" prefWidth="200.0" promptText="search" styleClass="input" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -247,7 +247,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="305.0">
                            <children>
-                              <Button fx:id="add_matrial_btn" mnemonicParsing="false" onAction="#add_matrial" prefHeight="28.0" prefWidth="78.0" styleClass="box-02" text="Add   " HBox.hgrow="ALWAYS">
+                              <Button fx:id="add_material_btn" mnemonicParsing="false" onAction="#add_material" prefHeight="28.0" prefWidth="78.0" styleClass="box-02" text="Add   " HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Montserrat Bold" size="12.0" />
                                  </font>
@@ -258,7 +258,7 @@
                                     <FontIcon iconLiteral="fas-plus" />
                                  </graphic>
                               </Button>
-                              <TextField fx:id="matrial_name_textF" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="200.0" promptText="add material-cable type name " styleClass="input" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="material_name_textF" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="200.0" promptText="add material-cable type name " styleClass="input" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -273,7 +273,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="457.0">
                            <children>
-                              <Button fx:id="update_matrial_btn" mnemonicParsing="false" onAction="#update_matrial" prefHeight="28.0" prefWidth="78.0" styleClass="box-02" text="Update" HBox.hgrow="ALWAYS">
+                              <Button fx:id="update_material_btn" mnemonicParsing="false" onAction="#update_material" prefHeight="28.0" prefWidth="78.0" styleClass="box-02" text="Update" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Montserrat Bold" size="11.0" />
                                  </font>
@@ -284,7 +284,7 @@
                                     <FontIcon iconLiteral="fas-check" />
                                  </graphic>
                               </Button>
-                              <TextField fx:id="update_matrial_name_textF" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="200.0" promptText="update material-cable type name" styleClass="input" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="update_material_name_textF" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="200.0" promptText="update material-cable type name" styleClass="input" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets left="12.0" right="12.0" />
                                  </HBox.margin>
@@ -302,11 +302,11 @@
                         </HBox>
                         <HBox prefHeight="4.0" prefWidth="474.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TableView id="table1" fx:id="matrial_table_view" nodeOrientation="LEFT_TO_RIGHT" prefHeight="179.0" prefWidth="422.0" HBox.hgrow="ALWAYS">
+                              <TableView id="table1" fx:id="material_table_view" nodeOrientation="LEFT_TO_RIGHT" prefHeight="179.0" prefWidth="422.0" HBox.hgrow="ALWAYS">
                                  <columns>
-                                    <TableColumn fx:id="matrial_id_colm" maxWidth="1200.0" prefWidth="25.0" text="ID" />
-                                    <TableColumn fx:id="matrial_name_colm" maxWidth="7000.0" minWidth="30.0" prefWidth="214.0" text="Matrial-Cable Type" />
-                                    <TableColumn fx:id="matrial_delete_colm" maxWidth="1500.0" prefWidth="30.0" text="Delete" />
+                                    <TableColumn fx:id="material_id_colm" maxWidth="1200.0" prefWidth="25.0" text="ID" />
+                                    <TableColumn fx:id="material_name_colm" maxWidth="7000.0" minWidth="30.0" prefWidth="214.0" text="Matrial-Cable Type" />
+                                    <TableColumn fx:id="material_delete_colm" maxWidth="1500.0" prefWidth="30.0" text="Delete" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

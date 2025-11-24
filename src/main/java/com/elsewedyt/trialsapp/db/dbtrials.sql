@@ -11,7 +11,7 @@ CREATE  TABLE dbtrials.dbo.countries (
                                          country_id           int    IDENTITY  NOT NULL,
                                          country_name         nvarchar(50)      NOT NULL,
                                          CONSTRAINT pk_countries PRIMARY KEY CLUSTERED ( country_id  asc ) ,
-                                         CONSTRAINT unq_countries_country_name UNIQUE ( country_name )
+                                         CONSTRAINT unq_countries_country_name UNIQUE ( country_name  asc )
 );
 GO
 
@@ -19,7 +19,7 @@ CREATE  TABLE dbtrials.dbo.departments (
                                            department_id        int    IDENTITY  NOT NULL,
                                            department_name      nvarchar(100)      NOT NULL,
                                            CONSTRAINT pk_departments PRIMARY KEY CLUSTERED ( department_id  asc ) ,
-                                           CONSTRAINT unq_departments_department_name UNIQUE ( department_name )
+                                           CONSTRAINT unq_departments_department_name UNIQUE ( department_name  asc )
 );
 GO
 
@@ -28,15 +28,15 @@ CREATE  TABLE dbtrials.dbo.file_type (
                                          file_type_name       nvarchar(150)      NULL,
                                          department_id        int      NULL,
                                          CONSTRAINT pk_file_type PRIMARY KEY CLUSTERED ( file_type_id  asc ) ,
-                                         CONSTRAINT unq_file_type_file_type_name UNIQUE ( file_type_name )
+                                         CONSTRAINT unq_file_type_file_type_name UNIQUE ( file_type_name  asc )
 );
 GO
 
-CREATE  TABLE dbtrials.dbo.matrials (
-                                        matrial_id           int    IDENTITY  NOT NULL,
-                                        matrial_name         nvarchar(120)      NOT NULL,
-                                        CONSTRAINT pk_matrials PRIMARY KEY CLUSTERED ( matrial_id  asc ) ,
-                                        CONSTRAINT unq_matrials_matrial_name UNIQUE ( matrial_name )
+CREATE  TABLE dbtrials.dbo.materials (
+                                         material_id          int    IDENTITY  NOT NULL,
+                                         material_name        nvarchar(120)      NOT NULL,
+                                         CONSTRAINT pk_matrials PRIMARY KEY CLUSTERED ( material_id  asc ) ,
+                                         CONSTRAINT unq_matrials_matrial_name UNIQUE ( material_name  asc )
 );
 GO
 
@@ -44,7 +44,7 @@ CREATE  TABLE dbtrials.dbo.sections (
                                         section_id           int    IDENTITY  NOT NULL,
                                         section_name         varchar(100)      NOT NULL,
                                         CONSTRAINT pk_sections PRIMARY KEY CLUSTERED ( section_id  asc ) ,
-                                        CONSTRAINT unq_sections_section_name UNIQUE ( section_name )
+                                        CONSTRAINT unq_sections_section_name UNIQUE ( section_name  asc )
 );
 GO
 
@@ -52,7 +52,7 @@ CREATE  TABLE dbtrials.dbo.suppliers (
                                          supplier_id          int    IDENTITY  NOT NULL,
                                          supplier_name        varchar(120)      NOT NULL,
                                          CONSTRAINT pk_suppliers PRIMARY KEY CLUSTERED ( supplier_id  asc ) ,
-                                         CONSTRAINT unq_suppliers_supplier_name UNIQUE ( supplier_name )
+                                         CONSTRAINT unq_suppliers_supplier_name UNIQUE ( supplier_name  asc )
 );
 GO
 
@@ -84,11 +84,11 @@ CREATE  TABLE dbtrials.dbo.trials (
                                       trial_id             int    IDENTITY  NOT NULL,
                                       trial_purpose        nvarchar(150)      NOT NULL,
                                       section_id           int      NULL,
-                                      matrial_id           int      NULL,
+                                      material_id          int      NULL,
                                       supplier_id          int      NULL,
                                       user_id              int      NULL,
                                       sup_country_id       int      NULL,
-                                      creation_date        date      NULL,
+                                      creation_date        datetime2      NULL,
                                       notes                nvarchar(200)      NULL,
                                       CONSTRAINT pk_trials PRIMARY KEY CLUSTERED ( trial_id  asc )
 );
@@ -96,8 +96,8 @@ GO
 
 CREATE  TABLE dbtrials.dbo.files (
                                      file_id              int    IDENTITY  NOT NULL,
-                                     creation_date        date      NULL,
-                                     file_path            varchar(500)      NULL,
+                                     creation_date        datetime2      NULL,
+                                     file_path            nvarchar(500)      NULL,
                                      test_situation       int      NULL,
                                      trial_id             int      NULL,
                                      department_id        int      NULL,
@@ -129,7 +129,7 @@ GO
 ALTER TABLE dbtrials.dbo.supplier_country ADD CONSTRAINT fk_supplier_country_suppliers FOREIGN KEY ( supplier_id ) REFERENCES dbtrials.dbo.suppliers( supplier_id );
 GO
 
-ALTER TABLE dbtrials.dbo.trials ADD CONSTRAINT fk_trials_matrials FOREIGN KEY ( matrial_id ) REFERENCES dbtrials.dbo.matrials( matrial_id );
+ALTER TABLE dbtrials.dbo.trials ADD CONSTRAINT fk_trials_matrials FOREIGN KEY ( material_id ) REFERENCES dbtrials.dbo.materials( material_id );
 GO
 
 ALTER TABLE dbtrials.dbo.trials ADD CONSTRAINT fk_trials_sections FOREIGN KEY ( section_id ) REFERENCES dbtrials.dbo.sections( section_id );
@@ -146,3 +146,4 @@ GO
 
 ALTER TABLE dbtrials.dbo.users ADD CONSTRAINT fk_users_departments FOREIGN KEY ( department_id ) REFERENCES dbtrials.dbo.departments( department_id );
 GO
+

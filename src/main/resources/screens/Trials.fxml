@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="686.0" prefWidth="1387.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.TrialsController">
+<AnchorPane prefHeight="686.0" prefWidth="1387.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controller.TrialsController">
    <children>
       <HBox alignment="CENTER" layoutX="10.4" layoutY="-7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="54.0" prefWidth="1292.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0">
          <children>
@@ -63,9 +63,9 @@
             </VBox>
             <VBox fx:id="department_lbl" alignment="TOP_RIGHT" prefHeight="67.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="logo_ImageView" fitHeight="54.0" fitWidth="147.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" scaleX="1.1" scaleY="1.1" scaleZ="1.1" VBox.vgrow="ALWAYS">
+                  <ImageView fx:id="logo_ImageView" fitHeight="50.0" fitWidth="160.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" scaleX="1.1" scaleY="1.1" scaleZ="1.1" VBox.vgrow="ALWAYS">
                      <VBox.margin>
-                        <Insets right="5.0" />
+                        <Insets right="5.0" top="5.0" />
                      </VBox.margin>
                   </ImageView>
                </children>
@@ -78,7 +78,7 @@
             <TableColumn fx:id="id_column" maxWidth="1.7976931348623157E308" minWidth="35.0" prefWidth="40.0" text="ID" />
           <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="250.0" prefWidth="340.0" text="Trial Purpose" />
           <TableColumn fx:id="section_column" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="60.0" text="Section" />
-            <TableColumn fx:id="matrial_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="220.0" text="Matrial-Cable Type" />
+            <TableColumn fx:id="material_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="220.0" text="Matrial-Cable Type" />
             <TableColumn fx:id="supplier_column" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="150.0" text="Supplier" />
             <TableColumn fx:id="supplier_country_column" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="110.0" text="Sup-Country" />
             <TableColumn fx:id="creation_date_column" maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="180.0" text="Trial Creation Date" />
@@ -254,7 +254,7 @@
                               <Insets bottom="4.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="matrial_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Materials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
+                        <ComboBox fx:id="material_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Materials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin></ComboBox>

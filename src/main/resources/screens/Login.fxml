@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="533.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controllers.LoginController">
+<AnchorPane prefHeight="533.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controller.LoginController">
    <children>
       <Pane prefHeight="490.0" prefWidth="600.0" style="-fx-background-color: #fffbee;">
          <children>
@@ -26,7 +26,7 @@
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="logo_image_view" fitHeight="60.0" fitWidth="129.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" scaleX="1.1" scaleY="1.1" scaleZ="1.1" />
+            <ImageView fx:id="logo_image_view" fitHeight="50.0" fitWidth="150.0" layoutX="15.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
             <FontIcon iconColor="#848080" iconLiteral="fas-user" iconSize="25" layoutX="479.0" layoutY="227.0" selectionFill="BLACK" wrappingWidth="23.199951171875" />
             <FontIcon iconColor="#848080" iconLiteral="fas-lock" iconSize="25" layoutX="480.0" layoutY="288.0" selectionFill="BLACK" wrappingWidth="13.5999755859375" />
             <TextField fx:id="user_name_txtF" alignment="CENTER" layoutX="123.0" layoutY="197.0" prefHeight="43.0" prefWidth="350.0" promptText="Enter user name" styleClass="input">

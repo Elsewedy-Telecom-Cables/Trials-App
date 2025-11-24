@@ -20,10 +20,10 @@ module com.elsewedyt.trialsapp {
     //requires com.elsewedyt.trialsapp;
 
 
-    opens com.elsewedyt.trialsapp.controllers to javafx.fxml;
+    opens com.elsewedyt.trialsapp.controller to javafx.fxml;
     opens screens to javafx.fxml;
-    exports com.elsewedyt.trialsapp.controllers;
-    exports com.elsewedyt.trialsapp.models;
+    exports com.elsewedyt.trialsapp.controller;
+    exports com.elsewedyt.trialsapp.model;
 
 
 
