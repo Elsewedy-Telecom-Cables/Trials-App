@@ -12,25 +12,24 @@ import java.util.HashMap;
 
 public class NewTrialsViewDao {
 
-    private static Connection getConnection() {
-        return DbConnect.getConnect();
-    }
 
         // Get all trial files and transform them into NewTrialsView
         public  ObservableList<NewTrialsView> getAllTrialsView() {
             ObservableList<NewTrialsView> trialsViewList = FXCollections.observableArrayList();
-            String sql = "SELECT t.trial_id, t.trial_purpose, t.creation_date AS trial_creation_date, t.notes AS trial_notes, " +
-                    "s.section_name, m.material_name, sup.supplier_name, c.country_name AS supplier_country_name, " +
-                    "d.department_name, f.file_path " +
-                    "FROM trials t " +
-                    "LEFT JOIN sections s ON t.section_id = s.section_id " +
-                    "LEFT JOIN Materials m ON t.material_id = m.material_id " +
-                    "LEFT JOIN suppliers sup ON t.supplier_id = sup.supplier_id " +
-                    "LEFT JOIN supplier_country sc ON t.sup_country_id = sc.sup_country_id " +
-                    "LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id " +
-                    "LEFT JOIN files f ON t.trial_id = f.trial_id " +
-                    "LEFT JOIN departments d ON f.department_id = d.department_id " +
-                     "ORDER BY t.trial_id DESC";
+            String sql = """
+                    SELECT t.trial_id, t.trial_purpose, t.creation_date AS trial_creation_date, t.notes AS trial_notes,
+                    s.section_name, m.material_name, sup.supplier_name, c.country_name AS supplier_country_name,
+                    d.department_name, f.file_path
+                    FROM dbtrials.dbo.trials t
+                    LEFT JOIN dbtrials.dbo.sections s ON t.section_id = s.section_id
+                    LEFT JOIN dbtrials.dbo.materials m ON t.material_id = m.material_id
+                    LEFT JOIN dbtrials.dbo.suppliers sup ON t.supplier_id = sup.supplier_id
+                    LEFT JOIN dbtrials.dbo.supplier_country sc ON t.sup_country_id = sc.sup_country_id
+                    LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id
+                    LEFT JOIN dbtrials.dbo.files f ON t.trial_id = f.trial_id
+                    LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id
+                    ORDER BY t.trial_id DESC
+                    """;
 
             try (Connection conn = DbConnect.getConnect();
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -87,7 +86,8 @@ public class NewTrialsViewDao {
                 }
                 trialsViewList.addAll(trialsMap.values());
             } catch (SQLException e) {
-                Logging.logException("ERROR", NewTrialsViewDao.class.getName(), "getAllTrialsView", e);
+                Logging.logExpWithMessage("ERROR", NewTrialsViewDao.class.getName(), "getAllTrialsView", e, "sql", sql);
+
             }
             return trialsViewList;
         }
@@ -96,19 +96,34 @@ public class NewTrialsViewDao {
                                                                     Integer materialId, Integer supplierId, String supplierCountry,
                                                                     LocalDate fromTrialCreationDate, LocalDate toTrialCreationDate) {
         ObservableList<NewTrialsView> trialsViewList = FXCollections.observableArrayList();
-        StringBuilder sql = new StringBuilder(
-                "SELECT t.trial_id, t.trial_purpose, t.creation_date AS trial_creation_date, t.notes AS trial_notes, " +
-                        "s.section_name, m.material_name, sup.supplier_name, c.country_name AS supplier_country_name, " +
-                        "d.department_name, f.file_path " +
-                        "FROM trials t " +
-                        "LEFT JOIN sections s ON t.section_id = s.section_id " +
-                        "LEFT JOIN Materials m ON t.material_id = m.material_id " +
-                        "LEFT JOIN suppliers sup ON t.supplier_id = sup.supplier_id " +
-                        "LEFT JOIN supplier_country sc ON t.sup_country_id = sc.sup_country_id " +
-                        "LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id " +
-                        "LEFT JOIN files f ON t.trial_id = f.trial_id " +
-                        "LEFT JOIN departments d ON f.department_id = d.department_id " +
-                        "WHERE 1=1");
+//        StringBuilder sql = new StringBuilder(
+//                "SELECT t.trial_id, t.trial_purpose, t.creation_date AS trial_creation_date, t.notes AS trial_notes, " +
+//                        "s.section_name, m.material_name, sup.supplier_name, c.country_name AS supplier_country_name, " +
+//                        "d.department_name, f.file_path " +
+//                        "FROM dbtrials.dbo.trials t " +
+//                        "LEFT JOIN dbtrials.dbo.sections s ON t.section_id = s.section_id " +
+//                        "LEFT JOIN dbtrials.dbo.Materials m ON t.material_id = m.material_id " +
+//                        "LEFT JOIN dbtrials.dbo.suppliers sup ON t.supplier_id = sup.supplier_id " +
+//                        "LEFT JOIN dbtrials.dbo.supplier_country sc ON t.sup_country_id = sc.sup_country_id " +
+//                        "LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id " +
+//                        "LEFT JOIN dbtrials.dbo.files f ON t.trial_id = f.trial_id " +
+//                        "LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id " +
+//                        "WHERE 1=1");
+
+        StringBuilder sql = new StringBuilder("""
+    SELECT t.trial_id, t.trial_purpose, t.creation_date AS trial_creation_date, t.notes AS trial_notes,
+           s.section_name, m.material_name, sup.supplier_name, c.country_name AS supplier_country_name,
+           d.department_name, f.file_path
+    FROM dbtrials.dbo.trials t
+    LEFT JOIN dbtrials.dbo.sections s ON t.section_id = s.section_id
+    LEFT JOIN dbtrials.dbo.Materials m ON t.material_id = m.material_id
+    LEFT JOIN dbtrials.dbo.suppliers sup ON t.supplier_id = sup.supplier_id
+    LEFT JOIN dbtrials.dbo.supplier_country sc ON t.sup_country_id = sc.sup_country_id
+    LEFT JOIN dbtrials.dbo.countries c ON sc.country_id = c.country_id
+    LEFT JOIN dbtrials.dbo.files f ON t.trial_id = f.trial_id
+    LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id
+    WHERE 1=1
+    """);
 
         if (trialPurpose != null && !trialPurpose.trim().isEmpty()) {
             sql.append(" AND t.trial_purpose LIKE ?");

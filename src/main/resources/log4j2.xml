@@ -1,107 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
 
-    <!-- ======================= APPENDERS ======================= -->
     <Appenders>
 
-        <!-- ===== Console ===== -->
+        <!-- Console Output -->
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36}.%M - %msg%n%throwable"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M - %msg%n%throwable"/>
         </Console>
 
-        <!-- ===== INFO ===== -->
+        <!-- Info Log -->
         <RollingFile name="InfoFile"
                      fileName="../logs/info/app.log"
                      filePattern="../logs/info/app-%d{yyyy-MM-dd}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36}.%M - %msg%n%throwable"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M - %msg%n%throwable"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
-            <DefaultRolloverStrategy max="30"/>
         </RollingFile>
 
-        <!-- ===== DEBUG (عام) ===== -->
-        <RollingFile name="DebugFile"
-                     fileName="../logs/debug/debug.log"
-                     filePattern="../logs/debug/debug-%d{yyyy-MM-dd}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36}.%M - %msg%n%throwable"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
-                <SizeBasedTriggeringPolicy size="10MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="20"/>
-        </RollingFile>
-
-        <!-- ===== SQL ===== -->
-        <RollingFile name="SQLFile"
-                     fileName="../logs/sql/sql.log"
-                     filePattern="../logs/sql/sql-%d{yyyy-MM-dd}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36}.%M - %msg%n"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
-                <SizeBasedTriggeringPolicy size="10MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="30"/>
-        </RollingFile>
-
-        <!-- ===== ERROR ===== -->
+        <!-- Error Log -->
         <RollingFile name="ErrorFile"
                      fileName="../logs/error/error.log"
                      filePattern="../logs/error/error-%d{yyyy-MM-dd}-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36}.%M - %msg%n%throwable"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M - %msg%n%throwable"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
-                <SizeBasedTriggeringPolicy size="5MB"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
-            <DefaultRolloverStrategy max="60"/>
         </RollingFile>
 
-        <!-- ===== STARTUP ===== -->
-        <RollingFile name="StartupFile"
-                     fileName="../logs/startup/startup.log"
-                     filePattern="../logs/startup/startup-%d{yyyy-MM-dd}.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} - %msg%n"/>
+        <!-- Debug Log -->
+        <RollingFile name="DebugFile"
+                     fileName="../logs/debug/debug.log"
+                     filePattern="../logs/debug/debug-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M - %msg%n%throwable"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- SQL Log -->
+        <RollingFile name="SQLFile"
+                     fileName="../logs/sql/sql.log"
+                     filePattern="../logs/sql/sql-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level - %msg%n%throwable"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
         </RollingFile>
 
     </Appenders>
 
-    <!-- ======================= LOGGERS ======================= -->
     <Loggers>
 
-        <!-- ROOT LOGGER (INFO + أعلى فقط) -->
+        <!-- Info Logger -->
+        <Logger name="INFO" level="info" additivity="false">
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="Console"/>   <!-- يظهر في IntelliJ -->
+        </Logger>
+
+        <!-- Error Logger -->
+        <Logger name="ERROR" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+            <AppenderRef ref="Console"/>   <!-- يظهر في IntelliJ -->
+        </Logger>
+
+        <!-- Debug Logger -->
+        <Logger name="DEBUG" level="debug" additivity="false">
+            <AppenderRef ref="DebugFile"/>
+            <AppenderRef ref="Console"/>   <!-- يظهر في IntelliJ -->
+        </Logger>
+
+        <!-- SQL Logger -->
+        <Logger name="SQL" level="debug" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+            <AppenderRef ref="Console"/>   <!-- يظهر في IntelliJ -->
+        </Logger>
+
+        <!-- Root Logger -->
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="InfoFile"/>
         </Root>
-
-        <!-- DEBUG LOGGER للرسائل العامة -->
-        <Logger name="DEBUG" level="debug" additivity="false">
-            <AppenderRef ref="DebugFile"/>
-        </Logger>
-
-        <!-- SQL LOGGER -->
-        <Logger name="SQL" level="debug" additivity="false">
-            <AppenderRef ref="SQLFile"/>
-        </Logger>
-
-        <!-- ERROR LOGGER -->
-        <Logger name="ERROR" level="error" additivity="false">
-            <AppenderRef ref="ErrorFile"/>
-        </Logger>
-
-        <!-- DAO PACKAGE LOGGER -->
-        <Logger name="com.elsewedyt.trialsapp.dao" level="debug" additivity="true">
-            <!-- سيصعد للـ Root ويظهر في InfoFile -->
-        </Logger>
-
-        <!-- STARTUP LOGGER -->
-        <Logger name="startup" level="info" additivity="false">
-            <AppenderRef ref="StartupFile"/>
-        </Logger>
 
     </Loggers>
 

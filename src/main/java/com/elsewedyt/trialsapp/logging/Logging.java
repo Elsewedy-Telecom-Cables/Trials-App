@@ -51,17 +51,23 @@ public class Logging {
 
             case "info":
                 infoLogger.info(MSG);
+                // infoLogger.info(MSG.toString(), ex);
                 break;
 
             case "debug":
                 debugLogger.debug(MSG);
+                // debugLogger.debug(MSG.toString(), ex);
                 break;
 
             case "error":
                 errorLogger.error(MSG);
+                //   errorLogger.error(MSG.toString(), ex);
+
                 break;
             case "sql":
                 sqlLogger.info(MSG);
+                //   sqlLogger.info(MSG.toString(), ex);
+
                 break;
             case "warn":
                 infoLogger.warn(MSG);

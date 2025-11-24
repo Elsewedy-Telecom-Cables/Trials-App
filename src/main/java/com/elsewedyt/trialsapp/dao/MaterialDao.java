@@ -29,6 +29,7 @@ public class MaterialDao {
         } catch (Exception e) {
             lastErrorMessage = e.getMessage();
             Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "getAllMaterials", e, "sql", query);
+
         }
 
         return list;

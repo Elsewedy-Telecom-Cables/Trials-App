@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class DbConnect {
 
-    private static final String URL = ConfigLoader.getProperty("DB.URL");   // DB.URL.LOCAL
+    private static final String URL = ConfigLoader.getProperty("DB.URL.LOCAL");   // DB.URL.LOCAL
     private static final String USER = ConfigLoader.getProperty("DB.USER");
     private static final String PASSWORD = ConfigLoader.getProperty("DB.PASSWORD");
 
