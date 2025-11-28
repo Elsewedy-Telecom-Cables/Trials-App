@@ -424,8 +424,8 @@ public class PrepareDataController implements Initializable {
 
     // Load Materials Data
     private void loadMaterialsData() {
-        material_name_colm.setCellValueFactory(new PropertyValueFactory<>("matrialName"));
-        material_id_colm.setCellValueFactory(new PropertyValueFactory<>("matrialId"));
+        material_name_colm.setCellValueFactory(new PropertyValueFactory<>("materialName"));
+        material_id_colm.setCellValueFactory(new PropertyValueFactory<>("materialId"));
         material_name_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
         material_id_colm.setStyle("-fx-alignment: CENTER;-fx-font-size:12 px;-fx-font-weight:bold;");
         Callback<TableColumn<Material, String>, TableCell<Material, String>> cellFactory = param -> {
@@ -445,8 +445,8 @@ public class PrepareDataController implements Initializable {
 
                         deleteIcon.setOnMouseClicked(event -> {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setHeaderText("Are you sure you want to delete this matrial?");
-                            alert.setContentText("Delete matrial confirmation");
+                            alert.setHeaderText("Are you sure you want to delete this material?");
+                            alert.setContentText("Delete material confirmation");
                             alert.getButtonTypes().addAll(ButtonType.CANCEL);
 
                             Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
@@ -459,7 +459,7 @@ public class PrepareDataController implements Initializable {
                                     if (UserService.confirmPassword(UserContext.getCurrentUser().getUserName())) {
                                         try {
                                             Material material = material_table_view.getSelectionModel().getSelectedItem();
-                                            materialDao.deleteMaterial(material.getMatrialId());
+                                            materialDao.deleteMaterial(material.getMaterialId());
                                             materialList = materialDao.getAllMaterials();
                                             material_table_view.setItems(materialList);
                                             WindowUtils.ALERT("Success", "Material deleted successfully", WindowUtils.ALERT_INFORMATION);
@@ -652,10 +652,10 @@ public class PrepareDataController implements Initializable {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (matrial.getMatrialName().toLowerCase().contains(lowerCaseFilter)) {
+                if (matrial.getMaterialName().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
-                String id = matrial.getMatrialId() + "";
+                String id = matrial.getMaterialId() + "";
                 return id.contains(lowerCaseFilter);
             });
         });
@@ -791,7 +791,7 @@ public class PrepareDataController implements Initializable {
         }
 
         Material material = new Material();
-        material.setMatrialName(matrialName);
+        material.setMaterialName(matrialName);
 
             boolean success = materialDao.insertMaterial(material);
 
@@ -1022,7 +1022,7 @@ public class PrepareDataController implements Initializable {
                 return;
             }
 
-            selectedMaterial.setMatrialName(matrialName);
+            selectedMaterial.setMaterialName(matrialName);
             boolean success = materialDao.updateMaterial(selectedMaterial);
             if (success) {
                 WindowUtils.ALERT("Success", "Material updated successfully", WindowUtils.ALERT_INFORMATION);
@@ -1186,7 +1186,7 @@ private void setupFileTypeTableListener() {
         material_table_view.setOnMouseClicked(event -> {
             Material selectedMaterial = material_table_view.getSelectionModel().getSelectedItem();
             if (selectedMaterial != null) {
-                update_material_name_textF.setText(selectedMaterial.getMatrialName());
+                update_material_name_textF.setText(selectedMaterial.getMaterialName());
             }
         });
     }

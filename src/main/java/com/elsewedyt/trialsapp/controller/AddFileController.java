@@ -660,7 +660,7 @@ public class AddFileController implements Initializable {
             for (String toEmail : toEmails) message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
             for (String ccEmail : ccEmails) message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmail));
 
-            message.setSubject("Last Situation of Trial (" + trial.getTrialPurpose() + " - " + material.getMatrialName() + ")");
+            message.setSubject("Last Situation of Trial (" + trial.getTrialPurpose() + " - " + material.getMaterialName() + ")");
 
             // Departments
             List<Map<String, Object>> departments = Arrays.asList(
@@ -746,7 +746,7 @@ public class AddFileController implements Initializable {
                     + "<p>Dears,</p>"
                     + "<p>Kindly be informed that Eng. <strong>" + userFullName + "</strong>"
                     + " - " + departmentName + " Department uploaded  <strong>" + fileTypeNamesStr + "</strong>"
-                    + " document,<br> for trial( " + trial.getTrialPurpose() + " - " + material.getMatrialName() + ") and The last situation of this trial is:</p>"
+                    + " document,<br> for trial( " + trial.getTrialPurpose() + " - " + material.getMaterialName() + ") and The last situation of this trial is:</p>"
                     + " Trial Creation Date: <strong>" + creationDateStr + "</strong><br><br>"
                     + tableHtml
                     + "<p>--------------------------------------------------------------</p>"

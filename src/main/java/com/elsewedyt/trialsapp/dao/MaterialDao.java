@@ -42,11 +42,11 @@ public class MaterialDao {
         try (Connection con = DbConnect.getConnect();
              PreparedStatement ps = con.prepareStatement(query)) {
 
-            ps.setString(1, m.getMatrialName());
+            ps.setString(1, m.getMaterialName());
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "insertMatrial", e, "sql", query);
+            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "insertMaterial", e, "sql", query);
         }
 
         return false;
@@ -59,12 +59,12 @@ public class MaterialDao {
         try (Connection con = DbConnect.getConnect();
              PreparedStatement ps = con.prepareStatement(query)) {
 
-            ps.setString(1, m.getMatrialName());
-            ps.setInt(2, m.getMatrialId());
+            ps.setString(1, m.getMaterialName());
+            ps.setInt(2, m.getMaterialId());
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "updateMatrial", e, "sql", query);
+            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "updateMaterial", e, "sql", query);
         }
 
         return false;
@@ -81,7 +81,7 @@ public class MaterialDao {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "deleteMatrial", e, "sql", query);
+            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "deleteMaterial", e, "sql", query);
         }
 
         return false;
@@ -103,7 +103,7 @@ public class MaterialDao {
             }
 
         } catch (Exception e) {
-            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "getMatrialById", e, "sql", query);
+            Logging.logExpWithMessage("ERROR", MaterialDao.class.getName(), "getMaterialById", e, "sql", query);
         }
 
         return m;

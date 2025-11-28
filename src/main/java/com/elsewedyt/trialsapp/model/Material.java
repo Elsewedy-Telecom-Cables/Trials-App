@@ -1,41 +1,41 @@
 package com.elsewedyt.trialsapp.model;
 
 public class Material {
-    private int matrialId;
-    private String matrialName;
+    private int materialId;
+    private String materialName;
 
     // Constructors
     public Material() {
     }
 
     public Material(String matrialName) {
-        this.matrialName = matrialName;
+        this.materialName = matrialName;
     }
 
     public Material(int matrialId, String matrialName) {
-        this.matrialId = matrialId;
-        this.matrialName = matrialName;
+        this.materialId = matrialId;
+        this.materialName = matrialName;
     }
 
     // Getters and Setters
-    public int getMatrialId() {
-        return matrialId;
+    public int getMaterialId() {
+        return materialId;
     }
 
     public void setMatrialId(int matrialId) {
-        this.matrialId = matrialId;
+        this.materialId = matrialId;
     }
 
-    public String getMatrialName() {
-        return matrialName;
+    public String getMaterialName() {
+        return materialName;
     }
 
-    public void setMatrialName(String matrialName) {
-        this.matrialName = matrialName;
+    public void setMaterialName(String matrialName) {
+        this.materialName = matrialName;
     }
 
     @Override
     public String toString() {
-        return matrialName;
+        return materialName;
     }
 }

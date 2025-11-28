@@ -24,36 +24,24 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    @FXML
-    private Label date_lbl;
-    @FXML
-    private Label dept_name_lbl;
-
-    @FXML
-    private Label shift_label;
-
-    @FXML
-    private Label welcome_lbl;
-    @FXML
-    private Button users_btn;
-    @FXML
-    private ImageView logo_ImageView;
-    @FXML
-    private ImageView trials_image_view;
-    @FXML
-    private Button prepare_data_btn;   // Database Button
-    @FXML
-    private Button trials_btn;
-    @FXML
-    private Button dashboard_btn;
+    @FXML private Label date_lbl;
+    @FXML private Label dept_name_lbl;
+    @FXML private Label shift_label;
+    @FXML private Label welcome_lbl;
+    @FXML private Button users_btn;
+    @FXML private ImageView logo_ImageView;
+    @FXML private ImageView trials_image_view;
+    @FXML private Button prepare_data_btn;   // Database Button
+    @FXML private Button trials_btn;
+    @FXML private Button dashboard_btn;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // Set focus to welcome label
         Platform.runLater(() -> welcome_lbl.requestFocus());
-
-        if(UserContext.getCurrentUser().getDepartmentId() == 1){   // Technical Office  Department
+        int deptId = UserContext.getCurrentUser().getDepartmentId();
+        if(deptId == 1 || deptId == 4){   // Technical Office - Process Department
             trials_btn.setText("Adding Trials + Uploading Files");
         }
 
@@ -76,7 +64,7 @@ public class MainController implements Initializable {
         // Set welcome message with current user's full name
         String msg = ("Welcome : " + UserContext.getCurrentUser().getFullName());
         welcome_lbl.setText(msg);
-        // Set Departmnet Name  with current user's
+        // Set Department Name  with current user's
         String msg2 = (UserContext.getCurrentUser().getDepartmentName() + " Department");
         dept_name_lbl.setText(msg2);
 
@@ -108,20 +96,21 @@ public class MainController implements Initializable {
 
     }
 
-        @FXML
-        void openPrepareData(ActionEvent event) {
+    @FXML
+    void openPrepareData(ActionEvent event) {
                     CLOSE(event);
                     OPEN_PREPARE_DATA_PAGE();
         }
+
     @FXML
     void openTrials(ActionEvent event) {
         CLOSE(event);
         OPEN_TRIALS_PAGE_PAGE();
     }
+
     @FXML
     void openDashboard(ActionEvent event) {
-      CLOSE(event);
-      //OPEN_DASHBOARD_PAGE();
+        CLOSE(event);
         OPEN_NEW_DASHBOARD_PAGE();
     }
 

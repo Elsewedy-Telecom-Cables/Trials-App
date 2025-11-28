@@ -188,7 +188,7 @@ public class AddTrialController implements Initializable {
             trial.setNotes(notes);
             trial.setTrialPurpose(trialPurpose);
             trial.setSectionId(selectedSection.getSectionId());
-            trial.setMatrialId(selectedMaterial.getMatrialId());
+            trial.setMatrialId(selectedMaterial.getMaterialId());
             trial.setSupplierId(selectedSupplier.getSupplierId());
             trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
             trial.setUserId(UserContext.getCurrentUser().getUserId());
@@ -212,7 +212,7 @@ public class AddTrialController implements Initializable {
                 executor.submit(() -> sendEmailNotification(
                         UserContext.getCurrentUser().getFullName(),
                         selectedSection.getSectionName(),
-                        selectedMaterial.getMatrialName(),
+                        selectedMaterial.getMaterialName(),
                         selectedSupplier.getSupplierName(),
                         selectedSupplierCountry.getCountryName(),
                         trialPurpose,
@@ -272,7 +272,7 @@ public class AddTrialController implements Initializable {
             trial.setNotes(notes);
             trial.setTrialPurpose(trialPurpose);
             trial.setSectionId(selectedSection.getSectionId());
-            trial.setMatrialId(selectedMaterial.getMatrialId());
+            trial.setMatrialId(selectedMaterial.getMaterialId());
             trial.setSupplierId(selectedSupplier.getSupplierId());
             trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
             trial.setUserId(UserContext.getCurrentUser().getUserId());

@@ -151,8 +151,6 @@ public class TrialsController implements Initializable {
         // Load initial data
         loadData();
         updateTrialsCount();
-
-        // Add listeners for real-time filtering
         addFilterListeners();
     }
 
@@ -200,14 +198,14 @@ public class TrialsController implements Initializable {
             @Override
             protected void updateItem(Material item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getMatrialName());
+                setText(empty || item == null ? null : item.getMaterialName());
             }
         });
         material_Comb.setButtonCell(new ListCell<Material>() {
             @Override
             protected void updateItem(Material item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getMatrialName());
+                setText(empty || item == null ? null : item.getMaterialName());
             }
         });
 
@@ -270,7 +268,7 @@ public class TrialsController implements Initializable {
         Integer sectionId = section_Comb.getSelectionModel().getSelectedItem() != null ?
                 section_Comb.getSelectionModel().getSelectedItem().getSectionId() : null;
         Integer matrialId = material_Comb.getSelectionModel().getSelectedItem() != null ?
-                material_Comb.getSelectionModel().getSelectedItem().getMatrialId() : null;
+                material_Comb.getSelectionModel().getSelectedItem().getMaterialId() : null;
         Integer supplierId = supplier_Comb.getSelectionModel().getSelectedItem() != null ?
                 supplier_Comb.getSelectionModel().getSelectedItem().getSupplierId() : null;
         Integer supplierCountryId = supplier_country_Comb.getSelectionModel().getSelectedItem() != null ?
@@ -296,6 +294,7 @@ public class TrialsController implements Initializable {
         trialsList.setAll(filtered);
         updateTrialsCount();
     }
+
     @FXML
     void filterTrial_id_country(KeyEvent event) {
         filterTrials();

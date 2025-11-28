@@ -180,14 +180,14 @@ public class DashboardController implements Initializable {
             @Override
             protected void updateItem(Material item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getMatrialName());
+                setText(empty || item == null ? null : item.getMaterialName());
             }
         });
         material_Comb.setButtonCell(new ListCell<Material>() {
             @Override
             protected void updateItem(Material item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getMatrialName());
+                setText(empty || item == null ? null : item.getMaterialName());
             }
         });
 
@@ -689,7 +689,7 @@ public class DashboardController implements Initializable {
         Integer sectionId = section_Comb.getSelectionModel().getSelectedItem() != null ?
                 section_Comb.getSelectionModel().getSelectedItem().getSectionId() : null;
         Integer materialId = material_Comb.getSelectionModel().getSelectedItem() != null ?
-                material_Comb.getSelectionModel().getSelectedItem().getMatrialId() : null;
+                material_Comb.getSelectionModel().getSelectedItem().getMaterialId() : null;
         Integer supplierId = supplier_Comb.getSelectionModel().getSelectedItem() != null ?
                 supplier_Comb.getSelectionModel().getSelectedItem().getSupplierId() : null;
         String supplierCountry = supplier_country_Comb.getSelectionModel().getSelectedItem() != null ?

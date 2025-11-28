@@ -62,7 +62,7 @@ public class Trial {
         this.user = user;
         // Set name fields from related objects
         this.sectionName = section != null ? section.getSectionName() : null;
-        this.matrialName = material != null ? material.getMatrialName() : null;
+        this.matrialName = material != null ? material.getMaterialName() : null;
         this.supplierName = supplier != null ? supplier.getSupplierName() : null;
         this.supplierCountryName = supplierCountry != null ? supplierCountry.getCountryName() : null;
     }
@@ -164,7 +164,7 @@ public class Trial {
 
     public void setMatrial(Material material) {
         this.material = material;
-        this.matrialName = material != null ? material.getMatrialName() : null;
+        this.matrialName = material != null ? material.getMaterialName() : null;
     }
 
     public Supplier getSupplier() {

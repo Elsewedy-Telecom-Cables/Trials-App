@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class CountryDao {
     public static String lastErrorMessage = null;
-    // INSERT
+
     public  boolean insertCountry(Country country) {
         String sql = "INSERT INTO dbtrials.dbo.countries (country_name) VALUES (?)";
         try (Connection conn = DbConnect.getConnect();
@@ -26,7 +26,7 @@ public class CountryDao {
         }
     }
 
-    // UPDATE
+
     public  boolean updateCountry(Country country) {
         String sql = "UPDATE dbtrials.dbo.countries SET country_name = ? WHERE country_id = ?";
         try (Connection conn = DbConnect.getConnect();
@@ -43,7 +43,7 @@ public class CountryDao {
         }
     }
 
-    // DELETE
+
     public  boolean deleteCountry(int countryId) {
         String sql = "DELETE FROM dbtrials.dbo.countries WHERE country_id = ?";
         try (Connection conn = DbConnect.getConnect();
@@ -58,10 +58,13 @@ public class CountryDao {
         }
     }
 
-    // GET ALL
     public  ObservableList<Country> getAllCountries() {
         ObservableList<Country> countries = FXCollections.observableArrayList();
-        String sql = "SELECT country_id, country_name FROM dbtrials.dbo.countries ORDER BY country_name";
+        String sql = """
+        SELECT country_id, country_name
+        FROM dbtrials.dbo.countries
+        ORDER BY country_name
+        """;
         try (Connection conn = DbConnect.getConnect();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -80,7 +83,6 @@ public class CountryDao {
         return countries;
     }
 
-    // GET BY ID
     public  Country getCountryById(int countryId) {
         String sql = "SELECT country_id, country_name FROM dbtrials.dbo.countries WHERE country_id = ?";
         try (Connection conn = DbConnect.getConnect();

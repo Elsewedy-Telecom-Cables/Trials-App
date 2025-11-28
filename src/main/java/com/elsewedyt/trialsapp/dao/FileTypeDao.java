@@ -11,7 +11,7 @@ import java.sql.*;
 public class FileTypeDao {
     public static String lastErrorMessage = null;
 
-    // Insert
+
     public  boolean insertFileType(FileType fileType) {
         String query = "INSERT INTO dbtrials.dbo.file_type (file_type_name, department_id) VALUES (?, ?)";
 
@@ -30,7 +30,7 @@ public class FileTypeDao {
         return false;
     }
 
-    // Update
+
     public  boolean updateFileType(FileType fileType) {
         String query = "UPDATE dbtrials.dbo.file_type SET file_type_name = ?, department_id = ? WHERE file_type_id = ?";
 
@@ -51,7 +51,7 @@ public class FileTypeDao {
         return false;
     }
 
-    // Delete
+
     public  boolean deleteFileType(int fileTypeId) {
         String query = "DELETE FROM dbtrials.dbo.file_type WHERE file_type_id = ?";
 
@@ -68,7 +68,7 @@ public class FileTypeDao {
         return false;
     }
 
-    // Get by ID
+
     public  FileType getFileTypeById(int id) {
         String query = """
                 SELECT f.file_type_id, f.file_type_name, f.department_id, d.department_name
@@ -99,7 +99,7 @@ public class FileTypeDao {
         return null;
     }
 
-    // Get all file types (with department name)
+
     public  ObservableList<FileType> getAllFileTypes() {
         ObservableList<FileType> list = FXCollections.observableArrayList();
         String query = """

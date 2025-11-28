@@ -57,8 +57,11 @@ public class FileViewDao {
     public  ObservableList<FileView> getFilesByTrialIdAndDepartmentName(int trialId, String departmentName) {
         ObservableList<FileView> list = FXCollections.observableArrayList();
         String query = """
-            SELECT f.file_id, f.creation_date, f.file_path, f.test_situation, f.trial_id, f.department_id, f.user_id, f.comment, f.file_type_id,
-                   d.department_name, u.full_name, ft.file_type_name
+            SELECT f.file_id, f.creation_date, f.file_path, f.test_situation,
+                   f.trial_id, f.department_id, f.user_id, f.comment, f.file_type_id,
+                   d.department_name,
+                   u.full_name,
+                   ft.file_type_name
             FROM dbtrials.dbo.files f
             LEFT JOIN dbtrials.dbo.departments d ON f.department_id = d.department_id
             LEFT JOIN dbtrials.dbo.users u ON f.user_id = u.user_id
