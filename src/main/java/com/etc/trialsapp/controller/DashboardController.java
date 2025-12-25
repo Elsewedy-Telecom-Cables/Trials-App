@@ -114,10 +114,6 @@ public class DashboardController implements Initializable {
         searchWithFilter_btn.setCursor(Cursor.HAND);
         update_btn.setCursor(Cursor.HAND);
 
-        // Set text fields as non-editable
-       // trials_count_textF.setEditable(false);
-       // cu_trials_count_textF.setEditable(false);
-      //  fo_trials_count_textF.setEditable(false);
 
         // Initialize combo boxes and listeners
         initializeComboBoxes();
@@ -371,7 +367,7 @@ public class DashboardController implements Initializable {
         });
 
         column.setCellFactory(col -> new TableCell<NewTrialsView, List<String>>() {
-            private final FontIcon icon = new FontIcon("fas-folder-open"); // Use FontAwesome5 icon
+            private final FontIcon icon = new FontIcon("fas-folder"); // Use FontAwesome5 icon
 
             {
                 icon.setIconSize(20);

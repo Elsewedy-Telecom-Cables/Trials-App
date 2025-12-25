@@ -275,7 +275,7 @@ public class FileController implements Initializable {
             private final FontIcon uploadIcon = new FontIcon("fas-upload");
 
             {
-                uploadIcon.setIconSize(12);
+                uploadIcon.setIconSize(14);
                 uploadIcon.setIconColor(javafx.scene.paint.Color.GREEN);
                 btn.setGraphic(uploadIcon);
                 btn.setStyle("-fx-background-color: transparent;");
@@ -295,7 +295,7 @@ public class FileController implements Initializable {
             private final FontIcon openIcon = new FontIcon("fas-folder-open");
 
             {
-                openIcon.setIconSize(15);
+                openIcon.setIconSize(17);
                 openIcon.setIconColor(javafx.scene.paint.Color.web("#ecab29"));
                 btn.setStyle("-fx-background-color: transparent;");
                 btn.setCursor(Cursor.HAND);
@@ -332,7 +332,7 @@ public class FileController implements Initializable {
             private final FontIcon downloadIcon = new FontIcon("fas-download");
 
             {
-                downloadIcon.setIconSize(12);
+                downloadIcon.setIconSize(14);
                 downloadIcon.setIconColor(javafx.scene.paint.Color.web("#1E90FF"));
                 btn.setGraphic(downloadIcon);
                 btn.setStyle("-fx-background-color: transparent;");
@@ -352,7 +352,7 @@ public class FileController implements Initializable {
             private final FontIcon deleteIcon = new FontIcon("fas-trash");
 
             {
-                deleteIcon.setIconSize(12);
+                deleteIcon.setIconSize(13);
                 deleteIcon.setIconColor(javafx.scene.paint.Color.RED);
                 btn.setGraphic(deleteIcon);
                 btn.setStyle("-fx-background-color: transparent;");
