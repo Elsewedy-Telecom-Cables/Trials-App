@@ -1,0 +1,271 @@
+/* Unified VBox or container box styling */
+.box {
+    -fx-background-color: #d6d8db;
+    -fx-background-radius: 20;
+    -fx-border-color: #9fb0b2;
+    -fx-border-radius: 20;
+    -fx-padding: 7;
+}
+.box2 {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #b7b4b4;
+    -fx-border-width: 1;
+}
+
+/* Unified VBox or container box styling */
+.box-11 {
+    -fx-background-color: #9fb0b2;
+    -fx-background-radius: 20;
+    -fx-border-color: #9fb0b2;
+    -fx-border-radius: 20;
+    -fx-padding: 10;
+}
+.input-04 {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #929292;
+    -fx-border-width: 1.3;
+}
+.input-05 {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #9fb0b2;
+    -fx-border-width: 1;
+}
+.input-06 {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #9fb0b2;
+    -fx-border-width: 1;
+}
+.input-07 {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 0.5;
+    -fx-border-color: #a69a9a;
+}
+.input-01 {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #00727d;
+    -fx-border-width: 1.3;
+}
+.input-02 {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #929292;
+    -fx-border-width: 1.3;
+}
+.input-03 {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: #b7b4b4;
+    -fx-border-width: 1;
+}
+.input {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-width: 0.5;
+    -fx-border-color: #a69a9a;
+}
+/* Existing table styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 15 15 0 0; /* top-left, top-right, bottom-right, bottom-left */
+    -fx-padding: 5;
+}
+.table-view {
+    -fx-background-color: transparent;
+}
+.table-view .corner {
+    -fx-background-color: white;
+    -fx-background-radius: 15 15 0 0;
+}
+.table-view .column-header-background {
+    -fx-background-color: #9fb0b2;
+    -fx-padding: 8;
+}
+.table-view .column-header {
+    -fx-background-color: #d6d8db;
+    -fx-border-color: #ffffff;
+}
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+}
+.table-view .filler {
+    -fx-background-color: white;
+}
+.table-view .table-cell {
+    -fx-text-fill: #000000;
+    -fx-border-color: #cccbcb;
+    -fx-border-width: 0 0 0.6px 0.6px; /* top right bottom left */
+    -fx-alignment: CENTER; /* Ensure cell content is centered */
+}
+
+/* Alternating row colors for zebra striping */
+.table-view .table-row-cell:odd {
+    -fx-background-color: #ffffff; /* White for odd rows */
+}
+.table-view .table-row-cell:even {
+    -fx-background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+/* Add light borders between department columns */
+.table-view .department-column .column-header {
+    -fx-border-color: #cccbcb;
+    -fx-border-width: 0 0.6px 0 0; /* top right bottom left */
+}
+
+/* Remove right border for the last department column */
+.table-view .last-department-column .column-header {
+    -fx-border-width: 0 0 0 0; /* Remove right border */
+}
+
+/* Ensure selected row is highlighted with light cyan */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #B0E0E6 !important; /* Light cyan with high priority */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: #000000 !important; /* Black text */
+}
+
+/* Ensure cells within selected row maintain text color and content visibility */
+.table-view .table-row-cell:selected .table-cell {
+    -fx-background-color: transparent !important; /* Prevent cell background from overriding */
+    -fx-text-fill: #000000 !important; /* Black text */
+}
+
+.input4 {
+    -fx-background-color: #f7f9fa;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-border-color: #b0bec5;
+}
+.input3 {
+    -fx-background-color: #f7f9fa;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: #b0bec5;
+}
+.button.delete-button {
+    -fx-background-color: #D9534F;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button.delete-button:hover {
+    -fx-background-color: #C9302C;
+}
+
+.button.search-button {
+    -fx-background-color: #6D9886;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button.search-button:hover {
+    -fx-background-color: #5b8674;
+}
+
+.button.cancel-button {
+    -fx-background-color: #B0BEC5;
+    -fx-background-radius: 5;
+    -fx-text-fill: black;
+}
+
+.button.cancel-button:hover {
+    -fx-background-color: #90A4AE;
+}
+
+.button.refresh-button {
+    -fx-background-color: #F0AD4E;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+}
+
+.button.refresh-button:hover {
+    -fx-background-color: #EC971F;
+}
+
+/* Export Excel button */
+.button.export-button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button.export-button .ikonli-font-icon {
+    -fx-icon-color: #ffffff;
+}
+
+.button.export-button:hover {
+    -fx-background-color: #218838;
+    -fx-cursor: Hand;
+}
+
+.button.export-button:pressed {
+    -fx-background-color: #1e7e34;
+}
+
+
+.button.export-button2 {
+    -fx-background-color: white;
+    -fx-border-color: #08743b;
+    -fx-border-width: 2;
+    -fx-text-fill: #08743b;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.button.export-button2:hover {
+    -fx-background-color: #cbfce1;
+    -fx-text-fill: #08743b;
+}
+
+.button.export-button2:pressed {
+    -fx-background-color: #075c31; /*#0090bb , #075c31*/
+    -fx-text-fill: white;
+}
+
+.button.refresh-button {
+    -fx-background-color: #F0AD4E;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+}
+
+.button.refresh-button:hover {
+    -fx-background-color: #EC971F;
+}
+
+
+.box-12 {
+    -fx-background-color: #f1f4f6;
+    -fx-background-radius: 15;
+    -fx-border-color: #c2bdbd;
+    -fx-border-radius: 15;
+}
+
+.box-13 {
+    -fx-background-color: #e9f0ef;
+    -fx-background-radius: 15;
+    -fx-border-color: #c2bdbd;
+    -fx-border-radius: 15;
+}
+
+.box-14 {
+    -fx-background-color: #f7f9fa;
+    -fx-background-radius: 15;
+    -fx-border-color: #c2bdbd;
+    -fx-border-radius: 15;
+}
+.button:hover {
+    -fx-cursor: hand;
+}

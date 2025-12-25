@@ -15,23 +15,23 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="782.0" prefWidth="1493.0" stylesheets="@style3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controller.DashboardController">
+<AnchorPane prefHeight="782.0" prefWidth="1493.0" stylesheets="@../css/style3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trialsapp.controller.DashboardController">
    <children>
-      <HBox alignment="CENTER" layoutX="20.4" layoutY="3.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="1292.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <HBox alignment="CENTER" layoutX="20.4" layoutY="3.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="1483.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="welcome_lbl" contentDisplay="RIGHT" prefHeight="27.0" prefWidth="289.0">
                      <font>
-                        <Font name="Montserrat Bold" size="13.0" />
+                        <Font name="Montserrat Bold" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="5.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="date_lbl" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="288.0">
+                  <Label fx:id="date_lbl" contentDisplay="RIGHT" prefHeight="25.0" prefWidth="288.0">
                      <font>
-                        <Font name="Montserrat Bold" size="12.0" />
+                        <Font name="Montserrat Bold" size="11.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="5.0" />
@@ -43,19 +43,16 @@
                <children>
                   <Label fx:id="dept_name_lbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="513.0" text="Dept Name">
                      <font>
-                        <Font name="Montserrat Bold" size="15.0" />
+                        <Font name="Montserrat Bold" size="14.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="shift_label" alignment="CENTER" contentDisplay="RIGHT" prefHeight="20.0" prefWidth="514.0" text="Shift : One" textFill="#ae1d03" VBox.vgrow="ALWAYS">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="513.0" text="All Trials-Files">
                      <font>
-                        <Font name="Montserrat Bold" size="12.0" />
+                        <Font name="Montserrat Bold" size="14.0" />
                      </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
                   </Label>
                </children>
                <HBox.margin>
@@ -73,71 +70,13 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="4.8" layoutY="56.0" prefHeight="145.0" prefWidth="1288.0" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="4.7999999999999545">
+      <VBox alignment="TOP_CENTER" layoutX="4.8" layoutY="61.0" prefHeight="106.0" prefWidth="1483.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="1288.0">
+            <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="70.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1288.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_RIGHT" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="148.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button fx:id="update_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#update" prefHeight="30.0" prefWidth="94.0" styleClass="input-04" text="Update">
-                                 <font>
-                                    <Font name="Montserrat Bold" size="13.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="10.0" />
-                                 </HBox.margin>
-                                 <graphic>
-                                    <FontIcon iconColor="#00727d" iconLiteral="fas-sync" />
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label alignment="TOP_CENTER" prefHeight="28.0" prefWidth="477.0" text="All Trials-Files" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Montserrat Bold" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="35.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="178.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </HBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </HBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="7.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="95.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="57.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="filter_trial_id_textF" alignment="CENTER" onKeyPressed="#filterTrialPurpose" prefHeight="30.0" prefWidth="350.0" promptText="Trial ID" styleClass="input-04">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </HBox>
-                  <VBox alignment="CENTER" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="225.0" text="Supplier Country" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="225.0" text="Supplier Country" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -145,15 +84,15 @@
                               <Insets bottom="2.0" right="7.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="supplier_country_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Suppliers Country" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS" />
+                        <ComboBox fx:id="supplier_country_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="400.0" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input4" VBox.vgrow="ALWAYS" />
                      </children>
                      <HBox.margin>
                         <Insets left="5.0" top="3.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="54.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="212.0" text="Suppliers" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="212.0" text="Suppliers" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -161,15 +100,15 @@
                               <Insets bottom="2.0" right="7.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="supplier_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Suppliers" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS" />
+                        <ComboBox fx:id="supplier_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="600.0" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input4" VBox.vgrow="ALWAYS" />
                      </children>
                      <HBox.margin>
                         <Insets left="5.0" top="3.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_RIGHT" prefHeight="83.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="248.0" text="Materials-Cable Types" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="248.0" text="Materials-Cable Types" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -177,7 +116,7 @@
                               <Insets bottom="2.0" right="7.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="material_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Materials" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS">
+                        <ComboBox fx:id="material_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="700.0" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input4" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -187,9 +126,9 @@
                         <Insets left="5.0" top="3.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_RIGHT" prefHeight="83.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="205.0" text="Sections" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="205.0" text="Sections" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -197,7 +136,7 @@
                               <Insets bottom="2.0" right="7.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="section_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" promptText="Sections" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input-04" VBox.vgrow="ALWAYS" />
+                        <ComboBox fx:id="section_Comb" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="350.0" style="-fx-font-size: 13; -fx-font-weight: bold;" styleClass="input4" VBox.vgrow="ALWAYS" />
                      </children>
                      <HBox.margin>
                         <Insets left="5.0" top="3.0" />
@@ -208,75 +147,96 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="61.0" prefWidth="1288.0">
+            <HBox alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="1288.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="235.0" styleClass="box" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="420.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="clearSearch_btn" mnemonicParsing="false" onAction="#clearSearch" prefHeight="34.0" prefWidth="125.0" styleClass="input-06" text="Clear" HBox.hgrow="ALWAYS">
+                        <Button fx:id="update_btn" mnemonicParsing="false" onAction="#update" prefHeight="28.0" prefWidth="94.0" styleClass="refresh-button" text="Update">
                            <font>
                               <Font name="Montserrat Bold" size="13.0" />
                            </font>
                            <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="fas-sync" iconSize="10" />
+                           </graphic>
+                           <padding>
                               <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="clearSearch_btn" mnemonicParsing="false" onAction="#clearSearch" prefHeight="32.0" prefWidth="100.0" styleClass="delete-button" text="Clear" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Montserrat Bold" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
                            </HBox.margin>
                            <graphic>
-                              <FontIcon iconLiteral="fas-eraser" iconSize="12" />
+                              <FontIcon iconColor="WHITE" iconLiteral="fas-eraser" iconSize="12" />
                            </graphic>
                         </Button>
-                        <Button fx:id="searchWithFilter_btn" mnemonicParsing="false" onAction="#searchWithFilter" prefHeight="34.0" prefWidth="169.0" styleClass="input-06" text="Search " HBox.hgrow="ALWAYS">
+                        <Button fx:id="searchWithFilter_btn" mnemonicParsing="false" onAction="#searchWithFilter" prefHeight="32.0" prefWidth="120.0" styleClass="search-button" text="Search " HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                            <graphic>
-                              <FontIcon iconLiteral="fas-search" iconSize="12" wrappingWidth="10.400023460388184" />
+                              <FontIcon iconColor="WHITE" iconLiteral="fas-search" iconSize="12" wrappingWidth="10.400023460388184" />
                            </graphic>
                            <HBox.margin>
-                              <Insets left="15.0" />
+                              <Insets left="5.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="10.0" />
+                        <Insets left="5.0" />
                      </HBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="385.0" styleClass="box" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <DatePicker fx:id="to_trial_creation_date_DP" prefHeight="30.0" prefWidth="220.0" style="-fx-font-size: 13; -fx-font-weight: bold;" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="105.0" text="To Trial C-Data">
+                        <DatePicker fx:id="to_trial_creation_date_DP" prefHeight="30.0" prefWidth="180.0" style="-fx-font-size: 12; -fx-font-weight: bold;" styleClass="input4" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="70.0" text="To Data">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="3.0" />
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="from_trial_creation_date_DP" prefHeight="30.0" prefWidth="180.0" style="-fx-font-size: 12; -fx-font-weight: bold;" styleClass="input4">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></DatePicker>
+                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="80.0" text="From Data">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="3.0" right="10.0" />
                            </HBox.margin>
                         </Label>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="10.0" />
+                        <Insets left="5.0" />
                      </HBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="385.0" styleClass="box" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="544.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <DatePicker fx:id="from_trial_creation_date_DP" prefHeight="30.0" prefWidth="220.0" style="-fx-font-size: 13; -fx-font-weight: bold;" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="120.0" text="From Trial C-Data">
+                        <TextField fx:id="filter_trial_purpose_textF" alignment="CENTER" onKeyPressed="#filterTrialPurpose" prefHeight="32.0" prefWidth="350.0" promptText="Trial Purpose" styleClass="input3" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="3.0" />
+                              <Insets left="5.0" />
                            </HBox.margin>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="10.0" />
-                     </HBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="233.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="filter_trial_purpose_textF" alignment="CENTER" onKeyPressed="#filterTrialPurpose" prefHeight="30.0" prefWidth="350.0" promptText="Trial Purpose" styleClass="input-04">
+                        </TextField>
+                        <TextField fx:id="filter_trial_id_textF" alignment="CENTER" onKeyPressed="#filterTrialPurpose" prefHeight="32.0" prefWidth="150.0" promptText="Trial ID" styleClass="input3" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
                         </TextField>
                      </children>
                      <HBox.margin>
@@ -285,14 +245,14 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="3.0" />
                </VBox.margin>
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="table_view" layoutX="4.8" layoutY="214.4" prefHeight="523.0" prefWidth="1362.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="206.0">
+      <TableView fx:id="table_view" layoutX="4.8" layoutY="168.8" prefHeight="610.0" prefWidth="1483.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="169.0">
          <columns>
-            <TableColumn fx:id="no_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="No" />
+            <TableColumn fx:id="no_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="Ser" />
             <TableColumn fx:id="trial_id_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="ID" />
             <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="220.0" text="Trial Purpose" />
             <TableColumn fx:id="trial_creation_date_column" minWidth="150.0" prefWidth="170.0" text="Trail Creation Date" />

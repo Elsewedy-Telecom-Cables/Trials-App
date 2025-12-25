@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="703.0" prefWidth="1454.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.elsewedyt.trialsapp.controller.OpenFilesController">
+<AnchorPane prefHeight="703.0" prefWidth="1454.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trialsapp.controller.OpenFilesController">
    <children>
-      <TableView fx:id="table_view" layoutX="22.0" layoutY="73.0" prefHeight="556.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="58.0">
+      <TableView fx:id="table_view" layoutX="22.0" layoutY="52.0" prefHeight="649.0" prefWidth="1444.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="52.0">
          <columns>
             <TableColumn fx:id="file_id_column" maxWidth="1000.0" minWidth="1.0" prefWidth="1.0" text="F-ID" visible="false" />
             <TableColumn fx:id="trial_id_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="Trial ID" />
@@ -26,7 +26,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER" layoutX="691.0" layoutY="3.2" prefHeight="38.0" prefWidth="138.0" styleClass="title-box" AnchorPane.topAnchor="1.0">
+      <HBox alignment="CENTER" layoutX="691.0" layoutY="3.2" prefHeight="38.0" prefWidth="138.0" styleClass="title-box" AnchorPane.topAnchor="2.0">
          <children>
             <Label fx:id="View_Department_files_lbl" alignment="CENTER" prefHeight="24.0" prefWidth="114.0" text="View-Files">
                <font>

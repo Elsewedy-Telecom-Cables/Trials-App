@@ -1,4 +1,4 @@
-module com.elsewedyt.trialsapp {
+module com.etc.trialsapp {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml;
@@ -17,13 +17,12 @@ module com.elsewedyt.trialsapp {
     requires org.kordamp.ikonli.javafx;
     requires javafx.base;
     requires javafx.graphics;
-    //requires com.elsewedyt.trialsapp;
 
 
-    opens com.elsewedyt.trialsapp.controller to javafx.fxml;
+    opens com.etc.trialsapp.controller to javafx.fxml;
     opens screens to javafx.fxml;
-    exports com.elsewedyt.trialsapp.controller;
-    exports com.elsewedyt.trialsapp.model;
+    exports com.etc.trialsapp.controller;
+    exports com.etc.trialsapp.model;
 
 
 
