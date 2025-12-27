@@ -8,7 +8,7 @@ public class Trial {
     private int trialId;
     private String trialPurpose;
     private Integer sectionId;
-    private Integer matrialId;
+    private Integer materialId;
     private Integer supplierId;
     private Integer supCountryId;
     private Integer userId;
@@ -24,7 +24,7 @@ public class Trial {
 
     // Additional fields for names
     private String sectionName;
-    private String matrialName;
+    private String materialName;
     private String supplierName;
     private String supplierCountryName;
 
@@ -33,10 +33,10 @@ public class Trial {
     }
 
     // Constructor with essential fields
-    public Trial(String trialPurpose, Integer sectionId, Integer matrialId, Integer supplierId, Integer supCountryId, Integer userId, LocalDateTime  creationDate, String notes) {
+    public Trial(String trialPurpose, Integer sectionId, Integer materialId, Integer supplierId, Integer supCountryId, Integer userId, LocalDateTime  creationDate, String notes) {
         this.trialPurpose = trialPurpose;
         this.sectionId = sectionId;
-        this.matrialId = matrialId;
+        this.materialId = materialId;
         this.supplierId = supplierId;
         this.supCountryId = supCountryId;
         this.userId = userId;
@@ -49,7 +49,7 @@ public class Trial {
         this.trialId = trialId;
         this.trialPurpose = trialPurpose;
         this.sectionId = sectionId;
-        this.matrialId = matrialId;
+        this.materialId = matrialId;
         this.supplierId = supplierId;
         this.supCountryId = supCountryId;
         this.userId = userId;
@@ -62,7 +62,7 @@ public class Trial {
         this.user = user;
         // Set name fields from related objects
         this.sectionName = section != null ? section.getSectionName() : null;
-        this.matrialName = material != null ? material.getMaterialName() : null;
+        this.materialName = material != null ? material.getMaterialName() : null;
         this.supplierName = supplier != null ? supplier.getSupplierName() : null;
         this.supplierCountryName = supplierCountry != null ? supplierCountry.getCountryName() : null;
     }
@@ -92,12 +92,12 @@ public class Trial {
         this.sectionId = sectionId;
     }
 
-    public Integer getMatrialId() {
-        return matrialId;
+    public Integer getMaterialId() {
+        return materialId;
     }
 
-    public void setMatrialId(Integer matrialId) {
-        this.matrialId = matrialId;
+    public void setMaterialId(Integer matrialId) {
+        this.materialId = matrialId;
     }
 
     public Integer getSupplierId() {
@@ -158,13 +158,13 @@ public class Trial {
         this.sectionName = section != null ? section.getSectionName() : null;
     }
 
-    public Material getMatrial() {
+    public Material getMaterial() {
         return material;
     }
 
-    public void setMatrial(Material material) {
+    public void setMaterial(Material material) {
         this.material = material;
-        this.matrialName = material != null ? material.getMaterialName() : null;
+        this.materialName = material != null ? material.getMaterialName() : null;
     }
 
     public Supplier getSupplier() {
@@ -201,12 +201,12 @@ public class Trial {
         this.sectionName = sectionName;
     }
 
-    public String getMatrialName() {
-        return matrialName;
+    public String getMaterialName() {
+        return materialName;
     }
 
-    public void setMatrialName(String matrialName) {
-        this.matrialName = matrialName;
+    public void setMaterialName(String materialName) {
+        this.materialName = materialName;
     }
 
     public String getSupplierName() {

@@ -99,7 +99,7 @@
                <children>
                   <TextArea fx:id="trial_purpose_textArea" prefHeight="38.0" prefWidth="550.0">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="14.0" />
                      </font>
                   </TextArea>
                </children>
@@ -118,7 +118,7 @@
                <children>
                   <TextArea fx:id="notes_textArea" prefHeight="38.0" prefWidth="550.0">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="14.0" />
                      </font>
                   </TextArea>
                </children>

@@ -71,12 +71,6 @@ public class ViewUsersController implements Initializable {
     private TableColumn<User, String> department_colm;
 
     @FXML
-    private TextField users_count_textF;
-
-    @FXML
-    private Label users_num_lable;
-
-    @FXML
     private TableView<User> users_tbl_view;
 
     ObservableList<User> listUsers;
@@ -87,7 +81,7 @@ public class ViewUsersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(() -> users_num_lable.requestFocus());
+       // Platform.runLater(() -> users_num_lable.requestFocus());
         userId_colm.setVisible(false);
         loadData();
         users_tbl_view.setItems(listUsers);
@@ -115,11 +109,6 @@ public class ViewUsersController implements Initializable {
                 listUsers = FXCollections.observableArrayList();
             }
 
-
-
-            users_count_textF.setText(String.valueOf(listUsers.size()));
-            users_count_textF.setEditable(false);
-
             // Table column configurations
             userId_colm.setCellValueFactory(new PropertyValueFactory<>("userId"));
             empId_colm.setCellValueFactory(new PropertyValueFactory<>("empCode"));
@@ -142,20 +131,20 @@ public class ViewUsersController implements Initializable {
             });
 
             // Style columns
-            userId_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            empId_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            username_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            fullname_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            phone_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            role_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            active_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            creationDate_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
-            department_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 13px;-fx-font-weight:bold");
+            userId_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            empId_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            username_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            fullname_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            phone_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            role_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            active_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            creationDate_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
+            department_colm.setStyle("-fx-alignment: CENTER; -fx-font-size: 12px;-fx-font-weight:bold");
             edit_colm.setStyle("-fx-alignment: CENTER;-fx-font-weight:bold");
 
 
             // Set fixed cell size for consistent row height
-            users_tbl_view.setFixedCellSize(33);
+            users_tbl_view.setFixedCellSize(31);
 
 
             users_tbl_view.setRowFactory(tv -> {

@@ -38,10 +38,8 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 public class TrialsViewController implements Initializable {
     @FXML private Button add_trial_btn;
-    @FXML private Button clearSearch_btn;
     @FXML private TableColumn<Trial, LocalDateTime> creation_date_column;
     @FXML private Label date_lbl;
-    @FXML private VBox department_lbl;
     @FXML private TableColumn<Trial, String> edit_column;
     @FXML private TableColumn<Trial, String> files_column;
     @FXML private TextField filter_creation_textF;
@@ -55,7 +53,6 @@ public class TrialsViewController implements Initializable {
     @FXML private TableColumn<Trial, String> material_column;
     @FXML private TableColumn<Trial, String> no_column;
     @FXML private TableColumn<Trial, String> notes_column;
-    @FXML private Button searchWithFilter_btn;
     @FXML private ComboBox<Section> section_Comb;
     @FXML private TableColumn<Trial, String> supplier_column;
     @FXML private TableColumn<Trial, String> supplier_country_column;
@@ -99,27 +96,23 @@ public class TrialsViewController implements Initializable {
         // Set welcome message with current user's full name
         String msg = ("Welcome : " + UserContext.getCurrentUser().getFullName());
         welcome_lbl.setText(msg);
-        // Set Departmnet Name  with current user's
+
         String msg2 = (UserContext.getCurrentUser().getDepartmentName() + " Department");
         dept_name_lbl.setText(msg2);
         // Load and set company logo
         Image img = new Image(Objects.requireNonNull(MainController.class.getResourceAsStream("/images/etc_logo.png")));
         logo_ImageView.setImage(img);
 
-        // Set cursor for buttons
-        add_trial_btn.setCursor(Cursor.HAND);
-        clearSearch_btn.setCursor(Cursor.HAND);
-        update_btn.setCursor(Cursor.HAND);
-        searchWithFilter_btn.setCursor(Cursor.HAND);
-                // set Permissions
+
         // Set TextFiled Count Non Editable
         trials_count_textF.setEditable(false);
         cu_trials_count_textF.setEditable(false);
         fo_trials_count_textF.setEditable(false);
         try {
-            // Super Admin and Tecnical office Department Only
-            int role = UserContext.getCurrentUser().getRole();
-            if (role == 4 ||  UserContext.getCurrentUser().getDepartmentId() == 1) {
+            // Super Admin and Technical office Department Only
+            int adminRole = UserContext.getCurrentUser().getRole();
+            int deptId = UserContext.getCurrentUser().getDepartmentId();
+            if (adminRole == 4 ||  deptId == 1) {
                 add_trial_btn.setVisible(true);
                 edit_column.setVisible(true);
             } else {
@@ -151,13 +144,9 @@ public class TrialsViewController implements Initializable {
     private void initializeComboBoxes() {
         // Load data into ComboBoxes
         supplier_Comb.setItems(supplierDao.getAllSuppliers());
-        supplier_Comb.setPromptText("Select Supplier");
         supplier_country_Comb.setItems(supplierCountryDao.getAllSupplierCountries());
-        supplier_country_Comb.setPromptText("Select Supplier Country");
         material_Comb.setItems(materialDao.getAllMaterials());
-        material_Comb.setPromptText("Select Material");
         section_Comb.setItems(sectionDao.getAllSections());
-        section_Comb.setPromptText("Select Section");
 
         // Set cell factory for ComboBox display
         supplier_Comb.setCellFactory(param -> new ListCell<Supplier>() {
@@ -276,7 +265,7 @@ public class TrialsViewController implements Initializable {
                 .filter(trial -> trial.getTrialPurpose().toLowerCase().contains(trialPurpose))
                 .filter(trial -> finalTrialId == null || trial.getTrialId() == finalTrialId) // Fixed filter
                 .filter(trial -> sectionId == null || trial.getSectionId() == sectionId)
-                .filter(trial -> matrialId == null || trial.getMatrialId() == matrialId)
+                .filter(trial -> matrialId == null || trial.getMaterialId() == matrialId)
                 .filter(trial -> supplierId == null || trial.getSupplierId() == supplierId)
                 .filter(trial -> supplierCountryId == null || trial.getSupCountryId() == supplierCountryId)
                 .filter(trial -> {
@@ -343,7 +332,7 @@ public class TrialsViewController implements Initializable {
             section_column.setCellValueFactory(new PropertyValueFactory<>("sectionName"));
             trial_purpose_column.setCellValueFactory(new PropertyValueFactory<>("trialPurpose"));
             supplier_column.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
-            material_column.setCellValueFactory(new PropertyValueFactory<>("matrialName"));
+            material_column.setCellValueFactory(new PropertyValueFactory<>("materialName"));
             supplier_country_column.setCellValueFactory(new PropertyValueFactory<>("supplierCountryName"));
             notes_column.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
@@ -363,19 +352,19 @@ public class TrialsViewController implements Initializable {
 
 
             files_column.setCellFactory(param -> new TableCell<>() {
-                private final FontIcon folderIcon = new FontIcon("fas-folder");
-                private final FontIcon plusIcon = new FontIcon("fas-plus");
-                private final HBox container = new HBox(folderIcon, plusIcon);
+                private final FontIcon folderIcon = new FontIcon("fas-folder-plus");
+              //  private final FontIcon plusIcon = new FontIcon("fas-plus");
+                private final HBox container = new HBox(folderIcon);
 
                 {
 
-                    folderIcon.setIconSize(18);
+                    folderIcon.setIconSize(21);
                     folderIcon.setFill(Color.web("#ecab29"));
-                    plusIcon.setIconSize(9);
-                    plusIcon.setFill(Color.web("#3b3b3b"));
+                    //plusIcon.setIconSize(9);
+                  //  plusIcon.setFill(Color.web("#3b3b3b"));
 
 
-                    container.setSpacing(2);
+                   // container.setSpacing(2);
                     container.setAlignment(Pos.CENTER);
                     container.setCursor(Cursor.HAND);
 
@@ -544,7 +533,6 @@ public class TrialsViewController implements Initializable {
     }
 
 
-
     void clearHelp(){
         // Clear text fields
         filter_trial_purpose_textF.clear();
@@ -570,7 +558,6 @@ public class TrialsViewController implements Initializable {
         WindowUtils.OPEN_ADD_TRIAL_PAGE(false, this); // Pass this TrialsViewController instance
     }
 
-    // Update the table view and related data
     @FXML
     void update() {
         Platform.runLater(() -> {

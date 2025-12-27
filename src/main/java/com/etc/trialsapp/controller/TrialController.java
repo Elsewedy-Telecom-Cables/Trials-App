@@ -187,7 +187,7 @@ public class TrialController implements Initializable {
             trial.setNotes(notes);
             trial.setTrialPurpose(trialPurpose);
             trial.setSectionId(selectedSection.getSectionId());
-            trial.setMatrialId(selectedMaterial.getMaterialId());
+            trial.setMaterialId(selectedMaterial.getMaterialId());
             trial.setSupplierId(selectedSupplier.getSupplierId());
             trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
             trial.setUserId(UserContext.getCurrentUser().getUserId());
@@ -270,7 +270,7 @@ public class TrialController implements Initializable {
             trial.setNotes(notes);
             trial.setTrialPurpose(trialPurpose);
             trial.setSectionId(selectedSection.getSectionId());
-            trial.setMatrialId(selectedMaterial.getMaterialId());
+            trial.setMaterialId(selectedMaterial.getMaterialId());
             trial.setSupplierId(selectedSupplier.getSupplierId());
             trial.setSupCountryId(selectedSupplierCountry.getSupCountryId());
             trial.setUserId(UserContext.getCurrentUser().getUserId());
@@ -302,7 +302,7 @@ public class TrialController implements Initializable {
             notes_textArea.setText(trial.getNotes());
             trial_purpose_textArea.setText(trial.getTrialPurpose());
             section_combo.getSelectionModel().select(sectionDao.getSectionById(trial.getSectionId()));
-            material_combo.getSelectionModel().select(materialDao.getMaterialById(trial.getMatrialId()));
+            material_combo.getSelectionModel().select(materialDao.getMaterialById(trial.getMaterialId()));
             Supplier selectedSupplier = supplierDao.getSupplierById(trial.getSupplierId());
             supplier_combo.getSelectionModel().select(selectedSupplier);
             // Update supplier countries based on the selected supplier

@@ -613,7 +613,7 @@ public class FileController implements Initializable {
             Trial trial = trialDao.getTrialById(trialId);
             String departmentName = UserContext.getCurrentUser().getDepartmentName();
             String userFullName = UserContext.getCurrentUser().getFullName();
-            Material material = materialDao.getMaterialById(trial.getMatrialId());
+            Material material = materialDao.getMaterialById(trial.getMaterialId());
 
             // Build file type names
             StringBuilder fileTypeNames = new StringBuilder();

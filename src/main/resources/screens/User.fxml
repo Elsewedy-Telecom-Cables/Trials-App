@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="600.0" prefWidth="547.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trialsapp.controller.UserController">
+<AnchorPane prefHeight="600.0" prefWidth="547.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trialsapp.controller.UserController">
    <children>
       <Pane layoutX="-3.0" layoutY="48.0" prefHeight="571.0" prefWidth="570.0" style="-fx-background-color: #FFF;">
          <children>
@@ -150,7 +150,7 @@
                   </ComboBox>
                </children>
             </VBox>
-            <FontIcon iconColor="WHITE" iconLiteral="fas-check" iconSize="15" layoutX="517.0" layoutY="548.0" />
+            <FontIcon iconColor="WHITE" iconLiteral="fas-save" iconSize="12" layoutX="520.0" layoutY="546.0" />
          </children>
       </Pane>
       <HBox alignment="CENTER" layoutY="-8.0" prefHeight="58.0" prefWidth="570.0">

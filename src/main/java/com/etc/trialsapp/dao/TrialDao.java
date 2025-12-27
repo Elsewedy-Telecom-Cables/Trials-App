@@ -35,7 +35,7 @@ public class TrialDao {
                 trial.setTrialId(rs.getInt("trial_id"));
                 trial.setTrialPurpose(rs.getString("trial_purpose"));
                 trial.setSectionId(rs.getObject("section_id") != null ? rs.getInt("section_id") : null);
-                trial.setMatrialId(rs.getObject("material_id") != null ? rs.getInt("material_id") : null);
+                trial.setMaterialId(rs.getObject("material_id") != null ? rs.getInt("material_id") : null);
                 trial.setSupplierId(rs.getObject("supplier_id") != null ? rs.getInt("supplier_id") : null);
                 trial.setSupCountryId(rs.getObject("sup_country_id") != null ? rs.getInt("sup_country_id") : null);
                 trial.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
@@ -43,7 +43,7 @@ public class TrialDao {
                 trial.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                 trial.setNotes(rs.getString("notes"));
                 trial.setSectionName(rs.getString("section_name"));
-                trial.setMatrialName(rs.getString("material_name"));
+                trial.setMaterialName(rs.getString("material_name"));
                 trial.setSupplierName(rs.getString("supplier_name"));
                 trial.setSupplierCountryName(rs.getString("country_name"));
                 list.add(trial);
@@ -122,7 +122,7 @@ public class TrialDao {
                     trial.setTrialId(rs.getInt("trial_id"));
                     trial.setTrialPurpose(rs.getString("trial_purpose"));
                     trial.setSectionId(rs.getObject("section_id") != null ? rs.getInt("section_id") : null);
-                    trial.setMatrialId(rs.getObject("material_id") != null ? rs.getInt("material_id") : null);
+                    trial.setMaterialId(rs.getObject("material_id") != null ? rs.getInt("material_id") : null);
                     trial.setSupplierId(rs.getObject("supplier_id") != null ? rs.getInt("supplier_id") : null);
                     trial.setSupCountryId(rs.getObject("sup_country_id") != null ? rs.getInt("sup_country_id") : null);
                     trial.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
@@ -130,7 +130,7 @@ public class TrialDao {
                     trial.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     trial.setNotes(rs.getString("notes"));
                     trial.setSectionName(rs.getString("section_name"));
-                    trial.setMatrialName(rs.getString("material_name"));
+                    trial.setMaterialName(rs.getString("material_name"));
                     trial.setSupplierName(rs.getString("supplier_name"));
                     trial.setSupplierCountryName(rs.getString("country_name"));
                     list.add(trial);
@@ -156,7 +156,7 @@ public class TrialDao {
 
             ps.setString(1, trial.getTrialPurpose());
             ps.setObject(2, trial.getSectionId());
-            ps.setObject(3, trial.getMatrialId());
+            ps.setObject(3, trial.getMaterialId());
             ps.setObject(4, trial.getSupplierId());
             ps.setObject(5, trial.getSupCountryId());
             ps.setObject(6, trial.getUserId());
@@ -185,7 +185,7 @@ public class TrialDao {
 
             ps.setString(1, trial.getTrialPurpose());
             ps.setObject(2, trial.getSectionId());
-            ps.setObject(3, trial.getMatrialId());
+            ps.setObject(3, trial.getMaterialId());
             ps.setObject(4, trial.getSupplierId());
             ps.setObject(5, trial.getSupCountryId());
             ps.setObject(6, trial.getUserId());
@@ -273,7 +273,7 @@ public class TrialDao {
                     trial.setTrialId(rs.getInt("trial_id"));
                     trial.setTrialPurpose(rs.getString("trial_purpose"));
                     trial.setSectionId(rs.getObject("section_id") != null ? rs.getInt("section_id") : null);
-                    trial.setMatrialId(rs.getObject("material_id") != null ? rs.getInt("material_id") : null);
+                    trial.setMaterialId(rs.getObject("material_id") != null ? rs.getInt("material_id") : null);
                     trial.setSupplierId(rs.getObject("supplier_id") != null ? rs.getInt("supplier_id") : null);
                     trial.setSupCountryId(rs.getObject("sup_country_id") != null ? rs.getInt("sup_country_id") : null);
                     trial.setUserId(rs.getObject("user_id") != null ? rs.getInt("user_id") : null);
@@ -281,7 +281,7 @@ public class TrialDao {
                     trial.setCreationDate(timestamp != null ? timestamp.toLocalDateTime() : null);
                     trial.setNotes(rs.getString("notes"));
                     trial.setSectionName(rs.getString("section_name"));
-                    trial.setMatrialName(rs.getString("material_name"));
+                    trial.setMaterialName(rs.getString("material_name"));
                     trial.setSupplierName(rs.getString("supplier_name"));
                     trial.setSupplierCountryName(rs.getString("country_name"));
                 }

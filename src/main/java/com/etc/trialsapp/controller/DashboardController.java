@@ -144,13 +144,13 @@ public class DashboardController implements Initializable {
     private void initializeComboBoxes() {
         // Initialize combo boxes for filtering
         supplier_Comb.setItems(supplierDao.getAllSuppliers());
-        supplier_Comb.setPromptText("Select Supplier");
+      //  supplier_Comb.setPromptText("Select Supplier");
         material_Comb.setItems(materialDao.getAllMaterials());
-        material_Comb.setPromptText("Select Material");
+     //   material_Comb.setPromptText("Select Material");
         section_Comb.setItems(sectionDao.getAllSections());
-        section_Comb.setPromptText("Select Section");
+     //   section_Comb.setPromptText("Select Section");
         supplier_country_Comb.setItems(supplierCountryDao.getAllSupplierCountries());
-        supplier_country_Comb.setPromptText("Select Supplier Country");
+      //  supplier_country_Comb.setPromptText("Select Supplier Country");
 
         // Set cell factories for combo boxes
         supplier_Comb.setCellFactory(param -> new ListCell<Supplier>() {
@@ -367,10 +367,10 @@ public class DashboardController implements Initializable {
         });
 
         column.setCellFactory(col -> new TableCell<NewTrialsView, List<String>>() {
-            private final FontIcon icon = new FontIcon("fas-folder"); // Use FontAwesome5 icon
+            private final FontIcon icon = new FontIcon("fas-folder-open"); // Use FontAwesome5 icon
 
             {
-                icon.setIconSize(20);
+                icon.setIconSize(18);
                 icon.setIconColor(javafx.scene.paint.Color.web("#ecab29"));
                 icon.setCursor(Cursor.HAND);
                 icon.setOnMouseClicked(e -> {
