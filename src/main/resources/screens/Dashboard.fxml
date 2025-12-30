@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="782.0" prefWidth="1493.0" stylesheets="@../css/style3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trialsapp.controller.DashboardController">
+<AnchorPane prefHeight="782.0" prefWidth="1493.0" stylesheets="@../css/style3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trials.controller.DashboardController">
    <children>
       <HBox alignment="CENTER" layoutX="20.4" layoutY="3.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="1483.0" styleClass="box-samll1" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
@@ -259,8 +259,8 @@
          <columns>
             <TableColumn fx:id="no_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="Ser" />
             <TableColumn fx:id="trial_id_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="220.0" text="Trial Purpose" />
-            <TableColumn fx:id="trial_creation_date_column" minWidth="150.0" prefWidth="170.0" text="Trail Creation Date" />
+            <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="225.0" text="Trial Purpose" />
+            <TableColumn fx:id="trial_creation_date_column" minWidth="150.0" prefWidth="158.0" text="Trail Creation Date" />
             <TableColumn fx:id="section_column" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" text="Section" />
             <TableColumn fx:id="material_name_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="210.0" text="Material-Cable Type" />
             <TableColumn fx:id="supplier_name_column" maxWidth="1.7976931348623157E308" minWidth="90.0" prefWidth="100.0" text="Supplier" />

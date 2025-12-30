@@ -1,4 +1,4 @@
-module com.etc.trialsapp {
+module com.etc.trials {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml;
@@ -19,10 +19,10 @@ module com.etc.trialsapp {
     requires javafx.graphics;
 
 
-    opens com.etc.trialsapp.controller to javafx.fxml;
+    opens com.etc.trials.controller to javafx.fxml;
     opens screens to javafx.fxml;
-    exports com.etc.trialsapp.controller;
-    exports com.etc.trialsapp.model;
+    exports com.etc.trials.controller;
+    exports com.etc.trials.model;
 
 
 

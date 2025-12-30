@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane id="AnchorPane" prefHeight="605.0" prefWidth="1254.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trialsapp.controller.ViewUsersController">
+<AnchorPane id="AnchorPane" prefHeight="605.0" prefWidth="1254.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trials.controller.ViewUsersController">
    <children>
       <TableView id="table01" fx:id="users_tbl_view" layoutX="11.2" layoutY="60.8" nodeOrientation="LEFT_TO_RIGHT" prefHeight="539.0" prefWidth="1244.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="61.0">
          <columns>
@@ -42,7 +42,7 @@
                         <FontIcon iconColor="#efefef" iconLiteral="fas-user-plus" iconSize="12" wrappingWidth="20.999998450279236" />
                      </graphic>
                   </Button>
-                  <TextField fx:id="filterUsers_txtF" alignment="CENTER" onKeyPressed="#filter_Users" prefHeight="40.0" prefWidth="900.0" promptText="Search" styleClass="input4" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="filterUsers_txtF" alignment="CENTER" onKeyPressed="#filter_Users" prefHeight="35.0" prefWidth="900.0" promptText="Search" styleClass="input4" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
