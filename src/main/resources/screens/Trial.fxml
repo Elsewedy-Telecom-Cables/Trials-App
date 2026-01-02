@@ -127,12 +127,12 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="288.0">
                      <children>
-                        <Button fx:id="clear_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clear" prefHeight="38.0" prefWidth="110.0" style="-fx-background-radius: 10;" text="Clear  ">
+                        <Button fx:id="clear_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clear" prefHeight="38.0" prefWidth="110.0" style="-fx-background-radius: 10;" styleClass="delete-button" text="Clear  ">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Montserrat Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontIcon iconLiteral="fas-eraser" iconSize="15" />
+                              <FontIcon iconColor="WHITE" iconLiteral="fas-eraser" iconSize="13" />
                            </graphic>
                         </Button>
                      </children>
@@ -141,7 +141,7 @@
                      <children>
                         <Button fx:id="save_btn" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#saveTrial" prefHeight="38.0" prefWidth="110.0" style="-fx-background-radius: 10;" styleClass="save_btn" text="Save  ">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="Montserrat Bold" size="14.0" />
                            </font>
                            <graphic>
                               <FontIcon iconColor="#f4f4f4" iconLiteral="fas-save" iconSize="11" />
@@ -160,7 +160,7 @@
          <children>
             <Label fx:id="header_lbl" alignment="CENTER" prefHeight="36.0" prefWidth="618.0" text="Trial Data" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="22.0" />
+                  <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
          </children>

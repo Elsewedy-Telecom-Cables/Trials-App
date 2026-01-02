@@ -56,3 +56,6 @@
     -fx-border-color: #818a8b;   /* #00727d */
     -fx-text-fill: #000000;
 }
+.button:hover {
+    -fx-cursor: hand;
+}

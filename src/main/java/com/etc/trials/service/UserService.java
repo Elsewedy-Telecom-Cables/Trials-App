@@ -15,7 +15,7 @@ public class UserService {
 
     public UserService() {
 
-        this.userDao = new UserDao();
+        userDao = new UserDao();
     }
 
 

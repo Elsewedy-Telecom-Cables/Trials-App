@@ -357,7 +357,7 @@ public class TrialsViewController implements Initializable {
 
                 {
 
-                    folderIcon.setIconSize(21);
+                    folderIcon.setIconSize(18);
                     folderIcon.setFill(Color.web("#ecab29"));
                     //plusIcon.setIconSize(9);
                   //  plusIcon.setFill(Color.web("#3b3b3b"));
@@ -407,7 +407,7 @@ public class TrialsViewController implements Initializable {
 
             // Configure edit column with edit and delete icons
             edit_column.setCellFactory(param -> new TableCell<Trial, String>() {
-                private final FontIcon editIcon = new FontIcon("fa-pencil-square");
+                private final FontIcon editIcon = new FontIcon("fas-edit");
                 private final FontIcon deleteIcon = new FontIcon("fas-trash");
                 private final HBox manageBtn = new HBox(editIcon, deleteIcon);
 
@@ -416,7 +416,7 @@ public class TrialsViewController implements Initializable {
                     editIcon.setIconSize(15);
                     editIcon.setFill(Color.GREEN);
                     deleteIcon.setCursor(Cursor.HAND);
-                    deleteIcon.setIconSize(12);
+                    deleteIcon.setIconSize(11);
                     deleteIcon.setFill(Color.RED);
                     manageBtn.setSpacing(2);
                     manageBtn.setAlignment(Pos.CENTER);

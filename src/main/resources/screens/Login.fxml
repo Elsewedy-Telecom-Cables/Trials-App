@@ -7,11 +7,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="533.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trials.controller.LoginController">
+<AnchorPane prefHeight="538.0" prefWidth="586.0" style="-fx-background-color: #fffbee;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trials.controller.LoginController">
    <children>
       <Pane prefHeight="490.0" prefWidth="600.0" style="-fx-background-color: #fffbee;">
          <children>
@@ -21,49 +22,53 @@
                </font>
             </Label>
             <ImageView fx:id="logo_image_view" fitHeight="60.0" fitWidth="162.0" layoutX="15.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <FontIcon iconColor="#848080" iconLiteral="fas-user" iconSize="20" layoutX="458.0" layoutY="227.0" selectionFill="BLACK" wrappingWidth="23.199951171875" />
-            <FontIcon iconColor="#848080" iconLiteral="fas-lock" iconSize="20" layoutX="459.0" layoutY="288.0" selectionFill="BLACK" wrappingWidth="13.5999755859375" />
-            <TextField fx:id="user_name_txtF" alignment="CENTER" layoutX="151.0" layoutY="197.0" prefHeight="43.0" prefWidth="300.0" promptText="username" styleClass="input">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </TextField>
-            <PasswordField fx:id="password_passF" alignment="CENTER" layoutX="150.0" layoutY="258.0" onAction="#enterLogin" prefHeight="43.0" prefWidth="300.0" promptText="Password" styleClass="input">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </PasswordField>
-            <Button fx:id="sign_in_btn" contentDisplay="RIGHT" layoutX="236.0" layoutY="336.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="129.0" style="-fx-background-color: #dc2525;" styleClass="button-25" text="SIGN IN  ">
+            <HBox alignment="CENTER" layoutX="198.0" layoutY="334.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="sign_in_btn" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="129.0" style="-fx-background-color: #dc2525;" styleClass="button-25" text="SIGN IN  ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-sign-in-alt" iconSize="20" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <TextField fx:id="user_name_txtF" alignment="CENTER" layoutX="135.0" layoutY="183.0" prefHeight="43.0" prefWidth="320.0" promptText="username" styleClass="input">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
-               <graphic>
-                  <FontIcon iconColor="WHITE" iconLiteral="fas-sign-in-alt" iconSize="20" />
-               </graphic>
-            </Button>
+            </TextField>
+            <FontIcon iconColor="#848080" iconLiteral="fas-user" iconSize="15" layoutX="428.0" layoutY="208.0" selectionFill="BLACK" wrappingWidth="23.199951171875" />
+            <PasswordField fx:id="password_passF" alignment="CENTER" layoutX="135.0" layoutY="262.0" onAction="#enterLogin" prefHeight="43.0" prefWidth="320.0" promptText="Password" styleClass="input">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </PasswordField>
+            <FontIcon iconColor="#848080" iconLiteral="fas-lock" iconSize="15" layoutX="433.0" layoutY="289.0" selectionFill="BLACK" wrappingWidth="13.5999755859375" />
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Pane>
-      <Pane layoutX="-1.0" layoutY="488.0" prefHeight="43.0" prefWidth="600.0" style="-fx-background-color: #fffbee;" styleClass="cell">
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="498.0" prefHeight="40.0" prefWidth="600.0">
          <children>
-            <Label layoutX="9.0" layoutY="16.0" prefHeight="17.0" prefWidth="153.0" text="System by Eng: Mohamed Gabr">
+            <Label prefHeight="17.0" prefWidth="153.0" text="System by Eng: Mohamed Gabr">
                <font>
                   <Font name="Montserrat Bold" size="9.0" />
                </font>
             </Label>
-            <Label layoutX="164.0" layoutY="16.0" prefHeight="17.0" prefWidth="198.0" text="Supervised by: Eng. Hassan Farid Ahmed">
+            <Label prefHeight="17.0" prefWidth="198.0" text="Supervised by: Eng. Hassan Farid Ahmed">
                <font>
                   <Font name="Montserrat Bold" size="9.0" />
                </font>
             </Label>
-            <Label layoutX="364.0" layoutY="16.0" prefHeight="17.0" prefWidth="235.0" text="Operation Director: Eng. Mohamed Magdy Amer">
+            <Label prefHeight="17.0" prefWidth="235.0" text="Operation Director: Eng. Mohamed Magdy Amer">
                <font>
                   <Font name="Montserrat Bold" size="9.0" />
                </font>
             </Label>
          </children>
-      </Pane>
+      </HBox>
    </children>
 </AnchorPane>

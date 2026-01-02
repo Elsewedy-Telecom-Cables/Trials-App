@@ -17,14 +17,14 @@
          <columns>
             <TableColumn fx:id="userId_colm" maxWidth="1.7976931348623157E308" prefWidth="45.0" text="ID" />
             <TableColumn fx:id="empId_colm" maxWidth="1.7976931348623157E308" prefWidth="90.0" styleClass="userIdCol" text="Emp Code" />
-            <TableColumn fx:id="username_colm" maxWidth="1.7976931348623157E308" minWidth="15.0" prefWidth="170.0" text="User Name" />
-            <TableColumn fx:id="fullname_colm" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="250.0" text="Full Name" />
+            <TableColumn fx:id="username_colm" maxWidth="1.7976931348623157E308" minWidth="15.0" prefWidth="190.0" text="User Name" />
+            <TableColumn fx:id="fullname_colm" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="230.0" text="Full Name" />
             <TableColumn fx:id="department_colm" maxWidth="1.7976931348623157E308" prefWidth="210.0" text="Department" />
             <TableColumn fx:id="phone_colm" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Phone" />
             <TableColumn fx:id="role_colm" maxWidth="1.7976931348623157E308" prefWidth="220.0" text="Role" />
             <TableColumn fx:id="active_colm" maxWidth="1.7976931348623157E308" prefWidth="140.0" text="Activity" />
             <TableColumn fx:id="creationDate_colm" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="150.0" text="Creation Date" />
-            <TableColumn fx:id="edit_colm" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Update-Delete" />
+            <TableColumn fx:id="edit_colm" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Update-Del" />
          </columns>
       </TableView>
       <VBox alignment="CENTER" layoutX="20.0" layoutY="15.0" prefHeight="60.0" prefWidth="907.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0">

@@ -9,28 +9,25 @@
 
 <AnchorPane prefHeight="703.0" prefWidth="1454.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.etc.trials.controller.OpenFilesController">
    <children>
-      <TableView fx:id="table_view" layoutX="22.0" layoutY="52.0" prefHeight="649.0" prefWidth="1444.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="52.0">
+      <TableView fx:id="table_view" layoutX="22.0" layoutY="52.0" prefHeight="649.0" prefWidth="1444.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="52.0">
          <columns>
-            <TableColumn fx:id="file_id_column" maxWidth="1000.0" minWidth="1.0" prefWidth="1.0" text="F-ID" visible="false" />
-            <TableColumn fx:id="trial_id_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="Trial ID" />
-            <TableColumn fx:id="department_name_column" maxWidth="2000.0" minWidth="8.0" prefWidth="8.0" text="Department" />
-            <TableColumn fx:id="file_type_name_column" maxWidth="2000.0" minWidth="11.0" prefWidth="11.0" text="File Document" />
-            <TableColumn fx:id="craetion_file_date_column" maxWidth="1000.0" minWidth="9.0" prefWidth="9.0" text="File Creation Date" />
-            <TableColumn fx:id="full_name_column" maxWidth="2000.0" minWidth="9.0" prefWidth="9.0" text="User" />
-            <TableColumn fx:id="test_situation_column" maxWidth="1000.0" minWidth="6.0" prefWidth="6.0" text="Test Situation" />
-            <TableColumn fx:id="comment_column" maxWidth="2000.0" prefWidth="18.0" text="Comment" />
-            <TableColumn fx:id="open_file_column" maxWidth="2000.0" minWidth="15.0" prefWidth="15.0" text="Open File" />
-            <TableColumn fx:id="download_file_column" maxWidth="1000.0" minWidth="3.0" prefWidth="3.0" text="Dow" />
+            <TableColumn fx:id="file_id_column" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="30.0" text="F-ID" visible="false" />
+            <TableColumn fx:id="trial_id_column" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="40.0" text="T- ID" />
+            <TableColumn fx:id="department_name_column" maxWidth="1.7976931348623157E308" minWidth="8.0" prefWidth="150.0" text="Department" />
+            <TableColumn fx:id="file_type_name_column" maxWidth="1.7976931348623157E308" minWidth="11.0" prefWidth="160.0" text="File Document" />
+            <TableColumn fx:id="craetion_file_date_column" maxWidth="1.7976931348623157E308" minWidth="9.0" prefWidth="160.0" text="File Creation Date" />
+            <TableColumn fx:id="full_name_column" maxWidth="1.7976931348623157E308" minWidth="9.0" prefWidth="140.0" text="User" />
+            <TableColumn fx:id="test_situation_column" maxWidth="1.7976931348623157E308" minWidth="6.0" prefWidth="110.0" text="Test Situation" />
+            <TableColumn fx:id="comment_column" maxWidth="1.7976931348623157E308" prefWidth="290.0" text="Comment" />
+            <TableColumn fx:id="open_file_column" maxWidth="1.7976931348623157E308" minWidth="15.0" prefWidth="400.0" text="Open File" />
+            <TableColumn fx:id="download_file_column" maxWidth="1.7976931348623157E308" minWidth="3.0" prefWidth="50.0" text="Dow" />
          </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <HBox alignment="CENTER" layoutX="691.0" layoutY="3.2" prefHeight="38.0" prefWidth="138.0" styleClass="title-box" AnchorPane.topAnchor="2.0">
          <children>
             <Label fx:id="View_Department_files_lbl" alignment="CENTER" prefHeight="24.0" prefWidth="114.0" text="View-Files">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Montserrat Bold" size="18.0" />
                </font>
             </Label>
          </children>

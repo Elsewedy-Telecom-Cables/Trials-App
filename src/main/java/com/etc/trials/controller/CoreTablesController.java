@@ -293,22 +293,6 @@ public class CoreTablesController implements Initializable {
             Logging.logException("ERROR", this.getClass().getName(), "initialize Permission", ex);
         }
 
-        // Set cursor to hand for all buttons
-
-        add_file_type_btn.setCursor(Cursor.HAND);
-        add_material_btn.setCursor(Cursor.HAND);
-        add_supplier_btn.setCursor(Cursor.HAND);
-        add_supplier_country_btn.setCursor(Cursor.HAND);
-        clear_file_type_btn.setCursor(Cursor.HAND);
-        clear_material_btn.setCursor(Cursor.HAND);
-        clear_supplier_btn.setCursor(Cursor.HAND);
-        clear_supplier_cou_btn.setCursor(Cursor.HAND);
-        update_file_type_btn.setCursor(Cursor.HAND);
-        update_material_btn.setCursor(Cursor.HAND);
-        update_supplier_btn.setCursor(Cursor.HAND);
-        update_supplier_cou_btn.setCursor(Cursor.HAND);
-        add_country_btn.setCursor(Cursor.HAND);
-        departments_sections_btn.setCursor(Cursor.HAND);
 
         // Load Data For All Tables
         loadFileTypesData();
@@ -348,9 +332,6 @@ public class CoreTablesController implements Initializable {
         loadCountriesData();
         setupCountryTableListener();
         country_table_view.setItems(countryList);
-        add_country_btn.setCursor(Cursor.HAND);
-        update_country_btn.setCursor(Cursor.HAND);
-        clear_country_btn.setCursor(Cursor.HAND);
 
     }
 
@@ -373,7 +354,7 @@ public class CoreTablesController implements Initializable {
                     } else {
                         final FontIcon deleteIcon = new FontIcon("fas-trash");
                         deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
+                        deleteIcon.setIconSize(11);
                         deleteIcon.setFill(javafx.scene.paint.Color.RED);
                         Tooltip.install(deleteIcon, new Tooltip("Delete File Type"));
 
@@ -439,7 +420,7 @@ public class CoreTablesController implements Initializable {
                     } else {
                         final FontIcon deleteIcon = new FontIcon("fas-trash");
                         deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
+                        deleteIcon.setIconSize(11);
                         deleteIcon.setFill(javafx.scene.paint.Color.RED);
                         Tooltip.install(deleteIcon, new Tooltip("Delete Material"));
 
@@ -506,7 +487,7 @@ public class CoreTablesController implements Initializable {
                     } else {
                         final FontIcon deleteIcon = new FontIcon("fas-trash");
                         deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
+                        deleteIcon.setIconSize(11);
                         deleteIcon.setFill(javafx.scene.paint.Color.RED);
                         Tooltip.install(deleteIcon, new Tooltip("Delete Supplier Country"));
 
@@ -572,7 +553,7 @@ public class CoreTablesController implements Initializable {
                     } else {
                         final FontIcon deleteIcon = new FontIcon("fas-trash");
                         deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
+                        deleteIcon.setIconSize(11);
                         deleteIcon.setFill(javafx.scene.paint.Color.RED);
                         Tooltip.install(deleteIcon, new Tooltip("Delete Supplier"));
 
@@ -1249,7 +1230,7 @@ private void setupFileTypeTableListener() {
                     } else {
                         final FontIcon deleteIcon = new FontIcon("fas-trash");
                         deleteIcon.setCursor(Cursor.HAND);
-                        deleteIcon.setIconSize(13);
+                        deleteIcon.setIconSize(11);
                         deleteIcon.setFill(javafx.scene.paint.Color.RED);
                         Tooltip.install(deleteIcon, new Tooltip("Delete Country"));
 

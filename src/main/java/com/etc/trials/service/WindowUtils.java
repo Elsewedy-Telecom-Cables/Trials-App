@@ -422,6 +422,7 @@ public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose, TrialsVie
         }
         return null;
     }
+
     public static String getTestSituationStr(int testSituationInt) {
         if (testSituationInt == 1) {
             return DEF.TEST_SITUATION_ACCEPTED;
@@ -432,6 +433,7 @@ public static void OPEN_ADD_TRIAL_PAGE(boolean reopenDashboardOnClose, TrialsVie
         }
         return null;
     }
+
     public static int getTestSituationInt(String testSituationStr) {
         if (DEF.TEST_SITUATION_ACCEPTED.equals(testSituationStr)) {
             return 1;

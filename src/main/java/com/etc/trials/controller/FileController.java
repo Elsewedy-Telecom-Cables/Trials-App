@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -194,31 +195,28 @@ public class FileController implements Initializable {
             private final CheckBox accepted = new CheckBox("Accepted");
             private final CheckBox refused = new CheckBox("Refused");
             private final CheckBox hold = new CheckBox("Hold");
-            private final HBox hBox = new HBox(2, accepted, refused, hold);
+            private final HBox hBox = new HBox(10, accepted, refused, hold);
+
 
             {
-                accepted.setStyle("-fx-font-size: 10px;-fx-font-weight: bold; -fx-padding: 1px;" +
-                        "-fx-background-color: transparent;" +
-                        "-fx-border-color: white; -fx-border-width: 0; -fx-border-radius: 0;" +
-                        "-fx-shape: \"M0,0 H10 V10 H0 Z\";");
-                refused.setStyle("-fx-font-size: 10px;-fx-font-weight: bold; -fx-padding: 1px;" +
-                        "-fx-background-color: transparent;" +
-                        "-fx-border-color: white; -fx-border-width: 0; -fx-border-radius: 0;" +
-                        "-fx-shape: \"M0,0 H10 V10 H0 Z\";");
-                hold.setStyle("-fx-font-size: 10px;-fx-font-weight: bold; -fx-padding: 1px;" +
-                        "-fx-background-color: transparent;" +
-                        "-fx-border-color: white; -fx-border-width: 0; -fx-border-radius: 0;" +
-                        "-fx-shape: \"M0,0 H10 V10 H0 Z\";");
-
                 accepted.getStyleClass().add("accepted-checkbox");
                 refused.getStyleClass().add("refused-checkbox");
                 hold.getStyleClass().add("hold-checkbox");
 
-                hBox.setStyle("-fx-alignment: CENTER; -fx-spacing: 3;");
+                accepted.setStyle("-fx-text-fill: green; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 1px 2px;");
+                refused.setStyle("-fx-text-fill: red; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 1px 2px;");
+                hold.setStyle("-fx-text-fill: #B8860B; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 1px 2px;");
 
+
+                hBox.setAlignment(Pos.CENTER);
+              //  hBox.setStyle("-fx-alignment: CENTER; -fx-padding: 2; -fx-spacing: 5;");
+
+
+                hBox.setStyle("-fx-alignment: CENTER; -fx-padding: 2; -fx-spacing: 4;");
                 accepted.setOnAction(e -> handleTestSituation(getIndex(), accepted.isSelected() ? 1 : null));
                 refused.setOnAction(e -> handleTestSituation(getIndex(), refused.isSelected() ? 2 : null));
                 hold.setOnAction(e -> handleTestSituation(getIndex(), hold.isSelected() ? 3 : null));
+
             }
 
             private void handleTestSituation(int index, Integer situation) {
@@ -275,7 +273,7 @@ public class FileController implements Initializable {
             private final FontIcon uploadIcon = new FontIcon("fas-upload");
 
             {
-                uploadIcon.setIconSize(14);
+                uploadIcon.setIconSize(13);
                 uploadIcon.setIconColor(javafx.scene.paint.Color.GREEN);
                 btn.setGraphic(uploadIcon);
                 btn.setStyle("-fx-background-color: transparent;");
@@ -295,7 +293,7 @@ public class FileController implements Initializable {
             private final FontIcon openIcon = new FontIcon("fas-folder-open");
 
             {
-                openIcon.setIconSize(17);
+                openIcon.setIconSize(16);
                 openIcon.setIconColor(javafx.scene.paint.Color.web("#ecab29"));
                 btn.setStyle("-fx-background-color: transparent;");
                 btn.setCursor(Cursor.HAND);
@@ -321,7 +319,7 @@ public class FileController implements Initializable {
                     btn.setGraphic(openIcon);
                     setGraphic(btn);
                     Tooltip tooltip = new Tooltip(fileName);
-                    tooltip.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-background-color: #f4f4f4; -fx-text-fill: #333;");
+                    tooltip.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-background-color: #f4f4f4; -fx-text-fill: #333;");
                     Tooltip.install(btn, tooltip);
                 }
             }
@@ -332,7 +330,7 @@ public class FileController implements Initializable {
             private final FontIcon downloadIcon = new FontIcon("fas-download");
 
             {
-                downloadIcon.setIconSize(14);
+                downloadIcon.setIconSize(13);
                 downloadIcon.setIconColor(javafx.scene.paint.Color.web("#1E90FF"));
                 btn.setGraphic(downloadIcon);
                 btn.setStyle("-fx-background-color: transparent;");
@@ -352,7 +350,7 @@ public class FileController implements Initializable {
             private final FontIcon deleteIcon = new FontIcon("fas-trash");
 
             {
-                deleteIcon.setIconSize(13);
+                deleteIcon.setIconSize(12);
                 deleteIcon.setIconColor(javafx.scene.paint.Color.RED);
                 btn.setGraphic(deleteIcon);
                 btn.setStyle("-fx-background-color: transparent;");
@@ -376,13 +374,12 @@ public class FileController implements Initializable {
         department_name_column.setStyle(columnStyle1);
         file_type_name_column.setStyle(columnStyle1);
         upload_file_date_column.setStyle(columnStyle2);
-        test_situation_column.setStyle(columnStyle1);
         comment_column.setStyle(columnStyle2);
         upload_file_column.setStyle(columnStyle1);
         open_file_column.setStyle(columnStyle3);
         download_file_column.setStyle(columnStyle1);
         delete_file_column.setStyle(columnStyle1);
-        table_view.setFixedCellSize(36);
+        table_view.setFixedCellSize(30);
     }
 
     @FXML

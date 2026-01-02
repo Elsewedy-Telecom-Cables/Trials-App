@@ -265,7 +265,7 @@ public class DashboardController implements Initializable {
         setupDepartmentColumn(productionFilePath_column, "Production", "productionFilePath");
         setupDepartmentColumn(processFilePath_column, "Process", "processFilePath");
         setupDepartmentColumn(rAndDFilePath_column, "R & D", "rAndDFilePath");
-        setupDepartmentColumn(qualityControlFilePath_column, "Quality Control", "qualityControlFilePath");
+        setupDepartmentColumn(qualityControlFilePath_column, "Q C", "qualityControlFilePath");
 
         // Group department columns under "Departments" header
         TableColumn<NewTrialsView, Void> departmentsHeader = new TableColumn<>("Departments");
@@ -286,17 +286,16 @@ public class DashboardController implements Initializable {
                 trial_id_column,
                 trial_purpose_column,
                 trial_creation_date_column,
-                trial_notes_column,
                 section_column,
                 material_name_column,
                 supplier_name_column,
                 supplier_country_name_column,
+                trial_notes_column,
                 departmentsHeader
         );
 
         String columnStyle = "-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;";
         String columnStyle2 = "-fx-alignment: CENTER; -fx-font-size: 11px; -fx-font-weight: bold;";
-        String columnStyle3 = "-fx-alignment: CENTER; -fx-font-size: 10px; -fx-font-weight: bold;";
         trial_id_column.setStyle(columnStyle);
         trial_purpose_column.setStyle(columnStyle2);
         trial_creation_date_column.setStyle(columnStyle2);
@@ -370,7 +369,7 @@ public class DashboardController implements Initializable {
             private final FontIcon icon = new FontIcon("fas-folder-open"); // Use FontAwesome5 icon
 
             {
-                icon.setIconSize(18);
+                icon.setIconSize(16);
                 icon.setIconColor(javafx.scene.paint.Color.web("#ecab29"));
                 icon.setCursor(Cursor.HAND);
                 icon.setOnMouseClicked(e -> {

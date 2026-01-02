@@ -259,17 +259,17 @@
          <columns>
             <TableColumn fx:id="no_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="Ser" />
             <TableColumn fx:id="trial_id_column" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="225.0" text="Trial Purpose" />
-            <TableColumn fx:id="trial_creation_date_column" minWidth="150.0" prefWidth="158.0" text="Trail Creation Date" />
+            <TableColumn fx:id="trial_purpose_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="370.0" text="Trial Purpose" />
+            <TableColumn fx:id="trial_creation_date_column" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="140.0" text="Trail Creation Date" />
             <TableColumn fx:id="section_column" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="60.0" text="Section" />
-            <TableColumn fx:id="material_name_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="210.0" text="Material-Cable Type" />
+            <TableColumn fx:id="material_name_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="170.0" text="Material-Cable Type" />
             <TableColumn fx:id="supplier_name_column" maxWidth="1.7976931348623157E308" minWidth="90.0" prefWidth="100.0" text="Supplier" />
-            <TableColumn fx:id="supplier_country_name_column" maxWidth="1.7976931348623157E308" minWidth="90.0" prefWidth="100.0" text="Sup-Country" />
-            <TableColumn fx:id="trial_notes_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="170.0" text="Trial Notes" />
-            <TableColumn fx:id="tecOfficeFilePath_column" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="Tecnical Office" />
-            <TableColumn fx:id="qualityControlFilePath_column" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="Quality Control" />
-            <TableColumn fx:id="productionFilePath_column" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" text="Production" />
-            <TableColumn fx:id="processFilePath_column" maxWidth="1000.0" minWidth="100.0" prefWidth="100.0" text="Process" />
+            <TableColumn fx:id="supplier_country_name_column" maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="85.0" text="Sup-Country" />
+            <TableColumn fx:id="trial_notes_column" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="200.0" text="Trial Notes" />
+            <TableColumn fx:id="tecOfficeFilePath_column" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="75.0" text="Tec Office" />
+            <TableColumn fx:id="qualityControlFilePath_column" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="75.0" text="QC" />
+            <TableColumn fx:id="productionFilePath_column" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="75.0" text="Production" />
+            <TableColumn fx:id="processFilePath_column" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="75.0" text="Process" />
             <TableColumn fx:id="planningFilePath_column" maxWidth="1.7976931348623157E308" prefWidth="10.0" text="Planning" visible="false" />
             <TableColumn fx:id="rAndDFilePath_column" maxWidth="1.7976931348623157E308" prefWidth="10.0" text="R &amp; D" visible="false" />
          </columns>

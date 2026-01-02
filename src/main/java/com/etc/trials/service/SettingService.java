@@ -1,6 +1,5 @@
 package com.etc.trials.service;
 
-//import com.etc.toolingapp.logging.CreateFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -32,8 +31,6 @@ public class SettingService {
 
 
     // General
-
-    public static String SALES_FOLDER = "//المبيعات";
 
 
     public static void getXmlFile() {
